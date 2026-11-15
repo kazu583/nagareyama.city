@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>つながる！流山 | 千葉県流山市の暮らし・魅力発信ポータルサイト</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #f4a261;
+            --forest-green: #d8ece4;
+            --soft-pink: #f4e2e6;
+            --warm-yellow: #f7ebd2;
+            --base-cream: #faf8f5;
+            --text-dark: #333333;
+            --text-muted: #666666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--base-cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .mincho {
+            font-family: 'Shippori Mincho', serif;
+        }
+
+        .en-title {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.08em;
+        }
+
+        /* 固定ヘッダー（あったか！旭風） */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #4a7c59;
+        }
+
+        .logo-sun {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: conic-gradient(#f4a261, #e76f51, #2a9d8f, #e9c46a, #f4a261);
+            display: inline-block;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-consult {
+            background-color: var(--primary-orange);
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 3px 8px rgba(244, 162, 97, 0.3);
+            transition: 0.2s;
+        }
+
+        .btn-consult:hover {
+            transform: translateY(-1px);
+            background-color: #e78e47;
+        }
+
+        .menu-btn {
+            text-align: center;
+            font-size: 10px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            margin: 4px auto;
+        }
+
+        /* ファーストビュー */
+        .hero {
+            margin-top: 70px;
+            height: 80vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.2)),
+                        url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            line-height: 1.6;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 14px;
+            letter-spacing: 0.12em;
+            opacity: 0.95;
+        }
+
+        /* 共通ボタン（白背景＋オレンジ丸矢印） */
+        .pill-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #fff;
+            color: var(--text-dark);
+            text-decoration: none;
+            max-width: 340px;
+            margin: 30px auto 0;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            border: 1px solid #e0dcd5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: 0.2s;
+        }
+
+        .pill-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .arrow-circle {
+            position: absolute;
+            right: 16px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-orange);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* セクション共通 */
+        .section-padding {
+            padding: 70px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .bg-green { background-color: var(--forest-green); }
+        .bg-pink { background-color: var(--soft-pink); }
+        .bg-yellow { background-color: var(--warm-yellow); }
+
+        /* 縦書きセクションヘッダー（01 知る / 02 暮らす / 03 働く住む） */
+        .vertical-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .section-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            color: #6b9e88;
+            margin-bottom: 8px;
+        }
+
+        .vertical-text-wrap {
+            writing-mode: vertical-rl;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .vertical-main {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 38px;
+            letter-spacing: 0.2em;
+            line-height: 1.3;
+        }
+
+        .vertical-sub {
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            padding-top: 6px;
+        }
+
+        /* MESSAGE セクション */
+        .message-title {
+            color: #5b8e7d;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .message-lead {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* PEOPLE SNAP（丸型人物紹介） */
+        .snap-grid {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 5px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .snap-card {
+            flex: 0 0 240px;
+            scroll-snap-align: center;
+            text-align: center;
+        }
+
+        .snap-avatar {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .snap-info {
+            background: #fff;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .snap-role {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .snap-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 4px 0 8px;
+        }
+
+        .snap-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Whats New! お知らせ */
+        .news-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px 45px 18px 20px;
+            margin-bottom: 12px;
+            position: relative;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: block;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .news-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .news-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Feature カード */
+        .feature-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+
+        .feature-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .feature-heading {
+            font-size: 21px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .facility-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-top: 20px;
+            line-height: 1.9;
+        }
+
+        /* フッター */
+        footer {
+            background: #fff;
+            padding: 50px 20px 30px;
+            border-top: 4px solid var(--primary-orange);
+        }
+
+        .footer-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-box {
+            border-top: 1px solid #eee;
+            padding: 20px 0;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 固定ヘッダー -->
+    <header>
+        <a href="#" class="site-logo">
+            <span class="logo-sun"></span>
+            つながる！流山
+        </a>
+        <div class="header-right">
+            <a href="#contact" class="btn-consult">暮らしのご相談</a>
+            <div class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                MENU
+            </div>
+        </div>
+    </header>
+
+    <!-- ファーストビュー -->
+    <div class="hero">
+        <h2 class="mincho">ながれやま時間で、<br>あたらしい日常を育てよう。</h2>
+        <p class="en-title">Cultivate your new life in Nagareyama.</p>
+    </div>
+
+    <!-- MESSAGE セクション -->
+    <div class=" bg-green">
+        <div class="section-padding">
+            <div class="en-title message-title">MESSAGE</div>
+            <h3 class="mincho message-lead">
+                「このまちでずっと暮らそう。」<br>
+                緑の風と人の温もりにふれる、<br>
+                都心から一番近い森のまち。
+            </h3>
+            <p style="font-size: 14px;">
+                つくばエクスプレス（TX）で秋葉原から約20分と抜群のアクセスを誇る千葉県流山市。<br>
+                駅前で発展する洗練された商業エリアや全国トップクラスの子育て支援環境、そして江戸川沿いに息づくレトロな古民家カフェや豊かな森。<br>
+                都会の便利さと穏やかな自然が心地よく溶け合う流山で、あなたらしい暮らしを始めてみませんか？
+            </p>
+            <a href="#about" class="pill-btn">
+                ながれやまを知る
+                <span class="arrow-circle">→</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- PEOPLE SNAP（ながれやまのヒト） -->
+    <div class="section-padding">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <div class="en-title" style="font-size: 32px; color: #5b8e7d;">PEOPLE SNAP</div>
+            <p class="mincho" style="font-size: 15px;">ながれやまのヒト</p>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px;">
+                「流山に魅せられ、流山で暮らすひと。」<br>気になる日常の暮らしをちょっとのぞいてみませんか？
+            </p>
+        </div>
+
+        <div class="snap-grid">
+            <div class="snap-card">
+                <div class="snap-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="snap-info">
+                    <div class="snap-role">古民家カフェ＆ギャラリー店主</div>
+                    <div class="snap-name">佐藤 彩香さん</div>
+                    <p class="snap-desc">流山本町の歴史ある町並みに惚れ込んでカフェをオープン。地元の野菜を使ったランチを提供中。</p>
+                </div>
+            </div>
+            <div class="snap-card">
+                <div class="snap-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="snap-info">
+                    <div class="snap-role">ITエンジニア・2児のパパ</div>
+                    <div class="snap-name">高橋 健太さん</div>
+                    <p class="snap-desc">都内から流山おおたかの森へ移住。平日はリモートワークと送迎保育ステーションをフル活用しています。</p>
+                </div>
+            </div>
+            <div class="snap-card">
+                <div class="snap-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="snap-info">
+                    <div class="snap-role">親子マルシェ主催</div>
+                    <div class="snap-name">山本 恵美さん</div>
+                    <p class="snap-desc">流山のママ・パパがつながるハンドメイド＆ワークショップイベントを定期開催しています◎</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="#people" class="pill-btn">
+            ながれやまのヒト一覧へ
+            <span class="arrow-circle">→</span>
+        </a>
+    </div>
+
+    <!-- Whats New! お知らせ -->
+    <div class="section-padding" style="padding-top: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+            <div>
+                <div class="en-title" style="color: #5b8e7d; font-size: 16px;">Whats New!</div>
+                <h3 class="mincho" style="font-size: 26px;">お知らせ</h3>
+            </div>
+            <a href="#" style="font-size: 13px; color: var(--text-dark); text-decoration: none; font-weight: 700;">ニュース一覧を見る →</a>
+        </div>
+
+        <a href="#" class="news-card">
+            <div class="news-date">2026.11.15</div>
+            <div class="news-title">【更新情報】流山おおたかの森エリアの先輩移住者インタビューを追加しました</div>
+            <span class="arrow-circle" style="top: 50%; transform: translateY(-50%);">→</span>
+        </a>
+        <a href="#" class="news-card">
+            <div class="news-date">2026.11.10</div>
+            <div class="news-title">【週末イベント】森のマルシェ＆流山本町ナイトウォーク開催のご案内</div>
+            <span class="arrow-circle" style="top: 50%; transform: translateY(-50%);">→</span>
+        </a>
+        <a href="#" class="news-card">
+            <div class="news-date">2026.11.01</div>
+            <div class="news-title">【子育て・創業支援】流山市内で新しくお店やサロンを始めたい方への補助金ガイド</div>
+            <span class="arrow-circle" style="top: 50%; transform: translateY(-50%);">→</span>
+        </a>
+    </div>
+
+    <!-- 01 ながれやまを知る -->
+    <div class="bg-green" id="about">
+        <div class="section-padding">
+            <div class="vertical-header">
+                <div class="section-num">01</div>
+                <div class="vertical-text-wrap">
+                    <span class="vertical-sub">ながれやまを</span>
+                    <h2 class="vertical-main">知る</h2>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1000&q=80" alt="流山の街並み" class="feature-img">
+            <div class="feature-label">Feature.01</div>
+            <h3 class="mincho feature-heading">家族の未来を考えるほど選びたくなる。<br>緑と笑顔があふれるまち、流山市。</h3>
+            <p style="font-size: 14px;">
+                「母になるなら、流山市。」「父になるなら、流山市。」のキャッチコピーで知られ、若い世代を中心に人口が増え続けている流山市。洗練された駅前商業施設と、少し足を延ばせば広がる大堀川や市野谷の森、そして白みりん発祥の地としての歴史情緒が共存しています。
+            </p>
+
+            <div class="facility-box">
+                <strong>【流山市の注目スポット＆インフラ】</strong><br>
+                ①流山おおたかの森S・C ／ ②送迎保育ステーション ／ ③流山本町（古民家カフェ・白みりんミュージアム） ／ ④流山市立おおたかの森こども図書館 ／ ⑤大堀川水辺公園・総合運動公園 ／ ⑥駅前コワーキングスペース
+            </div>
+
+            <a href="#" class="pill-btn">
+                流山市について詳しく見る
+                <span class="arrow-circle">→</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 02 ながれやまで暮らす -->
+    <div class="bg-pink">
+        <div class="section-padding">
+            <div class="vertical-header">
+                <div class="section-num" style="color: #c98a98;">02</div>
+                <div class="vertical-text-wrap">
+                    <span class="vertical-sub">ながれやまで</span>
+                    <h2 class="vertical-main">暮らす</h2>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1000&q=80" alt="子育て環境" class="feature-img">
+            <div class="feature-label" style="color: #b56b7a;">Child care & gourmet</div>
+            <h3 class="mincho feature-heading">共働きでも、はじめての子育てでも。<br>まち全体で支えあう安心の毎日。</h3>
+            <p style="font-size: 14px;">
+                駅前の「送迎保育ステーション」から市内各保育所へのバス送迎システムや、高校生までの医療費助成、木のぬくもりあふれる図書館など、子育て世帯に寄り添うサポートが充実。また、地元農家さんの新鮮な朝採れ野菜やこだわりのベーカリー・カフェ巡りも日常の楽しみになります。
+            </p>
+
+            <a href="#" class="pill-btn">
+                子育て・暮らしの環境へ
+                <span class="arrow-circle">→</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 03 ながれやまで働く・住む -->
+    <div class="bg-yellow">
+        <div class="section-padding">
+            <div class="vertical-header">
+                <div class="section-num" style="color: #d48c46;">03</div>
+                <div class="vertical-text-wrap">
+                    <span class="vertical-sub">ながれやまで</span>
+                    <h2 class="vertical-main">働く・住む</h2>
+                </div>
+            </div>
+
+            <div class="feature-label" style="color: #b86b23;">Workstyle & Housing</div>
+            <h3 class="mincho feature-heading">都心へのスマートな通勤も、<br>地元での起業・テレワークも自在に。</h3>
+            <p style="font-size: 14px;">
+                都心へ30分圏内のアクセスを活かしたハイブリッドワークはもちろん、市内のサテライトオフィス・コワーキングスペースでのリモートワーク、女性向けの創業スクールや空き店舗・古民家を活用したスモールビジネス開業まで、自分らしい働き方を応援しています。
+            </p>
+
+            <a href="#" class="pill-btn">
+                働く・住まいのサポートへ
+                <span class="arrow-circle">→</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer id="contact">
+        <div class="footer-inner">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="font-size: 12px; color: var(--text-muted);">千葉県流山市の暮らし・魅力発信サイト</p>
+                <div class="site-logo" style="justify-content: center; font-size: 24px; margin: 8px 0;">
+                    <span class="logo-sun"></span>
+                    つながる！流山
+                </div>
+                <p class="mincho" style="font-size: 14px;">ながれやま時間で、あたらしい日常を育てよう。</p>
+            </div>
+
+            <div class="contact-box">
+                <strong>サイト運営・お問い合わせ窓口</strong><br>
+                〒270-0192 千葉県流山市平和台1丁目1番地1（サンプル表記）<br>
+                【受付時間】平日 午前9時00分〜午後5時00分
+            </div>
+
+            <p style="text-align: center; font-size: 11px; color: #999; margin-top: 30px;">
+                Copyright &copy; 2026 Nagareyama Portal Project All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
