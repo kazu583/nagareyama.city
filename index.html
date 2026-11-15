@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>つながる！流山 | 千葉県流山市の暮らし・魅力発信ポータルサイト</title>
+    <title>NAGAREYAMA ながれやま | カフェ・新店・子育て・イベント地域メディア</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-orange: #f4a261;
-            --forest-green: #d8ece4;
-            --soft-pink: #f4e2e6;
-            --warm-yellow: #f7ebd2;
-            --base-cream: #faf8f5;
-            --text-dark: #333333;
-            --text-muted: #666666;
+            /* ロゴイラストから抽出したメリハリのあるカラーパレット */
+            --deep-teal: #1d4e56;       /* ロゴ外周の深い青緑（引き締め色） */
+            --mirin-amber: #d96b27;     /* ロゴ縁取りの琥珀オレンジ（強調アクセント） */
+            --azalea-pink: #e06d85;     /* ツツジの華やかなピンク（サブアクセント） */
+            --bg-cream: #faf6f0;        /* キャンバス地の温かみのある生成り色 */
+            --bg-sage: #dff0ea;         /* 森を感じる爽やかなセージグリーン */
+            --bg-blush: #f9e6ea;        /* 子育て・イベント用の優しいピンク */
+            --bg-amber-light: #fdf0df;  /* 自治体・お知らせ用のウォームイエロー */
+            --text-dark: #263235;       /* 読みやすいダークチャコール */
+            --text-muted: #5c6b6e;
         }
 
         * {
@@ -24,11 +27,15 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--base-cream);
+            background-color: var(--bg-cream);
             color: var(--text-dark);
-            line-height: 1.8;
+            line-height: 1.75;
             overflow-x: hidden;
         }
 
@@ -39,174 +46,289 @@
         .en-title {
             font-family: 'Cormorant Garamond', serif;
             letter-spacing: 0.08em;
+            font-weight: 600;
         }
 
-        /* 固定ヘッダー（あったか！旭風） */
+        /* 波形ディバイダー（あったか！旭風の柔らかいセクション境界） */
+        .wave-divider {
+            display: block;
+            width: 100%;
+            height: 45px;
+            margin-bottom: -1px;
+        }
+
+        /* 固定ヘッダー */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
+            height: 72px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 18px;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-bottom: 3px solid var(--deep-teal);
+            box-shadow: 0 4px 15px rgba(29, 78, 86, 0.08);
         }
 
-        .site-logo {
+        .site-brand {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             text-decoration: none;
-            font-family: 'Shippori Mincho', serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #4a7c59;
+            color: var(--deep-teal);
         }
 
-        .logo-sun {
-            width: 32px;
-            height: 32px;
+        .brand-logo-img {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: conic-gradient(#f4a261, #e76f51, #2a9d8f, #e9c46a, #f4a261);
-            display: inline-block;
+            object-fit: cover;
+            border: 2px solid var(--mirin-amber);
+            background-color: var(--bg-cream);
+        }
+
+        .brand-text-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-en {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--mirin-amber);
+            line-height: 1.1;
+        }
+
+        .brand-jp {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--deep-teal);
+            letter-spacing: 0.05em;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .btn-consult {
-            background-color: var(--primary-orange);
+        /* あったか！旭風の右上オレンジ丸ボタン */
+        .btn-post-info {
+            background: linear-gradient(135deg, var(--mirin-amber), #e8833a);
             color: #fff;
             text-decoration: none;
-            padding: 8px 18px;
+            padding: 9px 16px;
             border-radius: 30px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
-            box-shadow: 0 3px 8px rgba(244, 162, 97, 0.3);
+            box-shadow: 0 3px 10px rgba(217, 107, 39, 0.35);
             transition: 0.2s;
+            white-space: nowrap;
         }
 
-        .btn-consult:hover {
-            transform: translateY(-1px);
-            background-color: #e78e47;
+        .btn-post-info:hover {
+            transform: translateY(-2px);
         }
 
         .menu-btn {
             text-align: center;
-            font-size: 10px;
+            font-size: 9px;
+            font-weight: 700;
             cursor: pointer;
-            color: var(--text-dark);
+            color: var(--deep-teal);
+            background: none;
+            border: none;
         }
 
         .menu-btn span {
             display: block;
             width: 24px;
             height: 2px;
-            background: var(--text-dark);
+            background: var(--deep-teal);
             margin: 4px auto;
         }
 
-        /* ファーストビュー */
+        /* ドロワーメニュー */
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 340px;
+            height: 100vh;
+            background-color: var(--deep-teal);
+            color: #fff;
+            z-index: 2000;
+            padding: 70px 30px 40px;
+            transition: 0.35s ease;
+            overflow-y: auto;
+        }
+
+        .nav-drawer.active {
+            right: 0;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 32px;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .drawer-list {
+            list-style: none;
+        }
+
+        .drawer-list li {
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .drawer-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .drawer-list a span {
+            color: var(--mirin-amber);
+            font-weight: 700;
+        }
+
+        /* ヒーローセクション（メインビジュアル） */
         .hero {
-            margin-top: 70px;
-            height: 80vh;
-            min-height: 500px;
-            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.2)),
-                        url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            margin-top: 72px;
+            min-height: 520px;
+            background: linear-gradient(180deg, rgba(29, 78, 86, 0.45) 0%, rgba(29, 78, 86, 0.65) 100%),
+                        url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: #fff;
-            padding: 20px;
+            padding: 40px 20px;
             position: relative;
         }
 
-        .hero h2 {
-            font-size: 28px;
-            line-height: 1.6;
+        /* ヒーロー中央の大きなロゴエンブレム */
+        .hero-emblem {
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            object-fit: cover;
+            margin-bottom: 20px;
+            background-color: var(--bg-cream);
+        }
+
+        .hero-tag {
+            background-color: var(--mirin-amber);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 20px;
+            margin-bottom: 14px;
             letter-spacing: 0.1em;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            line-height: 1.5;
+            letter-spacing: 0.08em;
             margin-bottom: 12px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
         }
 
         .hero p {
             font-size: 14px;
-            letter-spacing: 0.12em;
+            max-width: 560px;
             opacity: 0.95;
         }
 
-        /* 共通ボタン（白背景＋オレンジ丸矢印） */
-        .pill-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* クイックカテゴリナビ（丸アイコン横並び） */
+        .quick-nav {
+            max-width: 860px;
+            margin: -32px auto 20px;
+            padding: 0 16px;
             position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .quick-item {
             background: #fff;
-            color: var(--text-dark);
+            border-radius: 14px;
+            padding: 14px 8px;
+            text-align: center;
             text-decoration: none;
-            max-width: 340px;
-            margin: 30px auto 0;
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
-            border: 1px solid #e0dcd5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            color: var(--text-dark);
+            box-shadow: 0 6px 18px rgba(29, 78, 86, 0.12);
+            border-bottom: 4px solid var(--mirin-amber);
             transition: 0.2s;
         }
 
-        .pill-btn:hover {
-            transform: translateY(-2px);
+        .quick-item:nth-child(2) { border-bottom-color: var(--azalea-pink); }
+        .quick-item:nth-child(3) { border-bottom-color: var(--deep-teal); }
+        .quick-item:nth-child(4) { border-bottom-color: #4a9d7c; }
+
+        .quick-item:hover {
+            transform: translateY(-3px);
         }
 
-        .arrow-circle {
-            position: absolute;
-            right: 16px;
-            width: 24px;
-            height: 24px;
-            background-color: var(--primary-orange);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
+        .quick-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
         }
 
-        /* セクション共通 */
-        .section-padding {
-            padding: 70px 20px;
-            max-width: 800px;
+        .quick-label {
+            font-size: 11px;
+            font-weight: 700;
+            display: block;
+            line-height: 1.3;
+        }
+
+        /* 共通パーツ：セクション枠 */
+        .section-container {
+            max-width: 880px;
             margin: 0 auto;
+            padding: 65px 20px;
         }
 
-        .bg-green { background-color: var(--forest-green); }
-        .bg-pink { background-color: var(--soft-pink); }
-        .bg-yellow { background-color: var(--warm-yellow); }
-
-        /* 縦書きセクションヘッダー（01 知る / 02 暮らす / 03 働く住む） */
+        /* あったか！旭風の縦書きナンバリング見出し */
         .vertical-header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .section-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 36px;
-            color: #6b9e88;
+            font-size: 40px;
+            font-weight: 600;
+            color: var(--mirin-amber);
+            line-height: 1;
             margin-bottom: 8px;
         }
 
@@ -219,154 +341,343 @@
 
         .vertical-main {
             font-family: 'Shippori Mincho', serif;
-            font-size: 38px;
-            letter-spacing: 0.2em;
+            font-size: 34px;
+            letter-spacing: 0.18em;
             line-height: 1.3;
+            color: var(--deep-teal);
         }
 
         .vertical-sub {
             font-size: 13px;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            padding-top: 6px;
-        }
-
-        /* MESSAGE セクション */
-        .message-title {
-            color: #5b8e7d;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .message-lead {
-            font-size: 20px;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        /* PEOPLE SNAP（丸型人物紹介） */
-        .snap-grid {
-            display: flex;
-            gap: 24px;
-            overflow-x: auto;
-            padding: 20px 5px;
-            scroll-snap-type: x mandatory;
-        }
-
-        .snap-card {
-            flex: 0 0 240px;
-            scroll-snap-align: center;
-            text-align: center;
-        }
-
-        .snap-avatar {
-            width: 170px;
-            height: 170px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            border: 5px solid #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            background-size: cover;
-            background-position: center;
-        }
-
-        .snap-info {
-            background: #fff;
-            padding: 18px;
-            border-radius: 12px;
-            text-align: left;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .snap-role {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .snap-name {
-            font-size: 16px;
             font-weight: 700;
-            margin: 4px 0 8px;
+            letter-spacing: 0.15em;
+            color: var(--azalea-pink);
+            padding-top: 4px;
         }
 
-        .snap-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.6;
+        /* あったか！旭風のピル型ボタン（白背景＋オレンジ丸矢印） */
+        .pill-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #fff;
+            color: var(--deep-teal);
+            text-decoration: none;
+            max-width: 340px;
+            margin: 35px auto 0;
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            border: 2px solid var(--deep-teal);
+            box-shadow: 0 4px 12px rgba(29, 78, 86, 0.1);
+            transition: 0.2s;
         }
 
-        /* Whats New! お知らせ */
+        .pill-btn:hover {
+            background: var(--deep-teal);
+            color: #fff;
+        }
+
+        .arrow-circle {
+            position: absolute;
+            right: 14px;
+            width: 28px;
+            height: 28px;
+            background-color: var(--mirin-amber);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* セクション1：NEW OPEN & Whats New!（新店・更新情報） */
+        .badge-new {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            margin-right: 8px;
+        }
+        .badge-open { background-color: var(--mirin-amber); }
+        .badge-cafe { background-color: var(--azalea-pink); }
+        .badge-city { background-color: var(--deep-teal); }
+
         .news-card {
             background: #fff;
-            border-radius: 10px;
-            padding: 18px 45px 18px 20px;
-            margin-bottom: 12px;
+            border-radius: 12px;
+            padding: 18px 50px 18px 20px;
+            margin-bottom: 14px;
             position: relative;
             text-decoration: none;
             color: var(--text-dark);
             display: block;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border-left: 6px solid var(--mirin-amber);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateX(4px);
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
         }
 
         .news-date {
             font-family: 'Cormorant Garamond', serif;
             font-size: 15px;
             color: var(--text-muted);
-            margin-bottom: 4px;
+            margin-right: 10px;
         }
 
         .news-title {
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 700;
         }
 
-        /* Feature カード */
-        .feature-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            border-radius: 14px;
-            margin-bottom: 20px;
+        /* セクション2：01 子連れカフェ・グルメ（カードグリッド） */
+        .bg-sage { background-color: var(--bg-sage); }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 22px;
         }
 
-        .feature-label {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 20px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .feature-heading {
-            font-size: 21px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .facility-box {
+        .spot-card {
             background: #fff;
-            padding: 20px;
-            border-radius: 12px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(29, 78, 86, 0.08);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: 0.25s;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .spot-img-wrap {
+            position: relative;
+            height: 180px;
+        }
+
+        .spot-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .spot-area-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--deep-teal);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .spot-body {
+            padding: 18px;
+            flex: 1;
+        }
+
+        .spot-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .mama-tag {
+            font-size: 11px;
+            background: var(--bg-blush);
+            color: #b8415b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .spot-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .spot-desc {
             font-size: 13px;
-            margin-top: 20px;
-            line-height: 1.9;
+            color: var(--text-muted);
+        }
+
+        /* セクション3：02 エリア別ガイド（ディープティール背景で強いメリハリ！） */
+        .bg-teal-dark {
+            background-color: var(--deep-teal);
+            color: #fff;
+        }
+
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .area-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            padding: 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--mirin-amber);
+        }
+
+        .area-name {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #ffcf96;
+        }
+
+        .area-sub {
+            font-size: 12px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* セクション4：PEOPLE SNAP 風「流山の注目ショップ＆ひと」丸アイコン */
+        .snap-scroll {
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            padding: 15px 5px 25px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .snap-item {
+            flex: 0 0 230px;
+            scroll-snap-align: center;
+            text-align: center;
+        }
+
+        .snap-circle {
+            width: 165px;
+            height: 165px;
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            border: 5px solid #fff;
+            box-shadow: 0 6px 16px rgba(29, 78, 86, 0.15);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .snap-num {
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: var(--mirin-amber);
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .snap-box {
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        /* セクション5：03 週末イベント＆市役所・子育て制度ガイド */
+        .bg-blush { background-color: var(--bg-blush); }
+
+        .gov-box {
+            background: #fff;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid var(--deep-teal);
+        }
+
+        .gov-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: var(--deep-teal);
+        }
+
+        .gov-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px;
+            list-style: none;
+        }
+
+        .gov-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-cream);
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .gov-list a:hover {
+            background: var(--deep-teal);
+            color: #fff;
         }
 
         /* フッター */
         footer {
-            background: #fff;
-            padding: 50px 20px 30px;
-            border-top: 4px solid var(--primary-orange);
+            background-color: var(--deep-teal);
+            color: #fff;
+            padding: 60px 20px 30px;
+            border-top: 6px solid var(--mirin-amber);
         }
 
         .footer-inner {
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
+            text-align: center;
         }
 
-        .contact-box {
-            border-top: 1px solid #eee;
-            padding: 20px 0;
-            font-size: 13px;
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .quick-label { font-size: 13px; }
         }
     </style>
 </head>
@@ -374,192 +685,306 @@
 
     <!-- 固定ヘッダー -->
     <header>
-        <a href="#" class="site-logo">
-            <span class="logo-sun"></span>
-            つながる！流山
+        <a href="#" class="site-brand">
+            <!-- アップロードしたイラストを logo.jpg として保存するとここに表示されます -->
+            <img src="logo.jpg" alt="ながれやまロゴ" class="brand-logo-img" onerror="this.src='https://placehold.co/100x100/1d4e56/ffffff?text=流山'">
+            <div class="brand-text-wrap">
+                <span class="brand-en">NAGAREYAMA LOCAL MEDIA</span>
+                <span class="brand-jp">ながれやま通信（仮）</span>
+            </div>
         </a>
         <div class="header-right">
-            <a href="#contact" class="btn-consult">暮らしのご相談</a>
-            <div class="menu-btn">
+            <a href="#contact" class="btn-post-info">📣 情報提供・掲載依頼</a>
+            <button class="menu-btn" onclick="toggleDrawer()">
                 <span></span>
                 <span></span>
                 <span></span>
                 MENU
-            </div>
+            </button>
         </div>
     </header>
 
+    <!-- ハンバーガーメニュー（ドロワー） -->
+    <nav class="nav-drawer" id="drawer">
+        <button class="drawer-close" onclick="toggleDrawer()">×</button>
+        <p style="font-size: 12px; color: #ffcf96; letter-spacing: 0.1em; margin-bottom: 15px;">CATEGORY MENU</p>
+        <ul class="drawer-list">
+            <li><a href="#newopen" onclick="toggleDrawer()">✨ 新規オープン・新着情報 <span>→</span></a></li>
+            <li><a href="#cafe" onclick="toggleDrawer()">☕ 子連れカフェ・グルメ <span>→</span></a></li>
+            <li><a href="#area" onclick="toggleDrawer()">🚃 エリア別ガイド（おおたかの森・南流山ほか） <span>→</span></a></li>
+            <li><a href="#event" onclick="toggleDrawer()">🎪 週末イベント・マルシェ情報 <span>→</span></a></li>
+            <li><a href="#city" onclick="toggleDrawer()">🏛 流山市役所・子育て支援まとめ <span>→</span></a></li>
+        </ul>
+    </nav>
+
     <!-- ファーストビュー -->
     <div class="hero">
-        <h2 class="mincho">ながれやま時間で、<br>あたらしい日常を育てよう。</h2>
-        <p class="en-title">Cultivate your new life in Nagareyama.</p>
+        <!-- アップロードされたエンブレムが中央に大きく入ります -->
+        <img src="logo.jpg" alt="NAGAREYAMA エンブレム" class="hero-emblem" onerror="this.src='https://placehold.co/240x240/1d4e56/ffcf96?text=NAGAREYAMA'">
+        <span class="hero-tag">カフェ・新店・イベント・子育て・行政情報</span>
+        <h1 class="mincho">今日、流山のどこへ行く？<br>まちの「楽しい！」が見つかる場所。</h1>
+        <p>新しいお店のオープン情報から、子連れでくつろげるカフェ、週末イベント、流山市役所の便利な子育て制度まで。流山の暮らしをもっと楽しむ地域メディア。</p>
     </div>
 
-    <!-- MESSAGE セクション -->
-    <div class=" bg-green">
-        <div class="section-padding">
-            <div class="en-title message-title">MESSAGE</div>
-            <h3 class="mincho message-lead">
-                「このまちでずっと暮らそう。」<br>
-                緑の風と人の温もりにふれる、<br>
-                都心から一番近い森のまち。
-            </h3>
-            <p style="font-size: 14px;">
-                つくばエクスプレス（TX）で秋葉原から約20分と抜群のアクセスを誇る千葉県流山市。<br>
-                駅前で発展する洗練された商業エリアや全国トップクラスの子育て支援環境、そして江戸川沿いに息づくレトロな古民家カフェや豊かな森。<br>
-                都会の便利さと穏やかな自然が心地よく溶け合う流山で、あなたらしい暮らしを始めてみませんか？
-            </p>
-            <a href="#about" class="pill-btn">
-                ながれやまを知る
-                <span class="arrow-circle">→</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- PEOPLE SNAP（ながれやまのヒト） -->
-    <div class="section-padding">
-        <div style="text-align: center; margin-bottom: 25px;">
-            <div class="en-title" style="font-size: 32px; color: #5b8e7d;">PEOPLE SNAP</div>
-            <p class="mincho" style="font-size: 15px;">ながれやまのヒト</p>
-            <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px;">
-                「流山に魅せられ、流山で暮らすひと。」<br>気になる日常の暮らしをちょっとのぞいてみませんか？
-            </p>
-        </div>
-
-        <div class="snap-grid">
-            <div class="snap-card">
-                <div class="snap-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80');"></div>
-                <div class="snap-info">
-                    <div class="snap-role">古民家カフェ＆ギャラリー店主</div>
-                    <div class="snap-name">佐藤 彩香さん</div>
-                    <p class="snap-desc">流山本町の歴史ある町並みに惚れ込んでカフェをオープン。地元の野菜を使ったランチを提供中。</p>
-                </div>
-            </div>
-            <div class="snap-card">
-                <div class="snap-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80');"></div>
-                <div class="snap-info">
-                    <div class="snap-role">ITエンジニア・2児のパパ</div>
-                    <div class="snap-name">高橋 健太さん</div>
-                    <p class="snap-desc">都内から流山おおたかの森へ移住。平日はリモートワークと送迎保育ステーションをフル活用しています。</p>
-                </div>
-            </div>
-            <div class="snap-card">
-                <div class="snap-avatar" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80');"></div>
-                <div class="snap-info">
-                    <div class="snap-role">親子マルシェ主催</div>
-                    <div class="snap-name">山本 恵美さん</div>
-                    <p class="snap-desc">流山のママ・パパがつながるハンドメイド＆ワークショップイベントを定期開催しています◎</p>
-                </div>
-            </div>
-        </div>
-
-        <a href="#people" class="pill-btn">
-            ながれやまのヒト一覧へ
-            <span class="arrow-circle">→</span>
+    <!-- クイックカテゴリボタン（4つの柱） -->
+    <div class="quick-nav">
+        <a href="#newopen" class="quick-item">
+            <span class="quick-icon">🎊</span>
+            <span class="quick-label">新規オープン<br>お店情報</span>
+        </a>
+        <a href="#cafe" class="quick-item">
+            <span class="quick-icon">🥞</span>
+            <span class="quick-label">子連れカフェ<br>＆グルメ</span>
+        </a>
+        <a href="#area" class="quick-item">
+            <span class="quick-icon">🗺️</span>
+            <span class="quick-label">エリア別<br>街ガイド</span>
+        </a>
+        <a href="#event" class="quick-item">
+            <span class="quick-icon">🎈</span>
+            <span class="quick-label">週末イベント<br>＆市役所情報</span>
         </a>
     </div>
 
-    <!-- Whats New! お知らせ -->
-    <div class="section-padding" style="padding-top: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+    <!-- Whats New! 新規オープン＆新着トピックス -->
+    <div class="section-container" id="newopen">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 22px;">
             <div>
-                <div class="en-title" style="color: #5b8e7d; font-size: 16px;">Whats New!</div>
-                <h3 class="mincho" style="font-size: 26px;">お知らせ</h3>
+                <div class="en-title" style="color: var(--mirin-amber); font-size: 20px;">NEW OPEN & TOPICS</div>
+                <h2 class="mincho" style="font-size: 26px; color: var(--deep-teal);">新店オープン＆最新ニュース</h2>
             </div>
-            <a href="#" style="font-size: 13px; color: var(--text-dark); text-decoration: none; font-weight: 700;">ニュース一覧を見る →</a>
+            <a href="#" style="font-size: 13px; color: var(--deep-teal); font-weight: 700; text-decoration: none;">一覧を見る →</a>
         </div>
 
         <a href="#" class="news-card">
-            <div class="news-date">2026.11.15</div>
-            <div class="news-title">【更新情報】流山おおたかの森エリアの先輩移住者インタビューを追加しました</div>
+            <div class="news-meta">
+                <span class="news-date">2026.11.15</span>
+                <span class="badge-new badge-open">NEW OPEN</span>
+            </div>
+            <div class="news-title">【流山おおたかの森】キッズスペース完備！焼きたてベーカリー＆カフェが来月オープン</div>
             <span class="arrow-circle" style="top: 50%; transform: translateY(-50%);">→</span>
         </a>
-        <a href="#" class="news-card">
-            <div class="news-date">2026.11.10</div>
-            <div class="news-title">【週末イベント】森のマルシェ＆流山本町ナイトウォーク開催のご案内</div>
+
+        <a href="#" class="news-card" style="border-left-color: var(--azalea-pink);">
+            <div class="news-meta">
+                <span class="news-date">2026.11.12</span>
+                <span class="badge-new badge-cafe">子連れグルメ</span>
+            </div>
+            <div class="news-title">【南流山】ベビーカー入店OK＆お座敷あり！ママ会におすすめのランチ5選</div>
             <span class="arrow-circle" style="top: 50%; transform: translateY(-50%);">→</span>
         </a>
-        <a href="#" class="news-card">
-            <div class="news-date">2026.11.01</div>
-            <div class="news-title">【子育て・創業支援】流山市内で新しくお店やサロンを始めたい方への補助金ガイド</div>
+
+        <a href="#" class="news-card" style="border-left-color: var(--deep-teal);">
+            <div class="news-meta">
+                <span class="news-date">2026.11.08</span>
+                <span class="badge-new badge-city">自治体・市役所情報</span>
+            </div>
+            <div class="news-title">【流山市役所】令和9年度 保育園・認定こども園の入園申込みスケジュールまとめ</div>
             <span class="arrow-circle" style="top: 50%; transform: translateY(-50%);">→</span>
         </a>
     </div>
 
-    <!-- 01 ながれやまを知る -->
-    <div class="bg-green" id="about">
-        <div class="section-padding">
+    <!-- 01 子連れで行けるカフェ・グルメ -->
+    <div class="bg-sage" id="cafe">
+        <div class="section-container">
             <div class="vertical-header">
                 <div class="section-num">01</div>
                 <div class="vertical-text-wrap">
-                    <span class="vertical-sub">ながれやまを</span>
-                    <h2 class="vertical-main">知る</h2>
+                    <span class="vertical-sub">子連れでも安心</span>
+                    <h2 class="vertical-main">カフェ・グルメ</h2>
                 </div>
             </div>
 
-            <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1000&q=80" alt="流山の街並み" class="feature-img">
-            <div class="feature-label">Feature.01</div>
-            <h3 class="mincho feature-heading">家族の未来を考えるほど選びたくなる。<br>緑と笑顔があふれるまち、流山市。</h3>
-            <p style="font-size: 14px;">
-                「母になるなら、流山市。」「父になるなら、流山市。」のキャッチコピーで知られ、若い世代を中心に人口が増え続けている流山市。洗練された駅前商業施設と、少し足を延ばせば広がる大堀川や市野谷の森、そして白みりん発祥の地としての歴史情緒が共存しています。
-            </p>
+            <div class="card-grid">
+                <!-- カフェカード1 -->
+                <a href="#" class="spot-card">
+                    <div class="spot-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=600&q=80" alt="カフェ写真">
+                        <span class="spot-area-tag">流山おおたかの森</span>
+                    </div>
+                    <div class="spot-body">
+                        <div class="spot-tags">
+                            <span class="mama-tag">👶 ベビーカーOK</span>
+                            <span class="mama-tag">🍽 キッズメニュー</span>
+                        </div>
+                        <h3 class="spot-title">森のテラスカフェ 〇〇</h3>
+                        <p class="spot-desc">広々としたテラス席とソファ席があり、赤ちゃん連れでも気兼ねなく季節のパスタとスイーツが楽しめます。</p>
+                    </div>
+                </a>
 
-            <div class="facility-box">
-                <strong>【流山市の注目スポット＆インフラ】</strong><br>
-                ①流山おおたかの森S・C ／ ②送迎保育ステーション ／ ③流山本町（古民家カフェ・白みりんミュージアム） ／ ④流山市立おおたかの森こども図書館 ／ ⑤大堀川水辺公園・総合運動公園 ／ ⑥駅前コワーキングスペース
+                <!-- カフェカード2 -->
+                <a href="#" class="spot-card">
+                    <div class="spot-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" alt="古民家カフェ">
+                        <span class="spot-area-tag">流山本町</span>
+                    </div>
+                    <div class="spot-body">
+                        <div class="spot-tags">
+                            <span class="mama-tag">🍵 お座敷・和室あり</span>
+                            <span class="mama-tag">🍼 白みりんスイーツ</span>
+                        </div>
+                        <h3 class="spot-title">古民家ダイニング 〇〇</h3>
+                        <p class="spot-desc">流山名産の白みりんを使った優しい甘さのランチ＆パフェ。靴を脱いで上がれる個室はハイハイ期の赤ちゃんにも◎</p>
+                    </div>
+                </a>
+
+                <!-- カフェカード3 -->
+                <a href="#" class="spot-card">
+                    <div class="spot-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="ベーカリー">
+                        <span class="spot-area-tag">南流山</span>
+                    </div>
+                    <div class="spot-body">
+                        <div class="spot-tags">
+                            <span class="mama-tag">🚗 駐車場あり</span>
+                            <span class="mama-tag">🥐 イートイン完備</span>
+                        </div>
+                        <h3 class="spot-title">Sunny Bakery 南流山</h3>
+                        <p class="spot-desc">公園ピクニックのお供にもぴったり！無添加生地のふわふわ食パンと、子どもが喜ぶ動物パンが大人気。</p>
+                    </div>
+                </a>
             </div>
 
             <a href="#" class="pill-btn">
-                流山市について詳しく見る
+                カフェ・グルメ記事一覧へ
                 <span class="arrow-circle">→</span>
             </a>
         </div>
     </div>
 
-    <!-- 02 ながれやまで暮らす -->
-    <div class="bg-pink">
-        <div class="section-padding">
+    <!-- 02 エリア別ガイド（ディープティール背景でサイトに強いメリハリを演出） -->
+    <div class="bg-teal-dark" id="area">
+        <div class="section-container">
             <div class="vertical-header">
-                <div class="section-num" style="color: #c98a98;">02</div>
+                <div class="section-num" style="color: #ffcf96;">02</div>
                 <div class="vertical-text-wrap">
-                    <span class="vertical-sub">ながれやまで</span>
-                    <h2 class="vertical-main">暮らす</h2>
+                    <span class="vertical-sub" style="color: #ffcf96;">街の個性を楽しむ</span>
+                    <h2 class="vertical-main" style="color: #fff;">エリア別ガイド</h2>
                 </div>
             </div>
 
-            <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1000&q=80" alt="子育て環境" class="feature-img">
-            <div class="feature-label" style="color: #b56b7a;">Child care & gourmet</div>
-            <h3 class="mincho feature-heading">共働きでも、はじめての子育てでも。<br>まち全体で支えあう安心の毎日。</h3>
-            <p style="font-size: 14px;">
-                駅前の「送迎保育ステーション」から市内各保育所へのバス送迎システムや、高校生までの医療費助成、木のぬくもりあふれる図書館など、子育て世帯に寄り添うサポートが充実。また、地元農家さんの新鮮な朝採れ野菜やこだわりのベーカリー・カフェ巡りも日常の楽しみになります。
+            <p style="text-align: center; font-size: 14px; margin-bottom: 30px; opacity: 0.9;">
+                駅ごとにまったく違う表情を持つ流山市。気になるエリアからお店や公園を探してみよう！
             </p>
 
-            <a href="#" class="pill-btn">
-                子育て・暮らしの環境へ
-                <span class="arrow-circle">→</span>
-            </a>
+            <div class="area-grid">
+                <a href="#" class="area-card">
+                    <div class="area-name">流山おおたかの森</div>
+                    <p class="area-sub">大型SCやカフェ、緑豊かな公園が集まる流山の中心エリア。</p>
+                </a>
+                <a href="#" class="area-card">
+                    <div class="area-name">南流山</div>
+                    <p class="area-sub">TXとJR武蔵野線が交差！個人経営の美味しいグルメやパン屋の宝庫。</p>
+                </a>
+                <a href="#" class="area-card">
+                    <div class="area-name">流山本町・江戸川台</div>
+                    <p class="area-sub">白みりんの歴史が息づく古民家リノベカフェやレトロな商店街。</p>
+                </a>
+                <a href="#" class="area-card">
+                    <div class="area-name">流山セントラルパーク</div>
+                    <p class="area-sub">総合運動公園やアスレチック、休日ピクニックに最適なスポット。</p>
+                </a>
+            </div>
         </div>
     </div>
 
-    <!-- 03 ながれやまで働く・住む -->
-    <div class="bg-yellow">
-        <div class="section-padding">
-            <div class="vertical-header">
-                <div class="section-num" style="color: #d48c46;">03</div>
-                <div class="vertical-text-wrap">
-                    <span class="vertical-sub">ながれやまで</span>
-                    <h2 class="vertical-main">働く・住む</h2>
+    <!-- PEOPLE SNAP 風：流山の注目ショップ＆ひと -->
+    <div class="section-container">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div class="en-title" style="font-size: 30px; color: var(--mirin-amber);">LOCAL SNAP</div>
+            <h2 class="mincho" style="font-size: 22px; color: var(--deep-teal);">流山の素敵なショップ＆ひと</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">
+                地域を盛り上げる店主さんや、子育てイベント主催者さんをご紹介！
+            </p>
+        </div>
+
+        <div class="snap-scroll">
+            <div class="snap-item">
+                <div class="snap-circle" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80');">
+                    <span class="snap-num">Snap.01</span>
+                </div>
+                <div class="snap-box">
+                    <div style="font-size: 11px; color: var(--mirin-amber); font-weight: 700;">流山本町・カフェ店主</div>
+                    <div style="font-size: 15px; font-weight: 700; margin: 3px 0 6px;">佐藤 彩香さん</div>
+                    <p style="font-size: 12px; color: var(--text-muted);">地元の白みりんと旬の野菜を使った日替わりおやつを焼いています◎</p>
                 </div>
             </div>
 
-            <div class="feature-label" style="color: #b86b23;">Workstyle & Housing</div>
-            <h3 class="mincho feature-heading">都心へのスマートな通勤も、<br>地元での起業・テレワークも自在に。</h3>
-            <p style="font-size: 14px;">
-                都心へ30分圏内のアクセスを活かしたハイブリッドワークはもちろん、市内のサテライトオフィス・コワーキングスペースでのリモートワーク、女性向けの創業スクールや空き店舗・古民家を活用したスモールビジネス開業まで、自分らしい働き方を応援しています。
-            </p>
+            <div class="snap-item">
+                <div class="snap-circle" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80');">
+                    <span class="snap-num">Snap.02</span>
+                </div>
+                <div class="snap-box">
+                    <div style="font-size: 11px; color: var(--azalea-pink); font-weight: 700;">親子マルシェ主催</div>
+                    <div style="font-size: 15px; font-weight: 700; margin: 3px 0 6px;">山本 恵美さん</div>
+                    <p style="font-size: 12px; color: var(--text-muted);">おおたかの森駅前広場で、ベビー＆キッズ向けのワークショップを開催中！</p>
+                </div>
+            </div>
+
+            <div class="snap-item">
+                <div class="snap-circle" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80');">
+                    <span class="snap-num">Snap.03</span>
+                </div>
+                <div class="snap-box">
+                    <div style="font-size: 11px; color: var(--deep-teal); font-weight: 700;">南流山・イタリアンシェフ</div>
+                    <div style="font-size: 15px; font-weight: 700; margin: 3px 0 6px;">高橋 健太さん</div>
+                    <p style="font-size: 12px; color: var(--text-muted);">流山の農家さんから毎朝届く新鮮な朝採れ野菜でピザを焼いています！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03 週末イベント＆流山市役所・自治体サポート情報 -->
+    <div class="bg-blush" id="event">
+        <div class="section-container">
+            <div class="vertical-header">
+                <div class="section-num" style="color: var(--azalea-pink);">03</div>
+                <div class="vertical-text-wrap">
+                    <span class="vertical-sub">おでかけ＆暮らし</span>
+                    <h2 class="vertical-main">イベント・自治体情報</h2>
+                </div>
+            </div>
+
+            <!-- 週末イベントカード -->
+            <h3 class="mincho" style="font-size: 20px; color: var(--deep-teal); margin-bottom: 15px;">🎪 今週末の注目イベント</h3>
+            <div class="card-grid" style="margin-bottom: 40px;">
+                <a href="#" class="spot-card">
+                    <div class="spot-body">
+                        <span class="badge-new badge-open" style="margin-bottom: 8px;">11/21(土)・22(日) 開催</span>
+                        <h4 class="spot-title">森のマルシェ・ド・ノエル</h4>
+                        <p class="spot-desc">場所：流山おおたかの森駅南口都市広場<br>ハンドメイド雑貨やキッチンカー、クリスマスリース作り体験など家族で楽しめる2日間！</p>
+                    </div>
+                </a>
+                <a href="#" class="spot-card">
+                    <div class="spot-body">
+                        <span class="badge-new badge-cafe" style="margin-bottom: 8px;">11/28(土) 開催</span>
+                        <h4 class="spot-title">流山本町 切り絵行灯ナイトウォーク</h4>
+                        <p class="spot-desc">場所：流山本町界隈・白みりんミュージアム周辺<br>夕暮れのレトロな街並みを幻想的な行灯の灯りとともに散策する人気イベント。</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 流山市役所・自治体のお役立ち情報ボックス -->
+            <div class="gov-box" id="city">
+                <div class="gov-header">
+                    <span style="font-size: 26px;">🏛️</span>
+                    <div>
+                        <h3 class="mincho" style="font-size: 19px;">流山市役所・子育て＆暮らしのお役立ちガイド</h3>
+                        <p style="font-size: 12px; color: var(--text-muted);">市の公式制度や手続きを分かりやすく解説・リンクしています</p>
+                    </div>
+                </div>
+                <ul class="gov-list">
+                    <li><a href="#">🚌 送迎保育ステーションの使い方 <span>→</span></a></li>
+                    <li><a href="#">🏥 子ども医療費助成・休日診療当番医 <span>→</span></a></li>
+                    <li><a href="#">🏢 児童センター・子育てサロン一覧 <span>→</span></a></li>
+                    <li><a href="#">📄 広報ながれやま 今月の注目トピック <span>→</span></a></li>
+                    <li><a href="#">🗑️ ごみ収集カレンダー・大型ごみ申込 <span>→</span></a></li>
+                    <li><a href="#">🏡 流山市への転入・引っ越し手続きまとめ <span>→</span></a></li>
+                </ul>
+            </div>
 
             <a href="#" class="pill-btn">
-                働く・住まいのサポートへ
+                イベント＆くらし情報一覧へ
                 <span class="arrow-circle">→</span>
             </a>
         </div>
@@ -568,26 +993,23 @@
     <!-- フッター -->
     <footer id="contact">
         <div class="footer-inner">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <p style="font-size: 12px; color: var(--text-muted);">千葉県流山市の暮らし・魅力発信サイト</p>
-                <div class="site-logo" style="justify-content: center; font-size: 24px; margin: 8px 0;">
-                    <span class="logo-sun"></span>
-                    つながる！流山
-                </div>
-                <p class="mincho" style="font-size: 14px;">ながれやま時間で、あたらしい日常を育てよう。</p>
-            </div>
-
-            <div class="contact-box">
-                <strong>サイト運営・お問い合わせ窓口</strong><br>
-                〒270-0192 千葉県流山市平和台1丁目1番地1（サンプル表記）<br>
-                【受付時間】平日 午前9時00分〜午後5時00分
-            </div>
-
-            <p style="text-align: center; font-size: 11px; color: #999; margin-top: 30px;">
-                Copyright &copy; 2026 Nagareyama Portal Project All Rights Reserved.
+            <img src="logo.jpg" alt="ロゴ" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--mirin-amber); margin-bottom: 12px; object-fit: cover;" onerror="this.src='https://placehold.co/100x100/ffffff/1d4e56?text=流山'">
+            <h2 class="mincho" style="font-size: 22px; margin-bottom: 6px;">ながれやま通信（仮）</h2>
+            <p style="font-size: 13px; opacity: 0.85; margin-bottom: 25px;">
+                流山市のカフェ・新店オープン・週末イベント・子育て情報を発信する地域メディア
             </p>
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; max-width: 520px; margin: 0 auto 30px; font-size: 13px;">
+                <strong>📩 地域の情報提供・お店からの掲載ご依頼募集！</strong><br>
+                「あそこに新しいお店ができるよ！」「うちのカフェを取材してほしい」などのタレコミ・ご依頼はInstagramのDMまたはお問い合わせフォームよりお気軽にご連絡ください。
+            </div>
+            <p style="font-size: 11px; opacity: 0.7;">&copy; 2026 NAGAREYAMA LOCAL MEDIA All Rights Reserved.</p>
         </div>
     </footer>
 
+    <script>
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
