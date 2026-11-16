@@ -10,13 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Sacramento&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* スクリーンショットの色味を忠実に再現したパレット */
             --bg-paper: #f3f1ec;          /* トップ周囲の優しい生成りグレー */
             --pastel-mint: #bfe3dc;       /* 下部波形の爽やかなミントブルー */
             --pastel-pink: #f1dce3;       /* 02セクションのベビーピンク */
             --pastel-yellow: #f6ead4;     /* 03セクションのウォームクリーム */
             --warm-orange: #f59e56;       /* 右上ボタンのあったかオレンジ */
-            --warm-coral: #ee8262;        /* ボタンのグラデーション用コーラル */
             --text-main: #3b4246;         /* 柔らかいチャコールグレーの文字色 */
             --text-muted: #6e777c;
             --accent-teal: #498991;       /* 見出しの英語ブルーグリーン */
@@ -36,8 +34,9 @@
             font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--bg-paper);
             color: var(--text-main);
-            line-height: 1.85;
+            line-height: 1.8;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         .mincho {
@@ -49,11 +48,7 @@
             letter-spacing: 0.08em;
         }
 
-        .script-font {
-            font-family: 'Sacramento', cursive;
-        }
-
-        /* ざらっとしたクレヨン・画用紙風の粒子テクスチャを重ねるクラス */
+        /* ざらっとしたクレヨン・画用紙風の粒子テクスチャ */
         .crayon-texture {
             position: relative;
         }
@@ -61,94 +56,95 @@
             content: "";
             position: absolute;
             inset: 0;
-            opacity: 0.32;
+            opacity: 0.3;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
             z-index: 1;
         }
 
         /* ==========================================
-           1. ヘッダー＆トップ画面（スクリーンショット完全再現）
+           1. ヘッダー（PC / iPad / iPhone 完全対応）
            ========================================== */
         .top-wrapper {
             position: relative;
             width: 100%;
             background-color: var(--bg-paper);
-            padding-bottom: 40px;
         }
 
-        /* 上部ヘッダー領域 */
         .site-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 18px 0 14px 36px;
+            align-items: center;
+            padding: 16px 0 14px 36px;
             position: relative;
             z-index: 100;
+            gap: 12px;
         }
 
-        /* 左上：サブコピー＋パステルカラーのタイトルロゴ */
         .brand-area {
             display: flex;
             flex-direction: column;
             gap: 4px;
             text-decoration: none;
+            min-width: 0;
         }
 
         .brand-subcopy {
             font-size: 11px;
             color: var(--text-muted);
-            letter-spacing: 0.08em;
+            letter-spacing: 0.04em;
+            line-height: 1.3;
         }
 
         .brand-main {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .brand-emblem {
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             border: 2px solid #fff;
+            flex-shrink: 0;
+            background-color: var(--pastel-mint);
         }
 
-        /* 「あったか！旭」風の1文字ずつパステルカラーが変わる明朝ロゴ */
+        /* 1行で綺麗に収まるパステル明朝ロゴ */
         .pastel-logo-text {
             font-family: 'Shippori Mincho', serif;
-            font-size: 31px;
+            font-size: 29px;
             font-weight: 700;
             letter-spacing: 0.04em;
-            background: linear-gradient(90deg, #76b5aa 0%, #90c48c 25%, #e5979c 55%, #f4a261 80%, #d9725b 100%);
+            background: linear-gradient(90deg, #62a89c 0%, #83b87e 28%, #df878d 58%, #f0954e 82%, #d96b52 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            white-space: nowrap;
             line-height: 1.2;
         }
 
-        /* 右側ナビゲーション（2段メニュー＋オレンジ角丸ボタン） */
         .header-nav-group {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: 22px;
+            flex-shrink: 0;
         }
 
         .nav-menus {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 12px;
-            padding-top: 4px;
+            gap: 10px;
         }
 
-        /* 上段：横線付きのサブリンク */
         .sub-nav {
             display: flex;
-            gap: 24px;
+            gap: 20px;
             list-style: none;
-            font-size: 12.5px;
+            font-size: 12px;
         }
 
         .sub-nav a {
@@ -156,21 +152,19 @@
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 6px;
-            transition: opacity 0.2s;
+            gap: 5px;
+            white-space: nowrap;
         }
         .sub-nav a::before {
             content: "―";
             color: var(--text-muted);
         }
-        .sub-nav a:hover { opacity: 0.65; }
 
-        /* 下段：手描き風線画アイコン付きのメインメニュー */
         .main-nav {
             display: flex;
-            gap: 28px;
+            gap: 22px;
             list-style: none;
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 500;
         }
 
@@ -179,68 +173,69 @@
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 7px;
-            transition: color 0.2s;
+            gap: 6px;
+            white-space: nowrap;
         }
-        .main-nav a:hover { color: var(--warm-orange); }
 
         .nav-svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             stroke: var(--text-main);
             fill: none;
             stroke-width: 1.5;
             stroke-linecap: round;
             stroke-linejoin: round;
+            flex-shrink: 0;
         }
 
-        /* 右端：オレンジ〜コーラルの大きな角丸ボタン */
+        /* 右上のオレンジボタン（改行崩れ防止） */
         .cta-consult-btn {
             background: linear-gradient(135deg, #f39562 0%, #f6b26b 100%);
             color: #fff;
             text-decoration: none;
-            padding: 18px 26px;
+            padding: 16px 22px;
             border-radius: 16px 0 0 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 6px 20px rgba(243, 149, 98, 0.3);
-            transition: transform 0.2s;
-        }
-
-        .cta-consult-btn:hover {
-            transform: translateX(-3px);
+            gap: 10px;
+            box-shadow: 0 5px 16px rgba(243, 149, 98, 0.3);
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .cta-text-wrap {
             display: flex;
             flex-direction: column;
-            line-height: 1.3;
+            line-height: 1.25;
         }
 
         .cta-jp {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
         }
 
         .cta-en {
             font-family: 'Cormorant Garamond', serif;
             font-size: 12px;
-            opacity: 0.9;
+            opacity: 0.92;
             text-align: center;
         }
 
-        /* スマホ用ハンバーガー */
+        /* タブレット・スマホ用ハンバーガーボタン */
         .sp-menu-btn {
             display: none;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 8px 16px;
+            padding: 6px 12px 6px 4px;
             text-align: center;
             font-size: 10px;
             font-family: 'Cormorant Garamond', serif;
+            color: var(--accent-teal);
+            font-weight: 600;
+            flex-shrink: 0;
         }
         .sp-menu-btn span {
             display: block;
@@ -248,39 +243,90 @@
             height: 2px;
             background: var(--text-main);
             margin: 4px auto;
+            border-radius: 2px;
+        }
+
+        /* スマホ・タブレット用スライドメニュー */
+        .sp-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 340px;
+            height: 100vh;
+            background-color: var(--bg-paper);
+            z-index: 2000;
+            padding: 70px 28px 40px;
+            transition: right 0.35s ease;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.12);
+            overflow-y: auto;
+        }
+        .sp-drawer.open {
+            right: 0;
+        }
+        .sp-drawer-close {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        .sp-drawer-list {
+            list-style: none;
+        }
+        .sp-drawer-list li {
+            border-bottom: 1px solid #e2dfd7;
+        }
+        .sp-drawer-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 4px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .sp-drawer-list a span {
+            color: var(--warm-orange);
+            font-weight: 700;
         }
 
         /* ==========================================
-           2. ファーストビュー写真枠＆右サイドバー
+           2. ファーストビュー写真枠（絶対に文字が重ならないFlex構造）
            ========================================== */
         .hero-layout {
             display: flex;
             position: relative;
-            padding-left: 52px; /* 左側の生成り余白 */
+            padding-left: 48px;
         }
 
-        /* 左上が大きく丸くカットされたメインビジュアル枠 */
         .hero-visual-box {
             flex: 1;
-            height: 76vh;
-            min-height: 540px;
-            border-top-left-radius: 140px;
-            border-bottom-left-radius: 20px;
+            min-height: 620px;
+            border-top-left-radius: 130px;
             overflow: hidden;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 90px 36px 115px; /* 下の波形に被らないよう下部余白を確保 */
             box-shadow: 0 10px 30px rgba(0,0,0,0.06);
         }
 
-        /* 夕暮れ・ゴールデンアワーの 따뜻한風景写真 */
         .hero-bg-img {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(to bottom, rgba(255, 210, 160, 0.15) 0%, rgba(30, 45, 50, 0.35) 100%),
+            background-image: linear-gradient(to bottom, rgba(255, 210, 160, 0.12) 0%, rgba(25, 40, 45, 0.45) 100%),
                               url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85');
             background-size: cover;
             background-position: center;
             transition: background-image 0.8s ease-in-out;
             animation: slowBreath 14s ease-in-out infinite alternate;
+            z-index: 1;
         }
 
         @keyframes slowBreath {
@@ -288,58 +334,64 @@
             100% { transform: scale(1.05); }
         }
 
-        /* 写真中央の白明朝体キャッチコピー */
+        /* 上〜中央：キャッチコピーブロック（下のリストと自動で距離をとる） */
         .hero-center-copy {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            position: relative;
+            z-index: 5;
             text-align: center;
             color: #fff;
-            z-index: 5;
-            padding: 0 20px 40px;
+            margin: auto 0;
+            padding: 20px 0 30px;
         }
 
         .hero-center-copy h1 {
             font-family: 'Shippori Mincho', serif;
-            font-size: 40px;
+            font-size: clamp(22px, 3.6vw, 40px);
             font-weight: 500;
-            line-height: 1.85;
-            letter-spacing: 0.28em;
-            text-shadow: 0 2px 15px rgba(0,0,0,0.28);
-            margin-bottom: 18px;
+            line-height: 1.8;
+            letter-spacing: 0.22em;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.35);
+            margin-bottom: 14px;
         }
 
         .hero-center-copy p {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 19px;
-            letter-spacing: 0.18em;
-            text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+            font-size: clamp(15px, 2vw, 20px);
+            letter-spacing: 0.14em;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.4);
         }
 
-        /* 写真左下の「01〜05 シーンリスト」 */
-        .hero-scene-list {
-            position: absolute;
-            bottom: 85px;
-            left: 42px;
+        /* 下部エリア：左の01〜05リストと中央のScrollを整理配置 */
+        .hero-bottom-controls {
+            position: relative;
             z-index: 10;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .hero-scene-list {
             list-style: none;
             color: #fff;
-            font-size: 12.5px;
-            letter-spacing: 0.08em;
+            font-size: 13px;
+            letter-spacing: 0.06em;
         }
 
         .hero-scene-list li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            opacity: 0.8;
+            opacity: 0.85;
             transition: 0.25s;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+            text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+        }
+
+        .hero-scene-list li:last-child {
+            margin-bottom: 0;
         }
 
         .hero-scene-list li:hover,
@@ -352,12 +404,13 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 26px;
-            height: 26px;
-            border: 1px solid #fff;
+            width: 25px;
+            height: 25px;
+            border: 1.2px solid #fff;
             border-radius: 50%;
             font-family: 'Cormorant Garamond', serif;
             font-size: 13px;
+            flex-shrink: 0;
         }
 
         .scene-dot {
@@ -367,20 +420,20 @@
             border-radius: 50%;
             margin: 0 10px;
             display: inline-block;
+            flex-shrink: 0;
         }
 
-        /* 中央下の Scroll マウスアイコン */
+        /* Scroll マウスアイコン */
         .scroll-indicator {
-            position: absolute;
-            bottom: 95px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
             text-align: center;
             color: #fff;
             font-family: 'Cormorant Garamond', serif;
             font-size: 14px;
             letter-spacing: 0.1em;
+            margin-right: auto;
+            margin-left: auto;
+            padding-right: 140px; /* PCで中央に見えるようバランス調整 */
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
         }
 
         .mouse-icon {
@@ -410,19 +463,20 @@
             100% { opacity: 0; transform: translate(-50%, 8px); }
         }
 
-        /* 右端の縦書きサイドバー（千葉県流山市 ＆ Follow us） */
+        /* 右端の縦書きサイドバー（PC用） */
         .right-sidebar {
-            width: 58px;
+            width: 54px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 80px 0 40px;
+            padding: 70px 0 60px;
             font-size: 12px;
             color: var(--text-main);
+            flex-shrink: 0;
         }
 
-        .location-vertical {
+        .location-vertical, .follow-vertical {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -434,13 +488,6 @@
             font-family: 'Shippori Mincho', serif;
             letter-spacing: 0.35em;
             font-size: 13px;
-        }
-
-        .follow-vertical {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
         }
 
         .follow-vertical span {
@@ -463,33 +510,34 @@
             font-size: 14px;
         }
 
-        /* 写真の下部に重なるミントブルーの波形＆手書き筆記体 */
+        /* 写真下部に重なるミントブルーの波形＆手書き文字 */
         .hero-bottom-wave-wrap {
             position: relative;
-            margin-top: -110px;
+            margin-top: -75px;
             z-index: 15;
             pointer-events: none;
         }
 
         .script-overlay {
             position: absolute;
-            top: 15px;
-            right: 10%;
+            top: -12px;
+            right: 6%;
             font-family: 'Sacramento', cursive;
-            font-size: 68px;
+            font-size: clamp(32px, 5vw, 64px);
             color: #ffffff;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.18);
             z-index: 20;
             transform: rotate(-3deg);
-            line-height: 1;
+            line-height: 1.1;
+            white-space: nowrap;
         }
 
         /* ==========================================
-           3. MESSAGE ＆ コンテンツセクション（クレヨン質感）
+           3. MESSAGE ＆ コンテンツセクション
            ========================================== */
         .mint-section {
             background-color: var(--pastel-mint);
-            padding: 40px 24px 90px;
+            padding: 45px 24px 85px;
             position: relative;
         }
 
@@ -502,29 +550,28 @@
 
         .en-section-heading {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 38px;
+            font-size: clamp(30px, 4vw, 38px);
             color: var(--accent-teal);
             letter-spacing: 0.14em;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             font-weight: 500;
         }
 
         .message-lead {
             font-family: 'Shippori Mincho', serif;
-            font-size: 26px;
-            line-height: 1.9;
-            letter-spacing: 0.08em;
-            margin-bottom: 28px;
+            font-size: clamp(19px, 2.8vw, 26px);
+            line-height: 1.85;
+            letter-spacing: 0.06em;
+            margin-bottom: 24px;
         }
 
         .message-body {
             font-size: 14.5px;
-            line-height: 2.2;
-            letter-spacing: 0.05em;
+            line-height: 2.15;
+            letter-spacing: 0.04em;
             max-width: 680px;
         }
 
-        /* 「あったか！旭」の白ピル型ボタン＋オレンジ丸矢印 */
         .asahi-pill-btn {
             display: flex;
             align-items: center;
@@ -533,27 +580,26 @@
             background: #ffffff;
             color: var(--text-main);
             text-decoration: none;
-            max-width: 360px;
-            margin: 40px auto 0;
-            padding: 18px 45px;
+            max-width: 350px;
+            margin: 38px auto 0;
+            padding: 17px 45px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 14.5px;
-            letter-spacing: 0.08em;
+            font-size: 14px;
+            letter-spacing: 0.06em;
             border: 1px solid #dcd8d0;
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
             z-index: 5;
         }
 
         .asahi-pill-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
         .orange-arrow {
             position: absolute;
-            right: 18px;
+            right: 16px;
             width: 26px;
             height: 26px;
             background-color: var(--warm-orange);
@@ -565,19 +611,19 @@
             font-size: 12px;
         }
 
-        /* 縦書きナンバリング見出し（01 知る / 02 暮らす） */
+        /* 縦書きナンバリング見出し */
         .vertical-title-block {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 45px;
+            margin-bottom: 40px;
             position: relative;
             z-index: 5;
         }
 
         .num-display {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 44px;
+            font-size: 42px;
             color: var(--accent-teal);
             letter-spacing: 0.1em;
             margin-bottom: 6px;
@@ -592,24 +638,23 @@
 
         .vertical-jp h2 {
             font-family: 'Shippori Mincho', serif;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 500;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.22em;
             line-height: 1.2;
         }
 
         .vertical-jp span {
             font-size: 13px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.18em;
             color: var(--text-main);
             padding-top: 6px;
         }
 
-        /* カードグリッド（カフェ・新店・エリア紹介） */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 24px;
+            gap: 22px;
             position: relative;
             z-index: 5;
         }
@@ -624,10 +669,6 @@
             transition: transform 0.25s;
             display: flex;
             flex-direction: column;
-        }
-
-        .soft-card:hover {
-            transform: translateY(-4px);
         }
 
         .soft-card-img {
@@ -656,63 +697,39 @@
             color: var(--accent-teal);
             font-weight: 700;
         }
+        .pastel-tag.pink { background-color: var(--pastel-pink); color: #9e5869; }
+        .pastel-tag.orange { background-color: #fde6d2; color: #c96829; }
 
-        .pastel-tag.pink {
-            background-color: var(--pastel-pink);
-            color: #9e5869;
-        }
-
-        .pastel-tag.orange {
-            background-color: #fde6d2;
-            color: #c96829;
-        }
-
-        /* 白ボックスのまとめリスト（スクリーンショットの①〜⑨枠を再現） */
         .white-summary-box {
             background: #ffffff;
             border-radius: 14px;
-            padding: 26px 30px;
-            margin-top: 35px;
+            padding: 24px 26px;
+            margin-top: 30px;
             font-size: 13.5px;
-            line-height: 2.1;
+            line-height: 2.05;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             position: relative;
             z-index: 5;
         }
 
-        /* Whats New お知らせリスト */
         .news-item-card {
             background: #ffffff;
             border-radius: 12px;
-            padding: 20px 55px 20px 24px;
+            padding: 18px 50px 18px 20px;
             margin-bottom: 14px;
             display: block;
             text-decoration: none;
             color: var(--text-main);
             position: relative;
             box-shadow: 0 3px 12px rgba(0,0,0,0.03);
-            transition: transform 0.2s;
         }
 
-        .news-item-card:hover {
-            transform: translateX(4px);
-        }
+        .pink-section { background-color: var(--pastel-pink); padding: 75px 24px 85px; }
+        .yellow-section { background-color: var(--pastel-yellow); padding: 75px 24px 85px; }
 
-        /* 02 ピンクセクション・03 クリームセクション */
-        .pink-section {
-            background-color: var(--pastel-pink);
-            padding: 80px 24px 90px;
-        }
-
-        .yellow-section {
-            background-color: var(--pastel-yellow);
-            padding: 80px 24px 90px;
-        }
-
-        /* フッター（スクリーンショットの丸ポチ付きメニューを再現） */
         footer {
             background-color: var(--bg-paper);
-            padding: 60px 24px 40px;
+            padding: 55px 24px 35px;
             border-top: 1px solid #e2dfd7;
         }
 
@@ -726,7 +743,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 12px 30px;
-            margin: 30px 0;
+            margin: 28px 0;
         }
 
         .footer-nav-list li a {
@@ -737,57 +754,171 @@
             align-items: center;
             gap: 10px;
         }
-
         .footer-nav-list li a::before {
             content: "●";
             color: var(--warm-orange);
             font-size: 8px;
         }
 
-        /* レスポンシブ調整（スマホ画面でもあったか！旭スマホ版のように美しく表示） */
-        @media (max-width: 960px) {
+        /* ==========================================
+           4. タブレット（iPad等: 1024px以下）＆ iPhone（600px以下）専用調整
+           ========================================== */
+        @media (max-width: 1024px) {
             .nav-menus { display: none; }
             .sp-menu-btn { display: block; }
-            .site-header { padding: 12px 0 12px 16px; align-items: center; }
-            .pastel-logo-text { font-size: 24px; }
-            .cta-consult-btn { border-radius: 30px; padding: 10px 18px; }
+            .site-header { padding: 12px 10px 12px 16px; }
+            .cta-consult-btn {
+                border-radius: 30px;
+                padding: 10px 16px;
+                gap: 6px;
+            }
             .cta-en { display: none; }
             .hero-layout { padding-left: 0; }
             .right-sidebar { display: none; }
-            .hero-visual-box { border-top-left-radius: 0; border-bottom-left-radius: 0; height: 70vh; }
-            .hero-center-copy h1 { font-size: 26px; letter-spacing: 0.18em; }
-            .script-overlay { font-size: 42px; right: 5%; top: 30px; }
-            .hero-scene-list { bottom: 75px; left: 20px; font-size: 11px; }
+            .hero-visual-box {
+                border-top-left-radius: 0;
+                min-height: 540px;
+                padding: 60px 24px 95px;
+            }
+            .scroll-indicator {
+                padding-right: 0;
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 10px 8px 10px 12px;
+                gap: 6px;
+            }
+            .brand-subcopy {
+                font-size: 9.5px;
+            }
+            .brand-emblem {
+                width: 38px;
+                height: 38px;
+            }
+            .pastel-logo-text {
+                font-size: 21px;
+            }
+            .header-nav-group {
+                gap: 6px;
+            }
+            .cta-consult-btn {
+                padding: 8px 12px;
+            }
+            .cta-consult-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .cta-jp {
+                font-size: 11.5px;
+            }
+            /* iPhoneでキャッチコピーと01〜05リストが絶対に重ならない設定 */
+            .hero-visual-box {
+                min-height: 520px;
+                padding: 45px 18px 85px;
+                justify-content: flex-start;
+                gap: 28px;
+            }
+            .hero-center-copy {
+                margin: 15px 0 5px;
+                padding: 0;
+            }
+            .hero-center-copy h1 {
+                font-size: 21px;
+                letter-spacing: 0.12em;
+                line-height: 1.75;
+                margin-bottom: 10px;
+            }
+            .hero-center-copy p {
+                font-size: 14px;
+                letter-spacing: 0.08em;
+            }
+            .hero-bottom-controls {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+                margin-top: auto;
+            }
+            .hero-scene-list {
+                font-size: 11.5px;
+                letter-spacing: 0.03em;
+            }
+            .hero-scene-list li {
+                margin-bottom: 6px;
+                gap: 8px;
+            }
+            .scene-circle-num {
+                width: 22px;
+                height: 22px;
+                font-size: 11px;
+            }
+            .scene-dot {
+                margin: 0 8px;
+            }
+            .scroll-indicator {
+                font-size: 11px;
+                flex-shrink: 0;
+            }
+            .mouse-icon {
+                width: 15px;
+                height: 24px;
+            }
+            /* 波形と筆記体がMESSAGEに重ならないよう調整 */
+            .hero-bottom-wave-wrap {
+                margin-top: -42px;
+            }
+            .script-overlay {
+                font-size: 31px;
+                top: -16px;
+                right: 14px;
+            }
+            .mint-section {
+                padding-top: 36px;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- ==========================================
-         トップ画面（PC・スマホ両対応「あったか！旭」完全オマージュ）
+         スマホ・タブレット用スライドメニュー
+         ========================================== -->
+    <nav class="sp-drawer" id="spDrawer">
+        <button class="sp-drawer-close" onclick="toggleSpMenu()">×</button>
+        <div class="en-serif" style="color: var(--accent-teal); font-size: 14px; margin-bottom: 12px;">MENU</div>
+        <ul class="sp-drawer-list">
+            <li><a href="#newopen" onclick="toggleSpMenu()">新規オープン・新着情報 <span>→</span></a></li>
+            <li><a href="#area" onclick="toggleSpMenu()">01 ながれやまを知る（エリアガイド） <span>→</span></a></li>
+            <li><a href="#cafe" onclick="toggleSpMenu()">02 カフェ・グルメ・子育て <span>→</span></a></li>
+            <li><a href="#event" onclick="toggleSpMenu()">03 週末イベント・市役所情報 <span>→</span></a></li>
+            <li><a href="#contact" onclick="toggleSpMenu()">情報提供・掲載のご相談 <span>→</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ==========================================
+         トップ画面（PC / タブレット / iPhone 完全レスポンシブ）
          ========================================== -->
     <div class="top-wrapper">
         <header class="site-header">
-            <!-- 左上：サブタイトル＋イラストロゴ＋パステル明朝ロゴ -->
             <a href="#" class="brand-area">
-                <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信ポータルサイト</span>
+                <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
                 <div class="brand-main">
-                    <!-- アップロードしたイラストを logo.jpg として同じフォルダに置くと表示されます -->
-                    <img src="logo.jpg" alt="ながれやまロゴ" class="brand-emblem" onerror="this.src='https://placehold.co/100x100/bfe3dc/3b4246?text=流山'">
+                    <!-- logo.jpg / logo.png どちらでも自動対応＆未配置でも文字化けしないSVGフォールバック -->
+                    <img src="logo.jpg" alt="ながれやまロゴ" class="brand-emblem"
+                         onerror="if(!this.dataset.t){this.dataset.t='1';this.src='logo.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%231d4e56%22 stroke=%22%23f59e56%22 stroke-width=%224%22/><text x=%2250%22 y=%2257%22 font-size=%2224%22 text-anchor=%22middle%22 fill=%22%23ffffff%22 font-family=%22serif%22>流山</text></svg>';}">
                     <span class="pastel-logo-text">ながれやま日和</span>
                 </div>
             </a>
 
-            <!-- 右上：2段ナビゲーション＋オレンジ角丸ボタン -->
             <div class="header-nav-group">
                 <div class="nav-menus">
-                    <!-- 上段サブメニュー -->
                     <ul class="sub-nav">
                         <li><a href="#newopen">新規オープン店まとめ</a></li>
                         <li><a href="#gov">流山市の子育て支援・制度</a></li>
-                        <li><a href="#faq">流山暮らしのQ&A</a></li>
+                        <li><a href="#contact">流山暮らしのQ&A</a></li>
                     </ul>
-                    <!-- 下段アイコン付きメインメニュー -->
                     <ul class="main-nav">
                         <li>
                             <a href="#area">
@@ -807,18 +938,11 @@
                                 週末イベント・子育て
                             </a>
                         </li>
-                        <li>
-                            <a href="#column">
-                                <svg class="nav-svg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                                読みもの
-                            </a>
-                        </li>
                     </ul>
                 </div>
 
-                <!-- 右端のオレンジ相談・情報提供ボタン -->
                 <a href="#contact" class="cta-consult-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
@@ -828,51 +952,52 @@
                     </div>
                 </a>
 
-                <button class="sp-menu-btn" onclick="alert('メニューを開きます')">
+                <button class="sp-menu-btn" onclick="toggleSpMenu()" aria-label="メニュー">
                     <span></span><span></span><span></span>
                     MENU
                 </button>
             </div>
         </header>
 
-        <!-- メインビジュアル＋右端縦書きバー -->
+        <!-- メインビジュアル -->
         <div class="hero-layout">
             <div class="hero-visual-box">
                 <div class="hero-bg-img" id="heroBg"></div>
 
-                <!-- 中央キャッチコピー -->
+                <!-- 上〜中央：キャッチコピー（「う。」だけ落ちないよう調整済み） -->
                 <div class="hero-center-copy">
                     <h1>ながれやま時間で、<br>あたらしい日常を照らそう。</h1>
                     <p>Illuminate your everyday with Nagareyama time.</p>
                 </div>
 
-                <!-- 左下の01〜05 シーン切り替えリスト（クリックで背景が変化） -->
-                <ul class="hero-scene-list">
-                    <li class="active" onclick="changeScene(0, 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85')">
-                        <span class="scene-circle-num">01</span> 木漏れ日あふれるおおたかの森
-                    </li>
-                    <li onclick="changeScene(1, 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1600&q=85')">
-                        <span class="scene-dot"></span> 流山本町の古民家カフェでひと休み
-                    </li>
-                    <li onclick="changeScene(2, 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85')">
-                        <span class="scene-dot"></span> 夕暮れの江戸川堤と富士山のシルエット
-                    </li>
-                    <li onclick="changeScene(3, 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1600&q=85')">
-                        <span class="scene-dot"></span> 週末の駅前マルシェと親子の笑顔
-                    </li>
-                    <li onclick="changeScene(4, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=85')">
-                        <span class="scene-dot"></span> 南流山の焼きたてベーカリー巡り
-                    </li>
-                </ul>
+                <!-- 下部：01〜05 シーン切り替えリスト ＆ Scrollアイコン（重ならないFlex配置） -->
+                <div class="hero-bottom-controls">
+                    <ul class="hero-scene-list">
+                        <li class="active" onclick="changeScene(0, 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85')">
+                            <span class="scene-circle-num">01</span> 木漏れ日あふれるおおたかの森
+                        </li>
+                        <li onclick="changeScene(1, 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1600&q=85')">
+                            <span class="scene-dot"></span> 流山本町の古民家カフェでひと休み
+                        </li>
+                        <li onclick="changeScene(2, 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85')">
+                            <span class="scene-dot"></span> 夕暮れの江戸川堤と富士山のシルエット
+                        </li>
+                        <li onclick="changeScene(3, 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1600&q=85')">
+                            <span class="scene-dot"></span> 週末の駅前マルシェと親子の笑顔
+                        </li>
+                        <li onclick="changeScene(4, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=85')">
+                            <span class="scene-dot"></span> 南流山の焼きたてベーカリー巡り
+                        </li>
+                    </ul>
 
-                <!-- 中央下 Scroll アイコン -->
-                <div class="scroll-indicator">
-                    Scroll
-                    <div class="mouse-icon"></div>
+                    <div class="scroll-indicator">
+                        Scroll
+                        <div class="mouse-icon"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 右端の縦書きサイドバー -->
+            <!-- 右端の縦書きサイドバー（PC表示時） -->
             <aside class="right-sidebar">
                 <div class="location-vertical">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b4246" stroke-width="1.6">
@@ -889,7 +1014,7 @@
         </div>
     </div>
 
-    <!-- 写真下部に重なるミントブルーの波形＆手書き文字 -->
+    <!-- 写真下部に重なるミントブルーの波形＆手書き文字（1行で収まりMESSAGEと重ならない） -->
     <div class="hero-bottom-wave-wrap">
         <div class="script-overlay">Living in Nagareyama Time.</div>
         <svg viewBox="0 0 1440 150" style="display: block; width: 100%; height: auto;">
@@ -898,7 +1023,7 @@
     </div>
 
     <!-- ==========================================
-         MESSAGE セクション（クレヨン・画用紙テクスチャのミント背景）
+         MESSAGE セクション
          ========================================== -->
     <section class="mint-section crayon-texture">
         <div class="content-inner">
@@ -909,12 +1034,9 @@
                 緑と笑顔があふれるまち、流山。
             </h3>
             <p class="message-body">
-                都心からつくばエクスプレス（TX）で約20分という便利さがありながら、<br>
-                豊かな森や公園、そして白みりんの歴史が息づくレトロな街並みを併せ持つ千葉県流山市。<br>
-                どんどん新しくオープンするおしゃれなカフェやベーカリー、<br>
-                ベビーカーでも気兼ねなく入れる子連れランチ、毎週末どこかで開かれるマルシェ、<br>
-                そして流山市役所の手厚い子育てサポートまで。<br>
-                このサイトでは、流山での暮らしがもっと楽しく、もっと好きになる地域の旬な情報をお届けします。
+                都心からつくばエクスプレス（TX）で約20分という便利さがありながら、豊かな森や公園、そして白みりんの歴史が息づくレトロな街並みを併せ持つ千葉県流山市。<br>
+                新しくオープンするおしゃれなカフェやベーカリー、ベビーカーでも気兼ねなく入れる子連れランチ、毎週末どこかで開かれるマルシェ、そして流山市役所の手厚い子育てサポートまで。<br>
+                このサイトでは、流山での暮らしがもっと楽しくなる地域の旬な情報をお届けします。
             </p>
 
             <a href="#area" class="asahi-pill-btn">
@@ -925,14 +1047,14 @@
     </section>
 
     <!-- ==========================================
-         Whats New! 新店オープン＆新着情報（生成り背景）
+         Whats New! 新店オープン＆新着情報
          ========================================== -->
-    <section class="crayon-texture" style="padding: 80px 24px;" id="newopen">
+    <section class="crayon-texture" style="padding: 75px 24px;" id="newopen">
         <div class="content-inner">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
                 <div>
                     <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">Whats New!</div>
-                    <h2 class="mincho" style="font-size: 28px;">新規オープン・新着情報</h2>
+                    <h2 class="mincho" style="font-size: 26px;">新規オープン・新着情報</h2>
                 </div>
                 <a href="#" style="color: var(--text-main); font-size: 13px; font-weight: 700; text-decoration: none;">記事一覧を見る →</a>
             </div>
@@ -942,7 +1064,7 @@
                     <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.15</span>
                     <span class="pastel-tag orange">🎊 新規オープン</span>
                 </div>
-                <div style="font-size: 15px; font-weight: 500;">【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN</div>
+                <div style="font-size: 14.5px; font-weight: 500;">【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN</div>
                 <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
             </a>
 
@@ -951,7 +1073,7 @@
                     <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.12</span>
                     <span class="pastel-tag pink">☕ 子連れカフェ</span>
                 </div>
-                <div style="font-size: 15px; font-weight: 500;">【南流山・流山本町】お座敷＆ベビーカー入店OK！赤ちゃんと行けるおすすめランチ6選</div>
+                <div style="font-size: 14.5px; font-weight: 500;">【南流山・流山本町】お座敷＆ベビーカー入店OK！赤ちゃんと行けるおすすめランチ6選</div>
                 <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
             </a>
 
@@ -960,14 +1082,14 @@
                     <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.08</span>
                     <span class="pastel-tag">🏛 市役所・子育て</span>
                 </div>
-                <div style="font-size: 15px; font-weight: 500;">【流山市役所】送迎保育ステーションの利用ガイド＆令和9年度保育園スケジュールまとめ</div>
+                <div style="font-size: 14.5px; font-weight: 500;">【流山市役所】送迎保育ステーションの利用ガイド＆令和9年度保育園スケジュールまとめ</div>
                 <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
             </a>
         </div>
     </section>
 
     <!-- ==========================================
-         01 ながれやまを知る（エリア別ガイド：ミント背景）
+         01 ながれやまを知る（エリア別ガイド）
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; margin-bottom: -1px;">
         <path fill="#bfe3dc" d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,80L0,80Z"></path>
@@ -983,15 +1105,14 @@
             </div>
 
             <div class="en-serif" style="font-size: 20px; color: var(--accent-teal); margin-bottom: 8px;">Feature.01 / Area Guide</div>
-            <h3 class="mincho" style="font-size: 24px; line-height: 1.7; margin-bottom: 18px;">
+            <h3 class="mincho" style="font-size: 22px; line-height: 1.7; margin-bottom: 18px;">
                 駅ごとに表情が変わる。<br>
                 個性豊かなエリア別おでかけガイド。
             </h3>
-            <p style="font-size: 14px; margin-bottom: 30px;">
-                洗練されたショッピングセンターやマンションが立ち並ぶ「流山おおたかの森」、TXとJR武蔵野線が交差し個人店グルメが充実する「南流山」、白みりんの歴史と古民家カフェが魅力の「流山本町」など、エリアごとの楽しみ方をご紹介します。
+            <p style="font-size: 14px; margin-bottom: 24px;">
+                洗練されたショッピングセンターや公園が集まる「流山おおたかの森」、TXとJR武蔵野線が交差し個人店グルメが充実する「南流山」、白みりんの歴史と古民家カフェが魅力の「流山本町」など、エリアごとの楽しみ方をご紹介します。
             </p>
 
-            <!-- スクリーンショットの白枠①〜⑨スポット紹介ボックス再現 -->
             <div class="white-summary-box">
                 <strong>【流山市の主要エリア＆注目スポット】</strong><br>
                 ①流山おおたかの森（S・C／森のまち広場／こかげテラス） ／ ②南流山（個人カフェ・パン屋巡り・児童センター） ／ ③流山本町（白みりんミュージアム・古民家リノベ街並み） ／ ④流山セントラルパーク（総合運動公園・ピクニック） ／ ⑤江戸川台（活気ある商店街とレトログルメ） ／ ⑥運河（利根運河水辺公園・桜並木）
@@ -1005,7 +1126,7 @@
     </section>
 
     <!-- ==========================================
-         02 ながれやまで暮らす・食べる（子連れカフェ＆新店：ピンク背景）
+         02 ながれやまで暮らす（子連れカフェ＆新店）
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; background-color: #bfe3dc; margin-bottom: -1px;">
         <path fill="#f1dce3" d="M0,48L120,37.3C240,27,480,5,720,5.3C960,5,1200,27,1320,37.3L1440,48L1440,80L0,80Z"></path>
@@ -1021,7 +1142,7 @@
             </div>
 
             <div class="en-serif" style="font-size: 20px; color: #b56b7e; margin-bottom: 8px;">Cafe, Gourmet & Child care</div>
-            <h3 class="mincho" style="font-size: 24px; line-height: 1.7; margin-bottom: 24px;">
+            <h3 class="mincho" style="font-size: 22px; line-height: 1.7; margin-bottom: 24px;">
                 子連れで行けるおしゃれカフェも、<br>
                 新しくオープンした話題のお店も。
             </h3>
@@ -1072,7 +1193,7 @@
     </section>
 
     <!-- ==========================================
-         03 週末イベント＆流山市役所・自治体情報（ウォームクリーム背景）
+         03 週末イベント＆流山市役所・自治体情報
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; background-color: #f1dce3; margin-bottom: -1px;">
         <path fill="#f6ead4" d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,80L0,80Z"></path>
@@ -1088,7 +1209,7 @@
             </div>
 
             <div class="en-serif" style="font-size: 20px; color: #c47f38; margin-bottom: 8px;">Weekend Events & City Info</div>
-            <h3 class="mincho" style="font-size: 24px; line-height: 1.7; margin-bottom: 20px;">
+            <h3 class="mincho" style="font-size: 22px; line-height: 1.7; margin-bottom: 20px;">
                 週末のマルシェ・親子イベントから、<br>
                 流山市役所の便利な子育てサポートまで。
             </h3>
@@ -1106,15 +1227,16 @@
     </section>
 
     <!-- ==========================================
-         フッター（あったか！旭の丸ポチメニュー＆SNSカード風）
+         フッター
          ========================================== -->
     <footer id="contact">
         <div class="footer-inner">
             <div class="brand-main" style="margin-bottom: 16px;">
-                <img src="logo.jpg" alt="ロゴ" class="brand-emblem" onerror="this.src='https://placehold.co/100x100/bfe3dc/3b4246?text=流山'">
+                <img src="logo.jpg" alt="ロゴ" class="brand-emblem"
+                     onerror="if(!this.dataset.t){this.dataset.t='1';this.src='logo.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%231d4e56%22 stroke=%22%23f59e56%22 stroke-width=%224%22/><text x=%2250%22 y=%2257%22 font-size=%2224%22 text-anchor=%22middle%22 fill=%22%23ffffff%22 font-family=%22serif%22>流山</text></svg>';}">
                 <div>
                     <div style="font-size: 11px; color: var(--text-muted);">千葉県流山市の地域情報ポータルメディア</div>
-                    <span class="pastel-logo-text" style="font-size: 26px;">ながれやま日和</span>
+                    <span class="pastel-logo-text" style="font-size: 24px;">ながれやま日和</span>
                 </div>
             </div>
 
@@ -1128,26 +1250,30 @@
                 <li><a href="#contact">お店の掲載依頼・情報提供フォーム</a></li>
             </ul>
 
-            <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 40px;">
+            <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 35px;">
                 &copy; 2026 Nagareyama Biyori All Rights Reserved.
             </p>
         </div>
     </footer>
 
     <script>
-        // 写真左下の01〜05をクリックした時に背景写真を切り替える機能
+        function toggleSpMenu() {
+            document.getElementById('spDrawer').classList.toggle('open');
+        }
+
         function changeScene(index, imgUrl) {
             const heroBg = document.getElementById('heroBg');
-            heroBg.style.backgroundImage = `linear-gradient(to bottom, rgba(255, 210, 160, 0.15) 0%, rgba(30, 45, 50, 0.35) 100%), url('${imgUrl}')`;
+            heroBg.style.backgroundImage = `linear-gradient(to bottom, rgba(255, 210, 160, 0.12) 0%, rgba(25, 40, 45, 0.45) 100%), url('${imgUrl}')`;
 
             const items = document.querySelectorAll('.hero-scene-list li');
             items.forEach((li, idx) => {
+                const labelText = li.textContent.replace(/^0\d\s*/, '').trim();
                 if (idx === index) {
                     li.classList.add('active');
-                    li.innerHTML = `<span class="scene-circle-num">0${idx + 1}</span> ` + li.textContent.replace(/^0\d\s*/, '');
+                    li.innerHTML = `<span class="scene-circle-num">0${idx + 1}</span> ${labelText}`;
                 } else {
                     li.classList.remove('active');
-                    li.innerHTML = `<span class="scene-dot"></span> ` + li.textContent.replace(/^0\d\s*/, '');
+                    li.innerHTML = `<span class="scene-dot"></span> ${labelText}`;
                 }
             });
         }
