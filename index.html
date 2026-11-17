@@ -89,16 +89,16 @@
             gap: 10px;
         }
 
-        /* 丸枠の中にロゴのエンブレムが綺麗に拡大して収まる設定 */
+        /* 丸枠なし・背景透過でロゴ全体を表示する設定 */
         .brand-emblem-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border: 2px solid #fff;
+            width: 52px;
+            height: 52px;
             flex-shrink: 0;
-            background-color: var(--pastel-mint);
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            overflow: visible;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -107,8 +107,10 @@
         .brand-emblem {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transform: scale(1.35); /* 横長画像の余白をカットして丸いエンブレム部分を大きく表示 */
+            object-fit: contain;
+            transform: none;
+            /* 白背景の画像でもサイトの生成り背景に綺麗に透過して馴染ませる */
+            mix-blend-mode: multiply;
         }
 
         .pastel-logo-text {
@@ -722,7 +724,7 @@
         @media (max-width: 600px) {
             .site-header { padding: 10px 8px 10px 12px; gap: 6px; }
             .brand-subcopy { font-size: 9.5px; }
-            .brand-emblem-wrap { width: 40px; height: 40px; }
+            .brand-emblem-wrap { width: 42px; height: 42px; }
             .pastel-logo-text { font-size: 21px; }
             .header-nav-group { gap: 6px; }
             .cta-consult-btn { padding: 8px 12px; }
@@ -774,7 +776,7 @@
             <a href="#" class="brand-area">
                 <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
                 <div class="brand-main">
-                    <!-- logo.PNG / logo.png / logo.jpg / logo.JPG すべてに完全対応 -->
+                    <!-- 丸枠なし・背景透過でロゴを表示 -->
                     <div class="brand-emblem-wrap">
                         <img src="logo.PNG" alt="ながれやまロゴ" class="brand-emblem" data-logo-loader="true">
                     </div>
@@ -1105,7 +1107,6 @@
     </footer>
 
     <script>
-        // 大文字・小文字どのファイル名でも自動でロゴを探して表示するスクリプト
         const logoCandidates = ['logo.PNG', 'logo.png', 'logo.jpg', 'logo.JPG', 'logo.jpeg', 'logo.JPEG', 'ロゴ.PNG', 'ロゴ.JPG'];
         const fallbackSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231d4e56" stroke="%23f59e56" stroke-width="4"/><text x="50" y="57" font-size="24" text-anchor="middle" fill="%23ffffff" font-family="serif">流山</text></svg>';
 
@@ -1117,7 +1118,6 @@
                     this.src = logoCandidates[idx];
                 } else {
                     this.onerror = null;
-                    this.style.transform = 'scale(1)';
                     this.src = fallbackSvg;
                 }
             };
