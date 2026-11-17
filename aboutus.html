@@ -250,7 +250,7 @@
         }
 
         /* ==========================================
-           下層ページヒーロー（ゆったり遊び心のあるヘッダー）
+           下層ページヒーロー
            ========================================== */
         .subpage-hero-wrap {
             padding-left: 48px;
@@ -317,7 +317,6 @@
             white-space: nowrap;
         }
 
-        /* パンくず＆4つの目次アンカーボタン */
         .breadcrumb-wrap {
             max-width: 980px;
             margin: 0 auto;
@@ -375,7 +374,7 @@
         }
 
         /* ==========================================
-           遊び心のある共通あしらい（縦書き見出し・イラスト・波線）
+           共通セクション＆あしらい
            ========================================== */
         .spacious-section {
             padding: 110px 24px 120px;
@@ -392,7 +391,6 @@
             z-index: 5;
         }
 
-        /* あったか！旭風の縦書きタイトル＋両脇イラスト */
         .playful-vertical-header {
             display: flex;
             align-items: center;
@@ -450,7 +448,6 @@
             100% { transform: translateY(-8px) rotate(2deg); }
         }
 
-        /* 2重波線ディバイダー */
         .wavy-line-deco {
             width: 90px;
             height: 14px;
@@ -474,7 +471,6 @@
             margin-bottom: 28px;
         }
 
-        /* 音声のような吹き出しカード */
         .voice-bubbles {
             display: flex;
             flex-wrap: wrap;
@@ -494,7 +490,6 @@
             gap: 10px;
         }
 
-        /* 写真とテキストがゆったり交互に並ぶコラージュレイアウト */
         .zigzag-block {
             display: grid;
             grid-template-columns: 1.05fr 0.95fr;
@@ -607,7 +602,6 @@
             font-weight: 700;
         }
 
-        /* 「あさひを知る」風の施設数テーブル＆数値ボックス */
         .data-tables-wrap {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -698,9 +692,9 @@
 
         .season-tag {
             display: inline-block;
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 11.5px;
             font-weight: 700;
             background: var(--pastel-yellow);
             color: #b8732a;
@@ -708,14 +702,15 @@
         }
 
         /* ==========================================
-           エリア別＆江戸川台駅再開発の特別枠
+           Section 04：江戸川台再開発 ＆ 各エリア深掘り大型ガイドカード
            ========================================== */
         .redev-spotlight {
             background: linear-gradient(135deg, #ffffff 0%, #fdfaf5 100%);
             border: 2px solid var(--warm-orange);
             border-radius: 24px;
             padding: 40px 36px;
-            margin-top: 45px;
+            margin-top: 40px;
+            margin-bottom: 65px;
             position: relative;
             box-shadow: 0 10px 30px rgba(245, 158, 86, 0.12);
         }
@@ -732,7 +727,97 @@
             letter-spacing: 0.08em;
         }
 
-        /* ながれやま時間 フォトギャラリー（横スクロール） */
+        /* 深掘りエリアガイド用の写真付き横長カード */
+        .area-deep-list {
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .area-deep-card {
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            border: 1px solid rgba(226, 223, 215, 0.8);
+        }
+
+        .area-deep-img-wrap {
+            position: relative;
+            min-height: 280px;
+            height: 100%;
+        }
+
+        .area-deep-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .area-station-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(46, 90, 84, 0.92);
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .area-deep-content {
+            padding: 34px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .area-deep-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(20px, 2.5vw, 25px);
+            color: var(--deep-forest);
+            margin-bottom: 14px;
+            line-height: 1.55;
+        }
+
+        .area-deep-desc {
+            font-size: 14px;
+            line-height: 2.0;
+            color: var(--text-main);
+            margin-bottom: 18px;
+        }
+
+        .area-highlights-box {
+            background-color: var(--bg-paper);
+            border-radius: 14px;
+            padding: 16px 20px;
+            font-size: 13px;
+            line-height: 1.85;
+        }
+
+        .area-spot-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .spot-pill {
+            background: #ffffff;
+            border: 1px solid #dcd8d0;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* ながれやま時間 フォトギャラリー */
         .gallery-strip-section {
             padding: 80px 0 40px;
             overflow: hidden;
@@ -853,7 +938,7 @@
             .anchor-nav { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 820px) {
+        @media (max-width: 860px) {
             .zigzag-block, .zigzag-block.reverse {
                 grid-template-columns: 1fr;
                 gap: 28px;
@@ -861,6 +946,16 @@
             }
             .deep-dive-grid, .data-tables-wrap, .event-showcase-grid {
                 grid-template-columns: 1fr;
+            }
+            .area-deep-card {
+                grid-template-columns: 1fr;
+            }
+            .area-deep-img-wrap {
+                height: 230px;
+                min-height: 230px;
+            }
+            .area-deep-content {
+                padding: 26px 22px;
             }
             .playful-vertical-header { gap: 18px; }
             .header-illust { width: 76px; height: 76px; }
@@ -912,7 +1007,7 @@
                 <ul class="sub-nav">
                     <li><a href="index.html#newopen">新規オープン店まとめ</a></li>
                     <li><a href="#childcare">子育て・学校・給食事情</a></li>
-                    <li><a href="#redev">江戸川台・再開発情報</a></li>
+                    <li><a href="#redev">エリア別深掘り＆再開発</a></li>
                 </ul>
                 <ul class="main-nav">
                     <li>
@@ -980,18 +1075,16 @@
         <a href="#intro" class="anchor-btn">流山市の特徴 <span>↓</span></a>
         <a href="#childcare" class="anchor-btn">保育・学校・給食事情 <span>↓</span></a>
         <a href="#shopping" class="anchor-btn">商業施設・マルシェ・イルミ <span>↓</span></a>
-        <a href="#redev" class="anchor-btn">江戸川台再開発・エリア <span>↓</span></a>
+        <a href="#redev" class="anchor-btn">全エリア徹底ガイド＆再開発 <span>↓</span></a>
     </div>
 
     <!-- ==========================================
-         Section 01：流山市について（ゆったり余白＆イラスト付き導入）
+         Section 01：流山市について
          ========================================== -->
     <section class="spacious-section crayon-texture" id="intro" style="padding-top: 40px;">
         <div class="content-inner">
 
-            <!-- 縦書き見出し＋両脇の遊び心ある手描き風イラスト -->
             <div class="playful-vertical-header">
-                <!-- 左イラスト：森の木々とオオタカ・自転車 -->
                 <svg class="header-illust" viewBox="0 0 120 120" fill="none">
                     <circle cx="60" cy="60" r="52" fill="#dfeee8" opacity="0.7"/>
                     <path d="M35 85 L50 45 L65 85 Z" fill="#68a691"/>
@@ -1010,7 +1103,6 @@
                     </div>
                 </div>
 
-                <!-- 右イラスト：手をつなぐ親子とお買い物バッグ -->
                 <svg class="header-illust" viewBox="0 0 120 120" fill="none">
                     <circle cx="60" cy="60" r="52" fill="#f6ead4" opacity="0.8"/>
                     <circle cx="45" cy="42" r="9" fill="#e5979c"/>
@@ -1021,7 +1113,6 @@
                 </svg>
             </div>
 
-            <!-- 2重波線デコレーション -->
             <svg class="wavy-line-deco" viewBox="0 0 100 16" fill="none">
                 <path d="M2 6 Q 12 1, 22 6 T 42 6 T 62 6 T 82 6 T 98 6" stroke="#498991" stroke-width="1.5"/>
                 <path d="M2 12 Q 12 7, 22 12 T 42 12 T 62 12 T 82 12 T 98 12" stroke="#498991" stroke-width="1.5" opacity="0.5"/>
@@ -1039,14 +1130,12 @@
                 </p>
             </div>
 
-            <!-- 暮らしのリアルな声（吹き出し） -->
             <div class="voice-bubbles">
                 <div class="voice-bubble">🌿 「朝、駅前の送迎保育ステーションにお願いして、帰りにSCでお買い物できるのが本当に助かる！」</div>
                 <div class="voice-bubble">🥐 「毎週末、駅前広場でマルシェやキッチンカーが出るから、散歩するだけで休日が楽しい◎」</div>
                 <div class="voice-bubble">🏫 「木の香りがするピカピカの新設小学校と、白みりんを使った美味しい給食が子どもの自慢です」</div>
             </div>
 
-            <!-- ジグザグ写真コラージュ1 -->
             <div class="zigzag-block">
                 <div class="photo-collage-frame">
                     <span class="floating-badge">Feature 01</span>
@@ -1070,7 +1159,7 @@
     </section>
 
     <!-- ==========================================
-         Section 02：子育て支援・学校設備・送迎バス・給食事情の徹底深掘り！
+         Section 02：子育て支援・学校設備・送迎バス・給食事情
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; margin-bottom: -1px;">
         <path fill="#bfe3dc" d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,80L0,80Z"></path>
@@ -1089,10 +1178,7 @@
                 </p>
             </div>
 
-            <!-- 4大深掘りカード（送迎バス・学校設備・教育方針・給食事情） -->
             <div class="deep-dive-grid">
-
-                <!-- 1. 送迎保育ステーション -->
                 <div class="deep-card">
                     <div class="deep-card-icon">🚌</div>
                     <h4>全国が注目！「駅前送迎保育ステーション」と通園バス</h4>
@@ -1102,7 +1188,6 @@
                     </p>
                 </div>
 
-                <!-- 2. 最新学校設備（木造校舎・新設校） -->
                 <div class="deep-card">
                     <div class="deep-card-icon">🏫</div>
                     <h4>木のぬくもりあふれる新設校舎＆圧倒的な学校設備</h4>
@@ -1112,7 +1197,6 @@
                     </p>
                 </div>
 
-                <!-- 3. 教育方針（ICT・英語・STEAM） -->
                 <div class="deep-card">
                     <div class="deep-card-icon">💻</div>
                     <h4>1人1台タブレット＆全校ALT配置！先進の教育方針</h4>
@@ -1122,7 +1206,6 @@
                     </p>
                 </div>
 
-                <!-- 4. 最近の給食事情（白みりん・地場野菜・無償化） -->
                 <div class="deep-card">
                     <div class="deep-card-icon">🍛</div>
                     <h4>最近の流山給食事情！白みりん給食＆第3子以降無償化</h4>
@@ -1131,10 +1214,8 @@
                         さらに子育て世帯の経済的負担を軽減するため、<strong>第3子以降の学校給食費無償化</strong>などの支援も実施されています。
                     </p>
                 </div>
-
             </div>
 
-            <!-- 「あさひを知る」風の施設データ一覧表 -->
             <div class="data-tables-wrap">
                 <div class="asahi-data-box">
                     <h4>
@@ -1208,7 +1289,6 @@
         <div class="content-inner">
 
             <div class="playful-vertical-header" style="margin-bottom: 45px;">
-                <!-- 左イラスト：マルシェのテントとコーヒー -->
                 <svg class="header-illust" viewBox="0 0 120 120" fill="none">
                     <circle cx="60" cy="60" r="52" fill="#ffffff" opacity="0.65"/>
                     <path d="M25 55 L40 30 L80 30 L95 55 Z" fill="#f59e56"/>
@@ -1225,7 +1305,6 @@
                     </div>
                 </div>
 
-                <!-- 右イラスト：冬のイルミネーションと星空 -->
                 <svg class="header-illust" viewBox="0 0 120 120" fill="none">
                     <circle cx="60" cy="60" r="52" fill="#2e5a54" opacity="0.85"/>
                     <path d="M60 25 L35 85 L85 85 Z" fill="#68a691"/>
@@ -1249,7 +1328,6 @@
                 </p>
             </div>
 
-            <!-- ジグザグ紹介：流山らしい商業施設 -->
             <div class="zigzag-block">
                 <div class="photo-collage-frame">
                     <span class="floating-badge" style="background: #c58293;">Shopping</span>
@@ -1272,10 +1350,7 @@
                 </div>
             </div>
 
-            <!-- 3枚のイベント・イルミネーション・マルシェカード -->
             <div class="event-showcase-grid">
-
-                <!-- 1. 駅前イルミネーション -->
                 <div class="showcase-card">
                     <img src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=700&q=80" alt="イルミネーション" class="showcase-img">
                     <div class="showcase-body">
@@ -1287,7 +1362,6 @@
                     </div>
                 </div>
 
-                <!-- 2. 毎週のマルシェ＆フリマ -->
                 <div class="showcase-card">
                     <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=700&q=80" alt="週末マルシェ" class="showcase-img">
                     <div class="showcase-body">
@@ -1299,7 +1373,6 @@
                     </div>
                 </div>
 
-                <!-- 3. 四季のフェスティバル -->
                 <div class="showcase-card">
                     <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=700&q=80" alt="ナイトカフェと花火" class="showcase-img">
                     <div class="showcase-body">
@@ -1310,14 +1383,13 @@
                         </p>
                     </div>
                 </div>
-
             </div>
 
         </div>
     </section>
 
     <!-- ==========================================
-         Section 04：注目の江戸川台駅周辺再開発 ＆ 市内エリアマップ
+         Section 04：江戸川台再開発 ＆ 市内エリア別徹底ガイド（大幅拡充！）
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; background-color: #f1dce3; margin-bottom: -1px;">
         <path fill="#f6ead4" d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,80L0,80Z"></path>
@@ -1325,20 +1397,20 @@
     <section class="spacious-section bg-yellow crayon-texture" id="redev">
         <div class="content-inner">
 
-            <div style="text-align: center; max-width: 760px; margin: 0 auto 45px;">
-                <div class="feature-en" style="color: #c47f38;">Section 04 / Future & Area Renewal</div>
+            <div style="text-align: center; max-width: 780px; margin: 0 auto 45px;">
+                <div class="feature-en" style="color: #c47f38;">Section 04 / Area Deep Dive & Renewal</div>
                 <h2 class="feature-title">
-                    さらに進化するこれからの流山。<br>
-                    「江戸川台駅周辺」の再開発・リノベーション計画。
+                    駅ごとにまったく違う表情と魅力！<br>
+                    流山市のエリア別徹底ガイド＆再開発情報。
                 </h2>
                 <p style="font-size: 15px;">
-                    TX沿線だけでなく、東武アーバンパークライン沿線や歴史ある住宅街も今、新しい世代と交わりながら魅力的なアップデートを迎えています。
+                    流山市はおおたかの森だけではありません！江戸川台駅周辺の再整備計画をはじめ、南流山・木エリア、セントラルパーク、流山本町・加エリア、利根運河エリアまで、それぞれの街の個性と暮らしやすさを深掘りしてご紹介します。
                 </p>
             </div>
 
-            <!-- 江戸川台駅周辺の再開発・街づくり特集枠 -->
+            <!-- 1. 江戸川台駅周辺の再開発・街づくり特集枠 -->
             <div class="redev-spotlight">
-                <span class="redev-ribbon">📣 注目の街づくりトピックス</span>
+                <span class="redev-ribbon">📣 注目の街づくり・再開発トピックス</span>
                 <h3 class="mincho" style="font-size: clamp(20px, 2.8vw, 27px); color: var(--text-main); margin-bottom: 16px;">
                     懐かしさと新しさが融合する「江戸川台駅周辺」再整備＆リノベーション
                 </h3>
@@ -1354,29 +1426,142 @@
                 </div>
             </div>
 
-            <!-- 市内その他のエリアひとくちガイド -->
-            <div class="deep-dive-grid" style="margin-top: 35px;">
-                <div class="deep-card">
-                    <span class="season-tag" style="background: var(--pastel-mint); color: #2e5a54;">南流山・木エリア</span>
-                    <h4>TX×JR武蔵野線の2路線！個人店グルメと大型店の街</h4>
-                    <p style="font-size: 13.5px;">
-                        都心へも越谷レイクタウン・舞浜方面へも直通の抜群の利便性。区画整理された美しい街並みに、行列ができる個人ベーカリーやイタリアン、大型スーパーが集まっています。
-                    </p>
+            <!-- 2. ご要望の4大エリア深掘り大型ガイドカード（南流山・木 ／ セントラルパーク ／ 流山本町・加 ／ 運河） -->
+            <div class="area-deep-list">
+
+                <!-- ① 南流山・木（き）エリア -->
+                <div class="area-deep-card">
+                    <div class="area-deep-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=85" alt="南流山・木エリア" class="area-deep-img">
+                        <span class="area-station-badge">🚃 TX・JR武蔵野線「南流山駅」</span>
+                    </div>
+                    <div class="area-deep-content">
+                        <div>
+                            <span class="season-tag" style="background: var(--pastel-mint); color: #2e5a54;">Area Guide 01 ／ 南流山・木（き）エリア</span>
+                        </div>
+                        <h3 class="area-deep-title">
+                            2路線交差の圧倒的アクセス！<br>
+                            美しい区画整理の街「木地区」と個人店グルメの宝庫
+                        </h3>
+                        <p class="area-deep-desc">
+                            つくばエクスプレス（TX）とJR武蔵野線の2路線が交差する「南流山駅」は、秋葉原・東京駅方面だけでなく、<strong>越谷レイクタウンや東京ディズニーリゾート（舞浜駅）、海浜幕張へも乗り換えなし1本</strong>で行けるおでかけ最強エリア！駅前には「南流山送迎保育ステーション」や大型の「南流山児童センター」も完備されています。<br>
+                            さらに駅南側から江戸川にかけて広がる<strong>「木（き）エリア」</strong>は、近年の区画整理によって電線類が地中化された美しい街並みへと進化。ヤオコーやコーナン、ケーズデンキ、ユニクロなどの大型商業施設が集まり、休日のカフェ・ベーカリー巡りから日々のお買い物まで車でも自転車でも驚くほど快適です。
+                        </p>
+                        <div class="area-highlights-box">
+                            <strong>💡 南流山・木エリアの暮らし＆おでかけ注目スポット</strong>
+                            <div class="area-spot-pills">
+                                <span class="spot-pill">🚌 南流山送迎保育ステーション</span>
+                                <span class="spot-pill">🎠 南流山児童センター</span>
+                                <span class="spot-pill">🛒 ヤオコー南流山店・コーナン（木地区）</span>
+                                <span class="spot-pill">🥐 行列のできる個人ベーカリー＆イタリアン</span>
+                                <span class="spot-pill">🏫 南流山第一・第二小学校（新設校体制）</span>
+                                <span class="spot-pill">🚲 江戸川サイクリングロード</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="deep-card">
-                    <span class="season-tag" style="background: var(--pastel-pink); color: #9e5869;">セントラルパーク・流山本町・運河</span>
-                    <h4>大型運動公園・白みりんの蔵・桜咲く利根運河</h4>
-                    <p style="font-size: 13.5px;">
-                        キッコーマン アリーナや大型アスレチックがあるセントラルパーク、2025年オープンの「白みりんミュージアム」で賑わう流山本町、東京理科大学と水辺の桜並木が美しい運河エリアなど、休日のお散歩コースの宝庫です。
-                    </p>
+
+                <!-- ② 流山セントラルパーク（運動公園周辺）エリア -->
+                <div class="area-deep-card">
+                    <div class="area-deep-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=85" alt="流山セントラルパークエリア" class="area-deep-img">
+                        <span class="area-station-badge">🚃 TX「流山セントラルパーク駅」</span>
+                    </div>
+                    <div class="area-deep-content">
+                        <div>
+                            <span class="season-tag" style="background: #dfeee8; color: #2e5a54;">Area Guide 02 ／ 流山セントラルパークエリア</span>
+                        </div>
+                        <h3 class="area-deep-title">
+                            巨大アスレチックとSLがある緑のオアシス！<br>
+                            スポーツ・医療・教育が揃うウェルネスの街
+                        </h3>
+                        <p class="area-deep-desc">
+                            流山おおたかの森駅の1駅隣に位置し、駅名の通り広大な<strong>「流山市総合運動公園」</strong>を抱える緑豊かなエリア。公園内には子どもたちに大人気の大型木製アスレチック広場、本物のD51形蒸気機関車（SL）やミニトレイン展示、広々とした芝生広場や日本庭園があり、週末はテントを広げてピクニックを楽しむ家族連れで賑わいます。<br>
+                            また、プロバスケットボール（Bリーグ）の試合や市民スポーツ教室が開かれる<strong>「キッコーマン アリーナ（流山市民総合体育館）」</strong>、駅直結の総合病院「東葛病院」、バイリンガル教育で知られる「暁星国際流山小学校」などが集まり、落ち着いた住環境と安心の医療・文教環境が揃っています。
+                        </p>
+                        <div class="area-highlights-box">
+                            <strong>💡 セントラルパークエリアの暮らし＆おでかけ注目スポット</strong>
+                            <div class="area-spot-pills">
+                                <span class="spot-pill">🚂 流山市総合運動公園（SL・大型アスレチック）</span>
+                                <span class="spot-pill">🏀 キッコーマン アリーナ（市民総合体育館）</span>
+                                <span class="spot-pill">🏥 東葛病院・小児科クリニックモール</span>
+                                <span class="spot-pill">🏫 暁星国際流山小学校・幼児園</span>
+                                <span class="spot-pill">🍰 公園帰りに寄りたい洋菓子店・カフェ</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- ③ 流山本町・加（か）エリア -->
+                <div class="area-deep-card">
+                    <div class="area-deep-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=85" alt="流山本町・加エリア" class="area-deep-img">
+                        <span class="area-station-badge">🚃 流鉄流山線「流山駅」・平和台駅</span>
+                    </div>
+                    <div class="area-deep-content">
+                        <div>
+                            <span class="season-tag" style="background: var(--pastel-pink); color: #9e5869;">Area Guide 03 ／ 流山本町・加（か）エリア</span>
+                        </div>
+                        <h3 class="area-deep-title">
+                            白みりんミュージアムと古民家カフェの街並み、<br>
+                            文化会館や江戸川の菜の花畑が広がる「加エリア」
+                        </h3>
+                        <p class="area-deep-desc">
+                            江戸川の水運と「白みりん発祥の地」として栄えた歴史情緒あふれる<strong>「流山本町エリア」</strong>。2025年春にオープンした体験型施設<strong>「流山白みりんミュージアム」</strong>をはじめ、築100年を超える土蔵や古民家をリノベーションしたフレンチ、和カフェ、ベーカリー、そして夜に優しく灯る「切り絵行灯（あんどん）」が織りなす街並みは、歩いているだけで心がほどける美しさです。<br>
+                            そのすぐ北側から江戸川沿いにかけて広がる<strong>「加（か）エリア」</strong>は、流山市文化会館や市立図書館（本館）、博物館、子育て世帯に人気の「加岸ベアーズ公園」が集まる文化と暮らしの拠点。春には江戸川堤が一面の黄色い菜の花畑に染まり、夏には「流山花火大会」のメイン会場として大きな賑わいを見せます。
+                        </p>
+                        <div class="area-highlights-box">
+                            <strong>💡 流山本町・加（か）エリアの暮らし＆おでかけ注目スポット</strong>
+                            <div class="area-spot-pills">
+                                <span class="spot-pill">🍶 流山白みりんミュージアム（体験・限定スイーツ）</span>
+                                <span class="spot-pill">🍵 一茶双樹記念館・古民家リノベカフェ群</span>
+                                <span class="spot-pill">🏮 切り絵行灯ギャラリー・浅間神社（富士塚）</span>
+                                <span class="spot-pill">📚 流山市立図書館（本館）・博物館・文化会館（加地区）</span>
+                                <span class="spot-pill">🌼 江戸川河川敷の菜の花畑・流山花火大会会場</span>
+                                <span class="spot-pill">🚃 カラフルで可愛いローカル線「流鉄流山線」</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ④ 利根運河（うんが）エリア -->
+                <div class="area-deep-card">
+                    <div class="area-deep-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=85" alt="利根運河エリア" class="area-deep-img">
+                        <span class="area-station-badge">🚃 東武アーバンパークライン「運河駅」</span>
+                    </div>
+                    <div class="area-deep-content">
+                        <div>
+                            <span class="season-tag" style="background: var(--pastel-yellow); color: #b8732a;">Area Guide 04 ／ 利根運河（うんが）エリア</span>
+                        </div>
+                        <h3 class="area-deep-title">
+                            水辺の桜並木と東京理科大学のキャンパスが調和する、<br>
+                            四季の自然散策とマルシェが楽しい水郷エリア
+                        </h3>
+                        <p class="area-deep-desc">
+                            市の北端を流れる明治開削の近代化産業遺産「利根運河」を中心に、豊かな水辺の景観が広がる<strong>「運河エリア」</strong>。春には運河の両岸をソメイヨシノの桜並木が彩り、ゴールデンウィークには鯉のぼりが泳ぎ、秋には真っ赤な彼岸花（曼珠沙華）が咲き誇るなど、カメラやベビーカー片手のお散歩コースとして絶大な人気を誇ります。<br>
+                            また、<strong>東京理科大学（野田キャンパス）</strong>の最寄り駅でもあり、理系学生と地域住民が連携した科学ワークショップや、水辺で開かれる「うんがいい！朝市・土曜市」、流山工業団地内の工場直売イベントなど、知性と自然が心地よく交わる独自のカルチャーが根付いています。
+                        </p>
+                        <div class="area-highlights-box">
+                            <strong>💡 運河エリアの暮らし＆おでかけ注目スポット</strong>
+                            <div class="area-spot-pills">
+                                <span class="spot-pill">🌸 利根運河水辺公園（桜並木・彼岸花・浮き橋）</span>
+                                <span class="spot-pill">🎓 東京理科大学 理窓会記念自然公園</span>
+                                <span class="spot-pill">🎪 運河駅ギャラリー・利根運河交流館（レンタサイクル）</span>
+                                <span class="spot-pill">🥬 うんがいい！朝市・水辺のマルシェ</span>
+                                <span class="spot-pill">♨️ 天然温泉・アウトドア＆サイクリング拠点</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </section>
 
     <!-- ==========================================
-         ながれやま時間 Photo Gallery（「あさひじかん」風のポラロイド横スクロール）
+         ながれやま時間 Photo Gallery
          ========================================== -->
     <section class="gallery-strip-section crayon-texture">
         <div style="text-align: center; margin-bottom: 20px; position: relative; z-index: 5;">
