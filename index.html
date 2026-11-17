@@ -108,7 +108,7 @@
             object-fit: contain;
             display: block;
             mix-blend-mode: multiply;
-            transform: translateY(1px); /* 明朝体タイトルとの中心軸をミリ単位で揃える微調整 */
+            transform: translateY(1px);
         }
 
         .pastel-logo-text {
@@ -764,7 +764,7 @@
         <div class="en-serif" style="color: var(--accent-teal); font-size: 14px; margin-bottom: 12px;">MENU</div>
         <ul class="sp-drawer-list">
             <li><a href="#newopen" onclick="toggleSpMenu()">新規オープン・新着情報 <span>→</span></a></li>
-            <li><a href="#area" onclick="toggleSpMenu()">01 ながれやまを知る（エリアガイド） <span>→</span></a></li>
+            <li><a href="aboutus.html">01 ながれやまを知る（エリアガイド） <span>→</span></a></li>
             <li><a href="#cafe" onclick="toggleSpMenu()">02 カフェ・グルメ・子育て <span>→</span></a></li>
             <li><a href="#event" onclick="toggleSpMenu()">03 週末イベント・市役所情報 <span>→</span></a></li>
             <li><a href="#contact" onclick="toggleSpMenu()">情報提供・掲載のご相談 <span>→</span></a></li>
@@ -773,7 +773,7 @@
 
     <div class="top-wrapper">
         <header class="site-header">
-            <a href="#" class="brand-area">
+            <a href="index.html" class="brand-area">
                 <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
                 <div class="brand-main">
                     <!-- タイトル文字と同じ高さ・バランスで並ぶロゴ -->
@@ -793,7 +793,7 @@
                     </ul>
                     <ul class="main-nav">
                         <li>
-                            <a href="#area">
+                            <a href="aboutus.html">
                                 <svg class="nav-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                                 ながれやまを知る
                             </a>
@@ -903,7 +903,8 @@
                 このサイトでは、流山での暮らしがもっと楽しくなる地域の旬な情報をお届けします。
             </p>
 
-            <a href="#area" class="asahi-pill-btn">
+            <!-- 新しい詳細ページ aboutus.html へ移動 -->
+            <a href="aboutus.html" class="asahi-pill-btn">
                 ながれやまの魅力を知る
                 <span class="orange-arrow">→</span>
             </a>
@@ -976,7 +977,8 @@
                 ①流山おおたかの森（S・C／森のまち広場／こかげテラス） ／ ②南流山（個人カフェ・パン屋巡り・児童センター） ／ ③流山本町（白みりんミュージアム・古民家リノベ街並み） ／ ④流山セントラルパーク（総合運動公園・ピクニック） ／ ⑤江戸川台（活気ある商店街とレトログルメ） ／ ⑥運河（利根運河水辺公園・桜並木）
             </div>
 
-            <a href="#" class="asahi-pill-btn">
+            <!-- 新しい詳細ページ aboutus.html へ移動 -->
+            <a href="aboutus.html" class="asahi-pill-btn">
                 エリア別ガイドを見る
                 <span class="orange-arrow">→</span>
             </a>
@@ -1091,10 +1093,10 @@
             </div>
 
             <ul class="footer-nav-list">
-                <li><a href="#">HOME</a></li>
+                <li><a href="index.html">HOME</a></li>
                 <li><a href="#newopen">新規オープン・お知らせ</a></li>
                 <li><a href="#cafe">子連れカフェ・グルメ</a></li>
-                <li><a href="#area">ながれやまを知る（エリア別ガイド）</a></li>
+                <li><a href="aboutus.html">ながれやまを知る（エリア別ガイド）</a></li>
                 <li><a href="#event">週末イベント・マルシェ情報</a></li>
                 <li><a href="#gov">流山市役所・子育て支援まとめ</a></li>
                 <li><a href="#contact">お店の掲載依頼・情報提供フォーム</a></li>
@@ -1154,7 +1156,6 @@
             }
         ];
 
-        // 画像を事前読み込み（切り替え時のチラつき防止）
         scenes.forEach(s => {
             const preloadImg = new Image();
             preloadImg.src = s.url;
@@ -1168,14 +1169,12 @@
             const heroBg = document.getElementById('heroBg');
             const imgUrl = scenes[index].url;
 
-            // ふわっとフェード切り替え
             heroBg.style.opacity = '0.35';
             setTimeout(() => {
                 heroBg.style.backgroundImage = `linear-gradient(to bottom, rgba(255, 210, 160, 0.12) 0%, rgba(25, 40, 45, 0.45) 100%), url('${imgUrl}')`;
                 heroBg.style.opacity = '1';
             }, 250);
 
-            // 左下の01〜05リストの表示更新
             const items = document.querySelectorAll('#sceneList li');
             items.forEach((li, idx) => {
                 const labelText = scenes[idx].title;
@@ -1194,15 +1193,14 @@
             slideInterval = setInterval(() => {
                 const nextIndex = (currentSceneIndex + 1) % scenes.length;
                 changeScene(nextIndex);
-            }, 5000); // 5000ミリ秒（5秒）ごとに自動切り替え
+            }, 5000);
         }
 
         function selectSceneManually(index) {
             changeScene(index);
-            startAutoRotation(); // 手動クリック時は5秒タイマーをリセットして再開
+            startAutoRotation();
         }
 
-        // ページ読み込み時に自動ローテーション開始
         startAutoRotation();
     </script>
 </body>
