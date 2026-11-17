@@ -75,6 +75,7 @@
             gap: 4px;
             text-decoration: none;
             min-width: 0;
+            flex-shrink: 1;
         }
 
         .brand-subcopy {
@@ -200,7 +201,7 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 6px 12px 6px 4px;
+            padding: 6px 10px 6px 4px;
             text-align: center;
             font-size: 10px;
             font-family: 'Cormorant Garamond', serif;
@@ -209,7 +210,7 @@
         }
         .sp-menu-btn span {
             display: block;
-            width: 24px;
+            width: 22px;
             height: 2px;
             background: var(--text-main);
             margin: 4px auto;
@@ -250,7 +251,7 @@
         }
 
         /* ==========================================
-           下層ページヒーロー
+           下層ページヒーロー（白い帯のズレ・文字重なり完全防止構造）
            ========================================== */
         .subpage-hero-wrap {
             padding-left: 48px;
@@ -262,7 +263,7 @@
             border-top-left-radius: 120px;
             overflow: hidden;
             position: relative;
-            background: linear-gradient(to bottom, rgba(25, 45, 50, 0.2), rgba(25, 45, 50, 0.45)),
+            background: linear-gradient(to bottom, rgba(25, 45, 50, 0.22), rgba(25, 45, 50, 0.48)),
                         url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=85') center/cover no-repeat;
             display: flex;
             flex-direction: column;
@@ -270,7 +271,7 @@
             align-items: center;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 20px 20px 65px; /* 下部の波形と手書き文字のためのスペースを確保 */
         }
 
         .subpage-hero-num {
@@ -284,43 +285,55 @@
 
         .subpage-hero-title {
             font-family: 'Shippori Mincho', serif;
-            font-size: clamp(28px, 4.5vw, 44px);
+            font-size: clamp(26px, 4.5vw, 44px);
             font-weight: 500;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.22em;
             text-shadow: 0 2px 15px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .subpage-hero-sub {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
+            font-size: clamp(15px, 2vw, 18px);
             letter-spacing: 0.18em;
             opacity: 0.95;
         }
 
+        /* 写真枠の底面にピタッと密着して絶対にズレない波形＆手書き文字 */
         .subpage-wave {
-            position: relative;
-            margin-top: -70px;
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
             z-index: 10;
             pointer-events: none;
+            line-height: 0;
+        }
+
+        .subpage-wave svg {
+            display: block;
+            width: 100%;
+            height: 65px;
         }
 
         .script-overlay {
             position: absolute;
-            top: -22px;
-            right: 7%;
+            bottom: 24px;
+            right: 6%;
             font-family: 'Sacramento', cursive;
-            font-size: clamp(34px, 5vw, 62px);
+            font-size: clamp(28px, 4.8vw, 58px);
             color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.18);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.28);
             transform: rotate(-3deg);
             white-space: nowrap;
+            line-height: 1;
+            z-index: 12;
         }
 
         .breadcrumb-wrap {
             max-width: 980px;
             margin: 0 auto;
-            padding: 15px 28px 30px;
+            padding: 18px 28px 28px;
             font-size: 12px;
             color: var(--text-muted);
         }
@@ -331,7 +344,7 @@
 
         .anchor-nav {
             max-width: 920px;
-            margin: 10px auto 80px;
+            margin: 5px auto 80px;
             padding: 0 24px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -727,7 +740,6 @@
             letter-spacing: 0.08em;
         }
 
-        /* 深掘りエリアガイド用の写真付き横長カード */
         .area-deep-list {
             display: flex;
             flex-direction: column;
@@ -934,7 +946,7 @@
             .cta-consult-btn { border-radius: 30px; padding: 10px 16px; }
             .cta-en { display: none; }
             .subpage-hero-wrap { padding-left: 0; }
-            .subpage-hero-box { border-top-left-radius: 0; height: 340px; }
+            .subpage-hero-box { border-top-left-radius: 0; height: 350px; padding-bottom: 55px; }
             .anchor-nav { grid-template-columns: repeat(2, 1fr); }
         }
 
@@ -963,12 +975,41 @@
         }
 
         @media (max-width: 600px) {
-            .site-header { padding: 10px 8px 10px 12px; gap: 6px; }
-            .brand-subcopy { font-size: 9.5px; }
-            .brand-emblem-wrap { height: 28px; }
-            .pastel-logo-text { font-size: 21px; }
-            .cta-consult-btn { padding: 8px 12px; }
-            .cta-jp { font-size: 11.5px; }
+            .site-header { padding: 10px 6px 10px 10px; gap: 4px; }
+            .brand-subcopy { font-size: 8.5px; letter-spacing: 0.01em; }
+            .brand-main { gap: 5px; }
+            .brand-emblem-wrap { height: 24px; }
+            .pastel-logo-text { font-size: 18.5px; }
+            .header-nav-group { gap: 4px; }
+            .cta-consult-btn { padding: 7px 10px; gap: 4px; }
+            .cta-consult-btn svg { width: 14px; height: 14px; }
+            .cta-jp { font-size: 10.5px; }
+
+            /* iPhoneで白い波形と文字が絶対に重ならず綺麗に収まる設定 */
+            .subpage-hero-box {
+                height: 310px;
+                padding: 15px 16px 60px;
+            }
+            .subpage-hero-num {
+                font-size: 26px;
+                margin-bottom: 10px;
+            }
+            .subpage-hero-title {
+                font-size: 24px;
+                margin-bottom: 6px;
+            }
+            .subpage-hero-sub {
+                font-size: 13.5px;
+            }
+            .subpage-wave svg {
+                height: 38px;
+            }
+            .script-overlay {
+                font-size: 26px;
+                bottom: 12px;
+                right: 12px;
+            }
+
             .anchor-nav { grid-template-columns: 1fr; margin-bottom: 50px; }
             .main-collage-img { height: 250px; }
             .redev-spotlight { padding: 28px 22px; }
@@ -1049,20 +1090,20 @@
         </div>
     </header>
 
-    <!-- 1. 下層ページメインビジュアル -->
+    <!-- 1. 下層ページメインビジュアル（波形を写真枠の底面に内蔵してズレを完全解消） -->
     <div class="subpage-hero-wrap">
         <div class="subpage-hero-box">
             <div class="subpage-hero-num">01</div>
             <h1 class="subpage-hero-title">ながれやまを知る</h1>
             <div class="subpage-hero-sub">About Nagareyama City</div>
-        </div>
-    </div>
 
-    <div class="subpage-wave">
-        <div class="script-overlay">Discover Nagareyama Life.</div>
-        <svg viewBox="0 0 1440 120" style="display: block; width: 100%; height: auto;">
-            <path fill="#f3f1ec" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L0,120Z"></path>
-        </svg>
+            <div class="subpage-wave">
+                <div class="script-overlay">Discover Nagareyama Life.</div>
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path fill="#f3f1ec" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L0,120Z"></path>
+                </svg>
+            </div>
+        </div>
     </div>
 
     <!-- パンくずリスト -->
@@ -1389,7 +1430,7 @@
     </section>
 
     <!-- ==========================================
-         Section 04：江戸川台再開発 ＆ 市内エリア別徹底ガイド（大幅拡充！）
+         Section 04：江戸川台再開発 ＆ 市内エリア別徹底ガイド
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; background-color: #f1dce3; margin-bottom: -1px;">
         <path fill="#f6ead4" d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,80L0,80Z"></path>
@@ -1426,7 +1467,7 @@
                 </div>
             </div>
 
-            <!-- 2. ご要望の4大エリア深掘り大型ガイドカード（南流山・木 ／ セントラルパーク ／ 流山本町・加 ／ 運河） -->
+            <!-- 2. 4大エリア深掘り大型ガイドカード -->
             <div class="area-deep-list">
 
                 <!-- ① 南流山・木（き）エリア -->
