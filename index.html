@@ -706,15 +706,6 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.06);
         }
 
-        .ig-badge {
-            font-size: 10.5px;
-            color: #c13584;
-            background: #fcecf3;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-        }
-
         .news-pager {
             display: flex;
             align-items: center;
@@ -987,7 +978,7 @@
         </div>
     </section>
 
-    <!-- 新店Open News・最新情報（Instagramリンク＋左右スライド＆全件バックナンバー対応） -->
+    <!-- 新店Open News・最新情報（カテゴリー別自動リンク判別＋左右スライド＆全件バックナンバー対応） -->
     <section class="crayon-texture" style="padding: 75px 24px;" id="newopen">
         <div class="content-inner">
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
@@ -1000,10 +991,8 @@
                 </button>
             </div>
 
-            <!-- ニュース一覧が自動描画されます -->
             <div class="news-list-container" id="newsListContainer"></div>
 
-            <!-- 左右スライド（ページ送り）コントロール -->
             <div class="news-pager" id="newsPager">
                 <button type="button" class="pager-btn" id="prevNewsBtn" onclick="slideNews(-1)">◀ 新しい記事</button>
                 <span class="pager-info" id="newsPageInfo">1 / 2</span>
@@ -1161,6 +1150,7 @@
                 <li><a href="#event">週末イベント</a></li>
                 <li><a href="#gov">流山市役所・子育て支援まとめ</a></li>
                 <li><a href="contact.html">情報提供・ご相談（やりとりフォーム）</a></li>
+                <li><a href="admin.html">管理者編集</a></li>
             </ul>
 
             <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 35px;">
@@ -1191,54 +1181,79 @@
         }
 
         // ==========================================
-        // 新店Open News・最新情報データ（ここに記事を追加すると自動でバックナンバー化されます）
-        // ※ instagramUrl に各投稿のInstagram URLを貼ってください
+        // カテゴリー別の自動判別設定（タグ表示＆デフォルトの飛び先URL）
+        // ==========================================
+        const categoryConfig = {
+            newopen: {
+                tag: '🎊 新店Open News',
+                tagClass: 'orange',
+                defaultUrl: 'https://www.instagram.com/'
+            },
+            cafe: {
+                tag: '☕ 子連れカフェ',
+                tagClass: 'pink',
+                defaultUrl: 'https://www.instagram.com/'
+            },
+            city: {
+                tag: '🏛 市役所・子育て',
+                tagClass: '',
+                defaultUrl: 'https://www.city.nagareyama.chiba.jp/'
+            },
+            event: {
+                tag: '🎪 週末イベント',
+                tagClass: 'pink',
+                defaultUrl: 'https://www.otakanomori-sc.com/'
+            }
+        };
+
+        // ==========================================
+        // 新店Open News・最新情報データ
         // ==========================================
         const newsData = [
             {
                 date: '2026.11.15',
-                tag: '🎊 新店Open News',
-                tagClass: 'orange',
+                category: 'newopen',
                 title: '【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN',
-                instagramUrl: 'https://www.instagram.com/'
+                url: ''
             },
             {
                 date: '2026.11.12',
-                tag: '☕ 子連れカフェ',
-                tagClass: 'pink',
+                category: 'cafe',
                 title: '【南流山・流山本町】お座敷＆ベビーカー入店OK！赤ちゃんと行けるおすすめランチ6選',
-                instagramUrl: 'https://www.instagram.com/'
+                url: ''
             },
             {
                 date: '2026.11.08',
-                tag: '🏛 市役所・子育て',
-                tagClass: '',
+                category: 'city',
                 title: '【流山市役所】送迎保育ステーションの利用ガイド＆令和9年度保育園スケジュールまとめ',
-                instagramUrl: 'https://www.instagram.com/'
+                url: 'https://www.city.nagareyama.chiba.jp/life/1000877/index.html'
             },
-            // --- 以下、バックナンバー（2ページ目） ---
             {
                 date: '2026.11.03',
-                tag: '🎊 新店Open News',
-                tagClass: 'orange',
+                category: 'newopen',
                 title: '【江戸川台】商店街に自家焙煎スペシャルティコーヒー＆焼き菓子の新店がオープン！',
-                instagramUrl: 'https://www.instagram.com/'
+                url: ''
             },
             {
                 date: '2026.10.28',
-                tag: '🎪 週末イベント',
-                tagClass: 'pink',
+                category: 'event',
                 title: '【流山おおたかの森】今年の駅前イルミネーション点灯式＆森のマルシェ開催日程まとめ',
-                instagramUrl: 'https://www.instagram.com/'
+                url: 'https://www.otakanomori-sc.com/'
             },
             {
                 date: '2026.10.20',
-                tag: '🎊 新店Open News',
-                tagClass: 'orange',
+                category: 'newopen',
                 title: '【南流山・木エリア】駐車場広々！家族で通える本格石窯ピザのお店がNEW OPEN',
-                instagramUrl: 'https://www.instagram.com/'
+                url: ''
             }
         ];
+
+        // 管理者ページ（admin.html）から追加された記事を先頭に自動合体する
+        const customNewsSaved = localStorage.getItem('nagareyama_biyori_custom_news_v1');
+        if (customNewsSaved) {
+            const customItems = JSON.parse(customNewsSaved);
+            newsData.unshift(...customItems);
+        }
 
         const NEWS_PER_PAGE = 3;
         let currentNewsPage = 0;
@@ -1254,17 +1269,21 @@
                 ? newsData
                 : newsData.slice(currentNewsPage * NEWS_PER_PAGE, (currentNewsPage + 1) * NEWS_PER_PAGE);
 
-            container.innerHTML = itemsToShow.map(item => `
-                <a href="${item.instagramUrl}" target="_blank" rel="noopener noreferrer" class="news-item-card">
-                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 6px;">
-                        <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">${item.date}</span>
-                        <span class="pastel-tag ${item.tagClass}">${item.tag}</span>
-                        <span class="ig-badge">📷 Instagramで見る</span>
-                    </div>
-                    <div style="font-size: 14.5px; font-weight: 500;">${item.title}</div>
-                    <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
-                </a>
-            `).join('');
+            container.innerHTML = itemsToShow.map(item => {
+                const config = categoryConfig[item.category] || { tag: 'お知らせ', tagClass: '', defaultUrl: '#' };
+                const targetUrl = item.url || config.defaultUrl;
+
+                return `
+                    <a href="${targetUrl}" target="_blank" rel="noopener noreferrer" class="news-item-card">
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 6px;">
+                            <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">${item.date}</span>
+                            <span class="pastel-tag ${config.tagClass}">${config.tag}</span>
+                        </div>
+                        <div style="font-size: 14.5px; font-weight: 500;">${item.title}</div>
+                        <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
+                    </a>
+                `;
+            }).join('');
 
             if (showAllNews) {
                 pager.style.display = 'none';
