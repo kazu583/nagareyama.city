@@ -668,7 +668,7 @@
             z-index: 5;
         }
 
-        /* 新店Open News・最新情報（スライド＆バックナンバー対応） */
+        /* 新店Open News・最新情報（矢印なしスッキリ仕様） */
         .news-toggle-btn {
             background: none;
             border: none;
@@ -692,7 +692,7 @@
         .news-item-card {
             background: #ffffff;
             border-radius: 12px;
-            padding: 18px 54px 18px 20px;
+            padding: 18px 22px;
             margin-bottom: 14px;
             display: block;
             text-decoration: none;
@@ -833,7 +833,8 @@
         <div class="en-serif" style="color: var(--accent-teal); font-size: 14px; margin-bottom: 12px;">MENU</div>
         <ul class="sp-drawer-list">
             <li><a href="#newopen" onclick="toggleSpMenu()">新店Open News <span>→</span></a></li>
-            <li><a href="aboutus.html">01 ながれやまを知る（エリアガイド） <span>→</span></a></li>
+            <li><a href="aboutus.html">01 ながれやまを知る <span>→</span></a></li>
+            <li><a href="area.html">エリア別ガイド <span>→</span></a></li>
             <li><a href="#cafe" onclick="toggleSpMenu()">02 カフェ・グルメ <span>→</span></a></li>
             <li><a href="#event" onclick="toggleSpMenu()">03 週末イベント <span>→</span></a></li>
             <li><a href="contact.html">情報提供・ご相談（やりとり画面） <span>→</span></a></li>
@@ -978,7 +979,7 @@
         </div>
     </section>
 
-    <!-- 新店Open News・最新情報（カテゴリー別自動リンク判別＋左右スライド＆全件バックナンバー対応） -->
+    <!-- 新店Open News・最新情報（オレンジ矢印なし・カテゴリー別自動リンク判別） -->
     <section class="crayon-texture" style="padding: 75px 24px;" id="newopen">
         <div class="content-inner">
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
@@ -1028,7 +1029,8 @@
                 ①流山おおたかの森（S・C／森のまち広場／こかげテラス） ／ ②南流山（個人カフェ・パン屋巡り・児童センター） ／ ③流山本町（白みりんミュージアム・古民家リノベ街並み） ／ ④流山セントラルパーク（総合運動公園・ピクニック） ／ ⑤江戸川台（活気ある商店街とレトログルメ） ／ ⑥運河（利根運河水辺公園・桜並木）
             </div>
 
-            <a href="aboutus.html" class="asahi-pill-btn">
+            <!-- 専用ページ area.html へ移動 -->
+            <a href="area.html" class="asahi-pill-btn">
                 エリア別ガイドを見る
                 <span class="orange-arrow">→</span>
             </a>
@@ -1146,7 +1148,8 @@
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="#newopen">新店Open News</a></li>
                 <li><a href="#cafe">子連れカフェ・グルメ</a></li>
-                <li><a href="aboutus.html">ながれやまを知る（エリア別ガイド）</a></li>
+                <li><a href="aboutus.html">ながれやまを知る</a></li>
+                <li><a href="area.html">エリア別ガイド</a></li>
                 <li><a href="#event">週末イベント</a></li>
                 <li><a href="#gov">流山市役所・子育て支援まとめ</a></li>
                 <li><a href="contact.html">情報提供・ご相談（やりとりフォーム）</a></li>
@@ -1294,7 +1297,6 @@
                             <span class="pastel-tag ${config.tagClass}">${config.tag}</span>
                         </div>
                         <div style="font-size: 14.5px; font-weight: 500;">${item.title}</div>
-                        <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
                     </a>
                 `;
             }).join('');
