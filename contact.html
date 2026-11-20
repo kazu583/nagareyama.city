@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情報提供・ご相談・メッセージボード | ながれやま日和</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Sacramento&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-paper: #f3f1ec;
+            --pastel-mint: #bfe3dc;
+            --pastel-pink: #f1dce3;
+            --pastel-yellow: #f6ead4;
+            --warm-orange: #f59e56;
+            --text-main: #3b4246;
+            --text-muted: #6e777c;
+            --accent-teal: #498991;
+            --deep-forest: #2e5a54;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--text-main);
+            line-height: 1.85;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .mincho { font-family: 'Shippori Mincho', serif; }
+        .en-serif { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.08em; }
+
+        .crayon-texture { position: relative; }
+        .crayon-texture::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+            z-index: 1;
+        }
+
+        /* ヘッダー */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px 14px 36px;
+            background-color: var(--bg-paper);
+            position: relative;
+            z-index: 100;
+            gap: 12px;
+        }
+
+        .brand-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .brand-subcopy {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            line-height: 1.3;
+        }
+
+        .brand-main {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-emblem-wrap {
+            height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-emblem {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+            transform: translateY(1px);
+        }
+
+        .pastel-logo-text {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 29px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            background: linear-gradient(90deg, #62a89c 0%, #83b87e 28%, #df878d 58%, #f0954e 82%, #d96b52 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .back-home-btn {
+            background: #fff;
+            border: 1px solid #dcd8d0;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            transition: transform 0.2s;
+        }
+        .back-home-btn:hover { transform: translateY(-2px); }
+
+        /* ページヘッダーバナー */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--pastel-mint) 0%, #d8eee9 100%);
+            padding: 55px 24px 65px;
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-hero h1 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(24px, 3.8vw, 36px);
+            letter-spacing: 0.14em;
+            margin: 8px 0 14px;
+            color: var(--text-main);
+        }
+
+        .contact-hero p {
+            font-size: 14px;
+            max-width: 640px;
+            margin: 0 auto;
+            color: var(--text-main);
+        }
+
+        /* メインレイアウト（左：新規投稿フォーム / 右：記録＆やりとりスレッド一覧） */
+        .main-container {
+            max-width: 1060px;
+            margin: -25px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .panel-card {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 32px 28px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+            border: 1px solid #e6e2d8;
+        }
+
+        .panel-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 21px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--deep-forest);
+        }
+
+        .panel-sub {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* 相談カテゴリー選択チップ */
+        .category-chips {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .cat-radio { display: none; }
+
+        .cat-label {
+            border: 1.5px solid #dcd8d0;
+            border-radius: 12px;
+            padding: 11px 12px;
+            font-size: 12.5px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #faf9f6;
+            display: block;
+        }
+
+        .cat-radio:checked + .cat-label {
+            border-color: var(--warm-orange);
+            background: #fff5ec;
+            color: #c96829;
+            box-shadow: 0 3px 10px rgba(245, 158, 86, 0.18);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .badge-req {
+            background: var(--warm-orange);
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .badge-opt {
+            background: #d8d4cb;
+            color: #555;
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            border: 1.5px solid #dcd8d0;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-family: inherit;
+            font-size: 14px;
+            background: #fcfbf9;
+            color: var(--text-main);
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            background: #fff;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f39562 0%, #f6b26b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            box-shadow: 0 5px 16px rgba(243, 149, 98, 0.35);
+            transition: transform 0.2s;
+        }
+        .submit-btn:hover { transform: translateY(-2px); }
+
+        /* ==========================================
+           右カラム：記録＆やりとりスレッドボード
+           ========================================== */
+        .board-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed #e2dfd7;
+        }
+
+        /* 送信者／運営モード切替スイッチ */
+        .role-switcher {
+            display: inline-flex;
+            background: var(--bg-paper);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid #dcd8d0;
+        }
+
+        .role-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 14px;
+            border-radius: 24px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .role-btn.active {
+            background: var(--accent-teal);
+            color: #fff;
+        }
+
+        .thread-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .thread-card {
+            background: #faf9f6;
+            border: 1.5px solid #e4e0d6;
+            border-radius: 18px;
+            padding: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .thread-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .thread-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: var(--pastel-mint);
+            color: var(--deep-forest);
+            margin-bottom: 4px;
+        }
+
+        .thread-status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: #fde6d2;
+            color: #c96829;
+            white-space: nowrap;
+        }
+        .thread-status.replied {
+            background: #dfeee8;
+            color: #2e5a54;
+        }
+
+        .thread-subject {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .thread-meta {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        /* チャット形式のやりとり履歴 */
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .msg-bubble {
+            padding: 13px 16px;
+            border-radius: 16px;
+            font-size: 13.5px;
+            line-height: 1.75;
+            max-width: 92%;
+            position: relative;
+        }
+
+        .msg-bubble.user {
+            background: #ffffff;
+            border: 1px solid #e2dfd7;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg-bubble.admin {
+            background: #e5f3f0;
+            border: 1px solid #bce0d8;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg-sender {
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--text-muted);
+        }
+        .msg-bubble.admin .msg-sender {
+            color: var(--accent-teal);
+        }
+
+        /* スレッド内返信ボックス */
+        .reply-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .reply-input {
+            flex: 1;
+            border: 1.5px solid #dcd8d0;
+            border-radius: 24px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-family: inherit;
+            background: #fff;
+        }
+        .reply-input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+
+        .reply-send-btn {
+            background: var(--accent-teal);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 0 18px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .reply-send-btn:hover { opacity: 0.9; }
+
+        .delete-thread-btn {
+            background: none;
+            border: none;
+            color: #a09c93;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        footer {
+            background-color: var(--bg-paper);
+            padding: 45px 24px 35px;
+            border-top: 1px solid #e2dfd7;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 880px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                margin-top: -20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .site-header { padding: 12px 12px; }
+            .brand-subcopy { font-size: 9px; }
+            .brand-emblem-wrap { height: 26px; }
+            .pastel-logo-text { font-size: 20px; }
+            .back-home-btn { padding: 8px 14px; font-size: 11.5px; }
+            .panel-card { padding: 24px 18px; }
+            .category-chips { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <a href="index.html" class="brand-area">
+            <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
+            <div class="brand-main">
+                <div class="brand-emblem-wrap">
+                    <img src="logo.PNG" alt="ながれやまロゴ" class="brand-emblem" data-logo-loader="true">
+                </div>
+                <span class="pastel-logo-text">ながれやま日和</span>
+            </div>
+        </a>
+        <a href="index.html" class="back-home-btn">← トップページへ戻る</a>
+    </header>
+
+    <!-- ヒーロー -->
+    <section class="contact-hero crayon-texture">
+        <div style="position: relative; z-index: 5;">
+            <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">Contact & Community Board</div>
+            <h1>情報提供・ご相談窓口</h1>
+            <p>
+                「あそこに新しいお店がオープンするよ！」「うちのカフェを取材してほしい」「流山での子育て・暮らしについて教えて！」など、お気軽にメッセージをお送りください。<br>
+                送信された内容は下のボードに記録され、そのままやりとりを続けることができます。
+            </p>
+        </div>
+    </section>
+
+    <!-- メイン：左フォーム ＋ 右やりとり履歴ボード -->
+    <main class="main-container">
+
+        <!-- 左側：新規お問い合わせ・情報提供フォーム -->
+        <div class="panel-card">
+            <h2 class="panel-title">✉️ 新しいメッセージを送る</h2>
+            <p class="panel-sub">送信すると右側の「やりとり記録ボード」に即座に反映されます。</p>
+
+            <form id="contactForm" onsubmit="handleNewInquiry(event)">
+                <div class="form-group">
+                    <label class="form-label">ご相談・情報提供の種類<span class="badge-req">必須</span></label>
+                    <div class="category-chips">
+                        <div>
+                            <input type="radio" name="category" id="cat1" value="🎊 新店Open情報提供" class="cat-radio" checked>
+                            <label for="cat1" class="cat-label">🎊 新店Open情報提供</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="category" id="cat2" value="☕ 店舗掲載・取材依頼" class="cat-radio">
+                            <label for="cat2" class="cat-label">☕ 店舗掲載・取材依頼</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="category" id="cat3" value="🎪 イベント告知・協力" class="cat-radio">
+                            <label for="cat3" class="cat-label">🎪 イベント告知・協力</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="category" id="cat4" value="💬 暮らし・子育て相談" class="cat-radio">
+                            <label for="cat4" class="cat-label">💬 暮らし・子育て相談</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="senderName">お名前（ニックネーム・店舗名可）<span class="badge-req">必須</span></label>
+                    <input type="text" id="senderName" class="form-input" placeholder="例：おおたかの森ママ ／ カフェ〇〇店主" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="areaSelect">関連エリア<span class="badge-opt">任意</span></label>
+                    <select id="areaSelect" class="form-select">
+                        <option value="流山おおたかの森">流山おおたかの森周辺</option>
+                        <option value="南流山・木">南流山・木エリア</option>
+                        <option value="流山本町・平和台・加">流山本町・平和台・加エリア</option>
+                        <option value="江戸川台・初石">江戸川台・初石エリア</option>
+                        <option value="セントラルパーク">流山セントラルパーク周辺</option>
+                        <option value="利根運河">利根運河エリア</option>
+                        <option value="流山市全域・その他">流山市全域・その他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="subject">タイトル（件名）<span class="badge-req">必須</span></label>
+                    <input type="text" id="subject" class="form-input" placeholder="例：来月オープンのベーカリー情報です！" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="messageBody">メッセージ内容<span class="badge-req">必須</span></label>
+                    <textarea id="messageBody" class="form-textarea" placeholder="場所やオープン予定日、子連れ設備（お座敷・ベビーカーOKなど）、ご相談内容をご自由にお書きください。" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">送信してやりとりボードに記録する →</button>
+            </form>
+        </div>
+
+        <!-- 右側：記録されたお問い合わせ＆チャットやりとりボード -->
+        <div class="panel-card">
+            <div class="board-header-bar">
+                <div>
+                    <h2 class="panel-title">💬 相談・やりとり記録ボード</h2>
+                    <p class="panel-sub" style="margin-bottom: 0;">各スレッドの返信欄から続けてやりとりができます</p>
+                </div>
+                <!-- 切り替えスイッチ（投稿者視点 / 運営者返信視点） -->
+                <div class="role-switcher" title="返信する立場を切り替えられます">
+                    <button type="button" class="role-btn active" id="roleUserBtn" onclick="setReplyRole('user')">投稿者として返信</button>
+                    <button type="button" class="role-btn" id="roleAdminBtn" onclick="setReplyRole('admin')">運営として返信</button>
+                </div>
+            </div>
+
+            <div class="thread-list" id="threadList">
+                <!-- JavaScriptで履歴とやりとりスレッドが自動描画されます -->
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nagareyama Biyori All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ロゴ読み込み
+        const logoCandidates = ['logo.PNG', 'logo.png', 'logo.jpg', 'logo.JPG', 'logo.jpeg', 'logo.JPEG', 'ロゴ.PNG', 'ロゴ.JPG'];
+        const fallbackSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231d4e56" stroke="%23f59e56" stroke-width="4"/><text x="50" y="57" font-size="24" text-anchor="middle" fill="%23ffffff" font-family="serif">流山</text></svg>';
+
+        document.querySelectorAll('img[data-logo-loader]').forEach(img => {
+            let idx = 0;
+            img.onerror = function() {
+                idx++;
+                if (idx < logoCandidates.length) {
+                    this.src = logoCandidates[idx];
+                } else {
+                    this.onerror = null;
+                    this.src = fallbackSvg;
+                }
+            };
+        });
+
+        // ==========================================
+        // 記録＆やりとりデータ管理（localStorage保存）
+        // ==========================================
+        const STORAGE_KEY = 'nagareyama_biyori_inquiries_v1';
+        let currentReplyRole = 'user'; // 'user' or 'admin'
+
+        // 初期サンプルデータ（初めて開いた時に使い方がすぐ分かるように表示）
+        const defaultThreads = [
+            {
+                id: 1732070001,
+                category: '🎊 新店Open情報提供',
+                area: '南流山・木',
+                subject: '南流山駅近くに新しい親子カフェができるみたいです！',
+                status: '返信あり',
+                createdAt: '2026/11/19 14:20',
+                messages: [
+                    {
+                        sender: '南流山在住ママ',
+                        role: 'user',
+                        time: '2026/11/19 14:20',
+                        text: '南流山駅から歩いて5分くらいの場所で、キッズスペース付きのカフェが内装工事をしていました！来月オープンと貼り紙があったので情報共有です◎'
+                    },
+                    {
+                        sender: 'ながれやま日和 編集部',
+                        role: 'admin',
+                        time: '2026/11/19 16:05',
+                        text: '素敵な新店Open情報をありがとうございます！さっそく現地を確認して「新店Open News」でご紹介させていただきますね。もしお店の名前や目印が分かればぜひ教えてください！'
+                    }
+                ]
+            },
+            {
+                id: 1732070002,
+                category: '💬 暮らし・子育て相談',
+                area: '流山おおたかの森',
+                subject: '送迎保育ステーションの登録タイミングについて',
+                status: '受付中',
+                createdAt: '2026/11/20 09:45',
+                messages: [
+                    {
+                        sender: '春から流山へ転入予定',
+                        role: 'user',
+                        time: '2026/11/20 09:45',
+                        text: '来春に流山おおたかの森へ引っ越し予定です。駅前の送迎保育ステーションを利用したい場合、保育園の申し込みと一緒に申請するのでしょうか？'
+                    }
+                ]
+            }
+        ];
+
+        function loadThreads() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultThreads));
+                return defaultThreads;
+            }
+            return JSON.parse(saved);
+        }
+
+        function saveThreads(threads) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(threads));
+        }
+
+        function setReplyRole(role) {
+            currentReplyRole = role;
+            document.getElementById('roleUserBtn').classList.toggle('active', role === 'user');
+            document.getElementById('roleAdminBtn').classList.toggle('active', role === 'admin');
+            renderThreads();
+        }
+
+        function formatNow() {
+            const d = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        // 新規お問い合わせ送信
+        function handleNewInquiry(e) {
+            e.preventDefault();
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const senderName = document.getElementById('senderName').value.trim();
+            const area = document.getElementById('areaSelect').value;
+            const subject = document.getElementById('subject').value.trim();
+            const messageBody = document.getElementById('messageBody').value.trim();
+
+            if (!senderName || !subject || !messageBody) return;
+
+            const now = formatNow();
+            const threads = loadThreads();
+            const newThread = {
+                id: Date.now(),
+                category,
+                area,
+                subject,
+                status: '受付中',
+                createdAt: now,
+                messages: [
+                    {
+                        sender: senderName,
+                        role: 'user',
+                        time: now,
+                        text: messageBody
+                    }
+                ]
+            };
+
+            threads.unshift(newThread);
+            saveThreads(threads);
+            document.getElementById('contactForm').reset();
+            renderThreads();
+        }
+
+        // スレッド内への返信追加
+        function sendReply(threadId) {
+            const inputEl = document.getElementById(`reply-input-${threadId}`);
+            const text = inputEl.value.trim();
+            if (!text) return;
+
+            const threads = loadThreads();
+            const target = threads.find(t => t.id === threadId);
+            if (!target) return;
+
+            const senderLabel = currentReplyRole === 'admin'
+                ? 'ながれやま日和 編集部'
+                : (target.messages[0]?.sender || '投稿者');
+
+            target.messages.push({
+                sender: senderLabel,
+                role: currentReplyRole,
+                time: formatNow(),
+                text: text
+            });
+
+            if (currentReplyRole === 'admin') {
+                target.status = '返信あり';
+            }
+
+            saveThreads(threads);
+            renderThreads();
+        }
+
+        function deleteThread(threadId) {
+            if (!confirm('このやりとり履歴を削除しますか？')) return;
+            const threads = loadThreads().filter(t => t.id !== threadId);
+            saveThreads(threads);
+            renderThreads();
+        }
+
+        function renderThreads() {
+            const container = document.getElementById('threadList');
+            const threads = loadThreads();
+
+            if (threads.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:30px 0; font-size:13.5px;">まだお問い合わせはありません。左のフォームから最初のメッセージを送ってみましょう！</p>`;
+                return;
+            }
+
+            const placeholderText = currentReplyRole === 'admin'
+                ? 'ながれやま日和 編集部として返信を入力...'
+                : '追加のメッセージ・補足を入力...';
+
+            container.innerHTML = threads.map(thread => {
+                const statusClass = thread.status === '返信あり' ? 'thread-status replied' : 'thread-status';
+                const messagesHtml = thread.messages.map(m => `
+                    <div class="msg-bubble ${m.role}">
+                        <div class="msg-sender">
+                            <span>${escapeHtml(m.sender)}</span>
+                            <span>${escapeHtml(m.time)}</span>
+                        </div>
+                        <div>${escapeHtml(m.text).replace(/\n/g, '<br>')}</div>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="thread-card">
+                        <div class="thread-card-header">
+                            <div>
+                                <span class="thread-tag">${escapeHtml(thread.category)}</span>
+                                <span style="font-size:11px; color:var(--text-muted); margin-left:6px;">📍 ${escapeHtml(thread.area)}</span>
+                            </div>
+                            <span class="${statusClass}">${escapeHtml(thread.status)}</span>
+                        </div>
+                        <div class="thread-subject">${escapeHtml(thread.subject)}</div>
+                        <div class="thread-meta">初回投稿：${escapeHtml(thread.createdAt)}</div>
+
+                        <div class="chat-messages">
+                            ${messagesHtml}
+                        </div>
+
+                        <div class="reply-box">
+                            <input type="text" id="reply-input-${thread.id}" class="reply-input" placeholder="${placeholderText}"
+                                   onkeydown="if(event.key==='Enter'){sendReply(${thread.id});}">
+                            <button type="button" class="reply-send-btn" onclick="sendReply(${thread.id})">返信する</button>
+                        </div>
+                        <div style="text-align: right;">
+                            <button type="button" class="delete-thread-btn" onclick="deleteThread(${thread.id})">この履歴を削除</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        renderThreads();
+    </script>
+</body>
+</html>
