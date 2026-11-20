@@ -25,7 +25,7 @@
             line-height: 1.75;
             padding: 30px 16px 60px;
         }
-        .container { max-width: 760px; margin: 0 auto; }
+        .container { max-width: 780px; margin: 0 auto; }
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -50,7 +50,7 @@
             border: 1px solid #e6e2d8;
             margin-bottom: 24px;
         }
-        h1, h2 {
+        h1, h2, h3 {
             font-family: 'Shippori Mincho', serif;
             color: var(--deep-forest);
             margin-bottom: 12px;
@@ -121,23 +121,84 @@
             cursor: pointer;
             flex-shrink: 0;
         }
+
+        /* 公開手順ボックス・手順表・コードサンプル */
         .export-box {
             background: #eef6f4;
-            border: 1px dashed var(--accent-teal);
-            border-radius: 14px;
-            padding: 18px;
-            font-size: 13px;
+            border: 1.5px dashed var(--accent-teal);
+            border-radius: 16px;
+            padding: 22px 20px;
+            font-size: 13.5px;
+            margin-top: 24px;
         }
         .btn-copy {
             background: var(--accent-teal);
             color: #fff;
             border: none;
             border-radius: 24px;
-            padding: 10px 20px;
-            font-size: 13px;
+            padding: 11px 22px;
+            font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
+            margin: 12px 0 20px;
+            box-shadow: 0 3px 10px rgba(73, 137, 145, 0.25);
+        }
+        .btn-copy:hover { opacity: 0.9; }
+
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 12px 0 22px;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .guide-table th, .guide-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e6e2d8;
+            text-align: left;
+            vertical-align: top;
+        }
+        .guide-table tr:last-child th, .guide-table tr:last-child td { border-bottom: none; }
+        .guide-table th {
+            width: 90px;
+            background: #f7faf9;
+            color: var(--deep-forest);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .kbd-badge {
+            display: inline-block;
+            background: #e9e6de;
+            border: 1px solid #ccc7bc;
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: monospace;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .sample-code-box {
+            background: #263238;
+            color: #eceff1;
+            border-radius: 12px;
+            padding: 16px 18px;
+            font-family: monospace;
+            font-size: 12.5px;
+            line-height: 1.7;
+            overflow-x: auto;
             margin-top: 10px;
+        }
+        .code-comment { color: #80cbc4; }
+        .code-highlight {
+            display: block;
+            background: rgba(245, 158, 86, 0.22);
+            border-left: 4px solid var(--warm-orange);
+            padding: 6px 10px;
+            margin: 6px -10px;
+            color: #ffdfba;
         }
     </style>
 </head>
@@ -194,12 +255,55 @@
                 <h2 style="font-size: 19px;">📋 追加済みの記事一覧（この端末に即時反映中）</h2>
                 <div id="adminNewsList"></div>
 
-                <div class="export-box" style="margin-top: 20px;">
-                    <strong>🌐 全員（他の人のスマホ・PC）にも公開したい場合</strong><br>
-                    下のボタンを押すと、追加した記事のコードがコピーされます。GitHubの <code>index.html</code> の <code>defaultNewsData</code> の先頭に貼り付けて保存すると、すべての閲覧者に公開されます。
-                    <div>
-                        <button type="button" class="btn-copy" onclick="copyExportCode()">公開用コードをコピーする</button>
-                    </div>
+                <!-- 公開手順表＆サンプルガイド -->
+                <div class="export-box">
+                    <h3 style="font-size: 17px; margin-bottom: 6px;">🌐 全員（他の人のスマホ・PC）にも公開する手順</h3>
+                    <p style="font-size: 13px; color: var(--text-main);">
+                        上のフォームで追加した記事は、まず自分の端末だけに反映されます。全員に公開するには、以下の4ステップでGitHubの <code>index.html</code> に貼り付けてください。
+                    </p>
+
+                    <button type="button" class="btn-copy" onclick="copyExportCode()">📋 公開用コードをコピーする</button>
+
+                    <!-- 手順表 -->
+                    <table class="guide-table">
+                        <tr>
+                            <th>STEP 1</th>
+                            <td>上の青い<strong>「公開用コードをコピーする」</strong>ボタンを押します。</td>
+                        </tr>
+                        <tr>
+                            <th>STEP 2</th>
+                            <td>GitHubで <code>index.html</code> を開き、右上の<strong>鉛筆マーク（編集）</strong>をクリックします。</td>
+                        </tr>
+                        <tr>
+                            <th>STEP 3</th>
+                            <td>
+                                編集画面で <span class="kbd-badge">⌘ + F</span>（Windowsは <span class="kbd-badge">Ctrl + F</span>）を押し、<code>const newsData = [</code> を検索します。<br>
+                                <span style="font-size: 12px; color: var(--text-muted);">※目安は <strong>733行目付近</strong> です。</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>STEP 4</th>
+                            <td><code>const newsData = [</code> の<strong>すぐ次の行</strong>にコピーしたコードを貼り付け、右上の緑ボタン<strong>「Commit changes...」</strong>で保存して完了です！（1分ほどで全員の画面に反映されます）</td>
+                        </tr>
+                    </table>
+
+                    <!-- 貼り付け位置のサンプル図解 -->
+                    <div style="font-weight: 700; font-size: 13px; color: var(--deep-forest);">💡 貼り付け位置のサンプル（オレンジ色の部分が貼り付ける場所です）</div>
+                    <pre class="sample-code-box"><code><span class="code-comment">// 733行目付近</span>
+const newsData = [
+<span class="code-highlight">            // ▼ ここにコピーしたコードを貼り付けます！ ▼
+            {
+                date: '2026.11.20',
+                category: 'newopen',
+                title: '【流山おおたかの森】新しいパン屋さんがオープン！',
+                url: 'https://www.instagram.com/p/...'
+            },</span>
+            {
+                date: '2026.11.15',
+                category: 'newopen',
+                title: '【流山おおたかの森】キッズスペース＆テラス席完備！...',
+                url: ''
+            },</code></pre>
                 </div>
             </div>
         </div>
@@ -207,7 +311,7 @@
 
     <script>
         // ★ここでPINコードを変更できます（初期設定：1234）
-        const ADMIN_PIN = '1230';
+        const ADMIN_PIN = '1234';
         const NEWS_STORAGE_KEY = 'nagareyama_biyori_custom_news_v1';
 
         const categoryNames = {
@@ -217,7 +321,6 @@
             event: '🎪 週末イベント'
         };
 
-        // 今日の日付を自動セット
         const today = new Date();
         const pad = n => String(n).padStart(2, '0');
         document.getElementById('newsDate').value = `${today.getFullYear()}.${pad(today.getMonth() + 1)}.${pad(today.getDate())}`;
@@ -290,12 +393,12 @@
         function copyExportCode() {
             const list = getCustomNews();
             if (list.length === 0) {
-                alert('コピーする追加記事がありません。');
+                alert('コピーする追加記事がありません。上のフォームから記事を追加してから押してください。');
                 return;
             }
             const code = list.map(i => `            {\n                date: '${i.date}',\n                category: '${i.category}',\n                title: '${i.title.replace(/'/g, "\\'")}',\n                url: '${i.url}'\n            },`).join('\n');
             navigator.clipboard.writeText(code).then(() => {
-                alert('公開用コードをコピーしました！index.html の newsData 先頭に貼り付けて保存してください。');
+                alert('公開用コードをコピーしました！手順表のSTEP 2〜4に沿って index.html に貼り付けて保存してください。');
             });
         }
     </script>
