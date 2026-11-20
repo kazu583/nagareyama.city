@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者編集ページ | ながれやま日和</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-paper: #f3f1ec;
+            --pastel-mint: #bfe3dc;
+            --warm-orange: #f59e56;
+            --text-main: #3b4246;
+            --text-muted: #6e777c;
+            --accent-teal: #498991;
+            --deep-forest: #2e5a54;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-paper);
+            color: var(--text-main);
+            line-height: 1.75;
+            padding: 30px 16px 60px;
+        }
+        .container { max-width: 760px; margin: 0 auto; }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .back-link {
+            text-decoration: none;
+            color: var(--text-main);
+            background: #fff;
+            border: 1px solid #dcd8d0;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px 26px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            border: 1px solid #e6e2d8;
+            margin-bottom: 24px;
+        }
+        h1, h2 {
+            font-family: 'Shippori Mincho', serif;
+            color: var(--deep-forest);
+            margin-bottom: 12px;
+        }
+        /* PINコード認証画面 */
+        #pinScreen { text-align: center; max-width: 420px; margin: 40px auto; }
+        .pin-input {
+            width: 180px;
+            text-align: center;
+            font-size: 26px;
+            letter-spacing: 0.4em;
+            padding: 12px;
+            border: 2px solid #dcd8d0;
+            border-radius: 12px;
+            margin: 18px 0;
+        }
+        .pin-input:focus { outline: none; border-color: var(--accent-teal); }
+        .btn-primary {
+            background: linear-gradient(135deg, #f39562 0%, #f6b26b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-size: 14.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(243, 149, 98, 0.35);
+        }
+        .btn-primary:hover { opacity: 0.92; }
+        .error-msg { color: #d9534f; font-size: 13px; margin-top: 10px; min-height: 20px; }
+
+        /* 管理ダッシュボード */
+        #adminDashboard { display: none; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #dcd8d0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            background: #fcfbf9;
+        }
+        .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent-teal); background: #fff; }
+
+        .news-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid #e6e2d8;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            background: #faf9f6;
+        }
+        .news-row-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 3px; }
+        .news-row-title { font-size: 14px; font-weight: 700; }
+        .btn-del {
+            background: #fff;
+            border: 1px solid #e0b4b4;
+            color: #c94a4a;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .export-box {
+            background: #eef6f4;
+            border: 1px dashed var(--accent-teal);
+            border-radius: 14px;
+            padding: 18px;
+            font-size: 13px;
+        }
+        .btn-copy {
+            background: var(--accent-teal);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <span style="font-weight: 700; color: var(--accent-teal);">🔐 ながれやま日和 管理者画面</span>
+            <a href="index.html" class="back-link">← トップページへ戻る</a>
+        </div>
+
+        <!-- PINコード入力画面 -->
+        <div class="card" id="pinScreen">
+            <h1 style="font-size: 22px;">管理者PINコード入力</h1>
+            <p style="font-size: 13px; color: var(--text-muted);">編集を行うには4桁のPINコードを入力してください。</p>
+            <input type="password" id="pinInput" class="pin-input" maxlength="8" inputmode="numeric" placeholder="••••"
+                   onkeydown="if(event.key==='Enter'){verifyPin();}">
+            <div>
+                <button type="button" class="btn-primary" onclick="verifyPin()">ログインする</button>
+            </div>
+            <div class="error-msg" id="pinError"></div>
+        </div>
+
+        <!-- 認証後に表示される編集画面 -->
+        <div id="adminDashboard">
+            <div class="card">
+                <h2 style="font-size: 20px;">📝 新店Open News・最新情報をアップロード</h2>
+                <form id="addNewsForm" onsubmit="addNews(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="newsDate">日付</label>
+                        <input type="text" id="newsDate" class="form-input" placeholder="例：2026.11.20" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newsCategory">カテゴリー（飛び先を自動判別します）</label>
+                        <select id="newsCategory" class="form-select">
+                            <option value="newopen">🎊 新店Open News（デフォルト：Instagram）</option>
+                            <option value="cafe">☕ 子連れカフェ（デフォルト：Instagram）</option>
+                            <option value="city">🏛 市役所・子育て（デフォルト：流山市役所公式）</option>
+                            <option value="event">🎪 週末イベント（デフォルト：イベント情報元）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newsTitle">見出し（タイトル）</label>
+                        <input type="text" id="newsTitle" class="form-input" placeholder="例：【流山おおたかの森】新しいパン屋さんがオープン！" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="newsUrl">リンク先URL（任意・空欄ならカテゴリーのデフォルト先へ移動）</label>
+                        <input type="url" id="newsUrl" class="form-input" placeholder="https://www.instagram.com/p/...">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">この内容でアップロード（追加）する</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2 style="font-size: 19px;">📋 追加済みの記事一覧（この端末に即時反映中）</h2>
+                <div id="adminNewsList"></div>
+
+                <div class="export-box" style="margin-top: 20px;">
+                    <strong>🌐 全員（他の人のスマホ・PC）にも公開したい場合</strong><br>
+                    下のボタンを押すと、追加した記事のコードがコピーされます。GitHubの <code>index.html</code> の <code>defaultNewsData</code> の先頭に貼り付けて保存すると、すべての閲覧者に公開されます。
+                    <div>
+                        <button type="button" class="btn-copy" onclick="copyExportCode()">公開用コードをコピーする</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ★ここでPINコードを変更できます（初期設定：1234）
+        const ADMIN_PIN = '1230';
+        const NEWS_STORAGE_KEY = 'nagareyama_biyori_custom_news_v1';
+
+        const categoryNames = {
+            newopen: '🎊 新店Open News',
+            cafe: '☕ 子連れカフェ',
+            city: '🏛 市役所・子育て',
+            event: '🎪 週末イベント'
+        };
+
+        // 今日の日付を自動セット
+        const today = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        document.getElementById('newsDate').value = `${today.getFullYear()}.${pad(today.getMonth() + 1)}.${pad(today.getDate())}`;
+
+        function verifyPin() {
+            const val = document.getElementById('pinInput').value.trim();
+            if (val === ADMIN_PIN) {
+                document.getElementById('pinScreen').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                renderAdminList();
+            } else {
+                document.getElementById('pinError').textContent = 'PINコードが正しくありません。';
+            }
+        }
+
+        function getCustomNews() {
+            const saved = localStorage.getItem(NEWS_STORAGE_KEY);
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function saveCustomNews(list) {
+            localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(list));
+        }
+
+        function addNews(e) {
+            e.preventDefault();
+            const item = {
+                id: Date.now(),
+                date: document.getElementById('newsDate').value.trim(),
+                category: document.getElementById('newsCategory').value,
+                title: document.getElementById('newsTitle').value.trim(),
+                url: document.getElementById('newsUrl').value.trim()
+            };
+            const list = getCustomNews();
+            list.unshift(item);
+            saveCustomNews(list);
+
+            document.getElementById('newsTitle').value = '';
+            document.getElementById('newsUrl').value = '';
+            alert('アップロードしました！トップページに反映されています。');
+            renderAdminList();
+        }
+
+        function deleteNews(id) {
+            if (!confirm('この記事を削除しますか？')) return;
+            const list = getCustomNews().filter(item => item.id !== id);
+            saveCustomNews(list);
+            renderAdminList();
+        }
+
+        function renderAdminList() {
+            const container = document.getElementById('adminNewsList');
+            const list = getCustomNews();
+            if (list.length === 0) {
+                container.innerHTML = '<p style="font-size:13px; color:var(--text-muted);">まだ管理画面から追加された記事はありません。</p>';
+                return;
+            }
+            container.innerHTML = list.map(item => `
+                <div class="news-row">
+                    <div>
+                        <div class="news-row-meta">${item.date} ／ ${categoryNames[item.category] || item.category}</div>
+                        <div class="news-row-title">${item.title}</div>
+                        <div style="font-size:11px; color:var(--text-muted);">${item.url ? item.url : '（カテゴリーのデフォルト先へ移動）'}</div>
+                    </div>
+                    <button type="button" class="btn-del" onclick="deleteNews(${item.id})">削除</button>
+                </div>
+            `).join('');
+        }
+
+        function copyExportCode() {
+            const list = getCustomNews();
+            if (list.length === 0) {
+                alert('コピーする追加記事がありません。');
+                return;
+            }
+            const code = list.map(i => `            {\n                date: '${i.date}',\n                category: '${i.category}',\n                title: '${i.title.replace(/'/g, "\\'")}',\n                url: '${i.url}'\n            },`).join('\n');
+            navigator.clipboard.writeText(code).then(() => {
+                alert('公開用コードをコピーしました！index.html の newsData 先頭に貼り付けて保存してください。');
+            });
+        }
+    </script>
+</body>
+</html>
