@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>情報提供・ご相談・メッセージボード | ながれやま日和</title>
+    <title>情報提供・掲載依頼・ご意見窓口 | ながれやま日和</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Sacramento&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
@@ -143,12 +143,12 @@
 
         .contact-hero p {
             font-size: 14px;
-            max-width: 640px;
+            max-width: 660px;
             margin: 0 auto;
             color: var(--text-main);
         }
 
-        /* メインレイアウト（左：新規投稿フォーム / 右：記録＆やりとりスレッド一覧） */
+        /* メインレイアウト */
         .main-container {
             max-width: 1060px;
             margin: -25px auto 80px;
@@ -185,7 +185,7 @@
             margin-bottom: 24px;
         }
 
-        /* 相談カテゴリー選択チップ */
+        /* カテゴリー選択チップ */
         .category-chips {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -283,9 +283,7 @@
         }
         .submit-btn:hover { transform: translateY(-2px); }
 
-        /* ==========================================
-           右カラム：記録＆やりとりスレッドボード
-           ========================================== */
+        /* 記録＆やりとりスレッドボード */
         .board-header-bar {
             display: flex;
             justify-content: space-between;
@@ -297,7 +295,6 @@
             border-bottom: 1px dashed #e2dfd7;
         }
 
-        /* 送信者／運営モード切替スイッチ */
         .role-switcher {
             display: inline-flex;
             background: var(--bg-paper);
@@ -383,7 +380,6 @@
             margin-bottom: 14px;
         }
 
-        /* チャット形式のやりとり履歴 */
         .chat-messages {
             display: flex;
             flex-direction: column;
@@ -427,7 +423,6 @@
             color: var(--accent-teal);
         }
 
-        /* スレッド内返信ボックス */
         .reply-box {
             display: flex;
             gap: 8px;
@@ -504,7 +499,7 @@
     <!-- ヘッダー -->
     <header class="site-header">
         <a href="index.html" class="brand-area">
-            <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
+            <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト（非公式メディア）</span>
             <div class="brand-main">
                 <div class="brand-emblem-wrap">
                     <img src="logo.PNG" alt="ながれやまロゴ" class="brand-emblem" data-logo-loader="true">
@@ -518,11 +513,11 @@
     <!-- ヒーロー -->
     <section class="contact-hero crayon-texture">
         <div style="position: relative; z-index: 5;">
-            <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">Contact & Community Board</div>
-            <h1>情報提供・ご相談窓口</h1>
+            <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">Information, Listing & Event Board</div>
+            <h1>情報提供・掲載依頼・ご意見窓口</h1>
             <p>
-                「あそこに新しいお店がオープンするよ！」「うちのカフェを取材してほしい」「流山での子育て・暮らしについて教えて！」など、お気軽にメッセージをお送りください。<br>
-                送信された内容は下のボードに記録され、そのままやりとりを続けることができます。
+                当サイトは個人の地域情報メディアです。流山市の「新店Open情報」「お店の掲載・取材依頼」「イベント告知依頼」「その他サイトへのご意見・ご感想」を受け付けております。<br>
+                送信された内容は右側のボードに記録され、そのままやりとりを続けることができます。
             </p>
         </div>
     </section>
@@ -530,14 +525,14 @@
     <!-- メイン：左フォーム ＋ 右やりとり履歴ボード -->
     <main class="main-container">
 
-        <!-- 左側：新規お問い合わせ・情報提供フォーム -->
+        <!-- 左側：新規フォーム -->
         <div class="panel-card">
             <h2 class="panel-title">✉️ 新しいメッセージを送る</h2>
             <p class="panel-sub">送信すると右側の「やりとり記録ボード」に即座に反映されます。</p>
 
             <form id="contactForm" onsubmit="handleNewInquiry(event)">
                 <div class="form-group">
-                    <label class="form-label">ご相談・情報提供の種類<span class="badge-req">必須</span></label>
+                    <label class="form-label">受付項目<span class="badge-req">必須</span></label>
                     <div class="category-chips">
                         <div>
                             <input type="radio" name="category" id="cat1" value="🎊 新店Open情報提供" class="cat-radio" checked>
@@ -548,19 +543,19 @@
                             <label for="cat2" class="cat-label">☕ 店舗掲載・取材依頼</label>
                         </div>
                         <div>
-                            <input type="radio" name="category" id="cat3" value="🎪 イベント告知・協力" class="cat-radio">
-                            <label for="cat3" class="cat-label">🎪 イベント告知・協力</label>
+                            <input type="radio" name="category" id="cat3" value="🎪 イベント告知依頼" class="cat-radio">
+                            <label for="cat3" class="cat-label">🎪 イベント告知依頼</label>
                         </div>
                         <div>
-                            <input type="radio" name="category" id="cat4" value="💬 暮らし・子育て相談" class="cat-radio">
-                            <label for="cat4" class="cat-label">💬 暮らし・子育て相談</label>
+                            <input type="radio" name="category" id="cat4" value="💡 その他ご意見" class="cat-radio">
+                            <label for="cat4" class="cat-label">💡 その他ご意見</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="senderName">お名前（ニックネーム・店舗名可）<span class="badge-req">必須</span></label>
-                    <input type="text" id="senderName" class="form-input" placeholder="例：おおたかの森ママ ／ カフェ〇〇店主" required>
+                    <label class="form-label" for="senderName">お名前（ニックネーム・店舗名・団体名可）<span class="badge-req">必須</span></label>
+                    <input type="text" id="senderName" class="form-input" placeholder="例：おおたかの森住民 ／ カフェ〇〇店主 ／ △△マルシェ実行委員会" required>
                 </div>
 
                 <div class="form-group">
@@ -583,40 +578,36 @@
 
                 <div class="form-group">
                     <label class="form-label" for="messageBody">メッセージ内容<span class="badge-req">必須</span></label>
-                    <textarea id="messageBody" class="form-textarea" placeholder="場所やオープン予定日、子連れ設備（お座敷・ベビーカーOKなど）、ご相談内容をご自由にお書きください。" required></textarea>
+                    <textarea id="messageBody" class="form-textarea" placeholder="場所やオープン・開催予定日、お店の特徴、告知したいイベント詳細、サイトへのご意見などをご自由にお書きください。" required></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">送信してやりとりボードに記録する →</button>
             </form>
         </div>
 
-        <!-- 右側：記録されたお問い合わせ＆チャットやりとりボード -->
+        <!-- 右側：記録＆やりとりスレッドボード -->
         <div class="panel-card">
             <div class="board-header-bar">
                 <div>
-                    <h2 class="panel-title">💬 相談・やりとり記録ボード</h2>
+                    <h2 class="panel-title">💬 受付・やりとり記録ボード</h2>
                     <p class="panel-sub" style="margin-bottom: 0;">各スレッドの返信欄から続けてやりとりができます</p>
                 </div>
-                <!-- 切り替えスイッチ（投稿者視点 / 運営者返信視点） -->
                 <div class="role-switcher" title="返信する立場を切り替えられます">
                     <button type="button" class="role-btn active" id="roleUserBtn" onclick="setReplyRole('user')">投稿者として返信</button>
                     <button type="button" class="role-btn" id="roleAdminBtn" onclick="setReplyRole('admin')">運営として返信</button>
                 </div>
             </div>
 
-            <div class="thread-list" id="threadList">
-                <!-- JavaScriptで履歴とやりとりスレッドが自動描画されます -->
-            </div>
+            <div class="thread-list" id="threadList"></div>
         </div>
 
     </main>
 
     <footer>
-        <p>&copy; 2026 Nagareyama Biyori All Rights Reserved.</p>
+        <p>&copy; 2026 Nagareyama Biyori All Rights Reserved. ※当サイトは流山市の非公式地域メディアです。</p>
     </footer>
 
     <script>
-        // ロゴ読み込み
         const logoCandidates = ['logo.PNG', 'logo.png', 'logo.jpg', 'logo.JPG', 'logo.jpeg', 'logo.JPEG', 'ロゴ.PNG', 'ロゴ.JPG'];
         const fallbackSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231d4e56" stroke="%23f59e56" stroke-width="4"/><text x="50" y="57" font-size="24" text-anchor="middle" fill="%23ffffff" font-family="serif">流山</text></svg>';
 
@@ -633,49 +624,45 @@
             };
         });
 
-        // ==========================================
-        // 記録＆やりとりデータ管理（localStorage保存）
-        // ==========================================
-        const STORAGE_KEY = 'nagareyama_biyori_inquiries_v1';
-        let currentReplyRole = 'user'; // 'user' or 'admin'
+        const STORAGE_KEY = 'nagareyama_biyori_inquiries_v2';
+        let currentReplyRole = 'user';
 
-        // 初期サンプルデータ（初めて開いた時に使い方がすぐ分かるように表示）
         const defaultThreads = [
             {
                 id: 1732070001,
                 category: '🎊 新店Open情報提供',
                 area: '南流山・木',
-                subject: '南流山駅近くに新しい親子カフェができるみたいです！',
+                subject: '南流山駅近くに新しいカフェができるみたいです！',
                 status: '返信あり',
                 createdAt: '2026/11/19 14:20',
                 messages: [
                     {
-                        sender: '南流山在住ママ',
+                        sender: '南流山在住',
                         role: 'user',
                         time: '2026/11/19 14:20',
-                        text: '南流山駅から歩いて5分くらいの場所で、キッズスペース付きのカフェが内装工事をしていました！来月オープンと貼り紙があったので情報共有です◎'
+                        text: '南流山駅から歩いて5分くらいの場所で、カフェの内装工事をしていました！来月オープンと案内が出ていたので情報共有です◎'
                     },
                     {
                         sender: 'ながれやま日和 編集部',
                         role: 'admin',
                         time: '2026/11/19 16:05',
-                        text: '素敵な新店Open情報をありがとうございます！さっそく現地を確認して「新店Open News」でご紹介させていただきますね。もしお店の名前や目印が分かればぜひ教えてください！'
+                        text: '素敵な新店Open情報をありがとうございます！現地を確認して「新店Open News」でご紹介させていただきますね。もしお店の名前や目印が分かればぜひ教えてください！'
                     }
                 ]
             },
             {
                 id: 1732070002,
-                category: '💬 暮らし・子育て相談',
-                area: '流山おおたかの森',
-                subject: '送迎保育ステーションの登録タイミングについて',
+                category: '☕ 店舗掲載・取材依頼',
+                area: '流山本町・平和台・加',
+                subject: '流山本町で古民家カフェをオープンしました（掲載のご相談）',
                 status: '受付中',
                 createdAt: '2026/11/20 09:45',
                 messages: [
                     {
-                        sender: '春から流山へ転入予定',
+                        sender: '本町カフェ店主',
                         role: 'user',
                         time: '2026/11/20 09:45',
-                        text: '来春に流山おおたかの森へ引っ越し予定です。駅前の送迎保育ステーションを利用したい場合、保育園の申し込みと一緒に申請するのでしょうか？'
+                        text: '流山本町エリアでお座敷席のあるカフェを営んでいます。サイトへの店舗掲載や取材についてご相談させていただけますでしょうか？'
                     }
                 ]
             }
@@ -713,7 +700,6 @@
             }[m]));
         }
 
-        // 新規お問い合わせ送信
         function handleNewInquiry(e) {
             e.preventDefault();
             const category = document.querySelector('input[name="category"]:checked').value;
@@ -749,7 +735,6 @@
             renderThreads();
         }
 
-        // スレッド内への返信追加
         function sendReply(threadId) {
             const inputEl = document.getElementById(`reply-input-${threadId}`);
             const text = inputEl.value.trim();
@@ -790,7 +775,7 @@
             const threads = loadThreads();
 
             if (threads.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:30px 0; font-size:13.5px;">まだお問い合わせはありません。左のフォームから最初のメッセージを送ってみましょう！</p>`;
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:30px 0; font-size:13.5px;">まだ投稿はありません。左のフォームから情報提供・掲載依頼・イベント告知・ご意見をお送りください。</p>`;
                 return;
             }
 
