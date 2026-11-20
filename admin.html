@@ -31,6 +31,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .back-link {
             text-decoration: none;
@@ -80,6 +82,16 @@
             box-shadow: 0 4px 14px rgba(243, 149, 98, 0.35);
         }
         .btn-primary:hover { opacity: 0.92; }
+        .btn-cancel {
+            background: #e9e6de;
+            color: var(--text-main);
+            border: none;
+            border-radius: 50px;
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
         .error-msg { color: #d9534f; font-size: 13px; margin-top: 10px; min-height: 20px; }
 
         /* 管理ダッシュボード */
@@ -97,6 +109,23 @@
         }
         .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent-teal); background: #fff; }
 
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .editing-banner {
+            display: none;
+            background: #fff5ec;
+            border: 1.5px solid var(--warm-orange);
+            color: #c96829;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
         .news-row {
             display: flex;
             justify-content: space-between;
@@ -110,6 +139,22 @@
         }
         .news-row-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 3px; }
         .news-row-title { font-size: 14px; font-weight: 700; }
+        .row-btns {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .btn-edit {
+            background: #fff;
+            border: 1px solid var(--accent-teal);
+            color: var(--accent-teal);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-edit:hover { background: var(--accent-teal); color: #fff; }
         .btn-del {
             background: #fff;
             border: 1px solid #e0b4b4;
@@ -119,10 +164,10 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            flex-shrink: 0;
         }
+        .btn-del:hover { background: #c94a4a; color: #fff; }
 
-        /* 公開手順ボックス・手順表・コードサンプル */
+        /* 公開手順ボックス */
         .export-box {
             background: #eef6f4;
             border: 1.5px dashed var(--accent-teal);
@@ -179,7 +224,6 @@
             font-size: 12px;
             font-weight: 700;
         }
-
         .sample-code-box {
             background: #263238;
             color: #eceff1;
@@ -191,7 +235,6 @@
             overflow-x: auto;
             margin-top: 10px;
         }
-        .code-comment { color: #80cbc4; }
         .code-highlight {
             display: block;
             background: rgba(245, 158, 86, 0.22);
@@ -199,6 +242,10 @@
             padding: 6px 10px;
             margin: 6px -10px;
             color: #ffdfba;
+        }
+        @media (max-width: 600px) {
+            .news-row { flex-direction: column; align-items: flex-start; }
+            .row-btns { align-self: flex-end; }
         }
     </style>
 </head>
@@ -223,9 +270,12 @@
 
         <!-- 認証後に表示される編集画面 -->
         <div id="adminDashboard">
-            <div class="card">
-                <h2 style="font-size: 20px;">📝 新店Open News・最新情報をアップロード</h2>
-                <form id="addNewsForm" onsubmit="addNews(event)">
+            <div class="card" id="formCard">
+                <h2 style="font-size: 20px;" id="formHeading">📝 新店Open News・最新情報をアップロード</h2>
+                <div class="editing-banner" id="editingBanner">✏️ 既存の記事を編集中です。書き換えて「変更を保存する」を押してください。</div>
+
+                <form id="newsForm" onsubmit="saveNewsItem(event)">
+                    <input type="hidden" id="editId" value="">
                     <div class="form-group">
                         <label class="form-label" for="newsDate">日付</label>
                         <input type="text" id="newsDate" class="form-input" placeholder="例：2026.11.20" required>
@@ -247,28 +297,33 @@
                         <label class="form-label" for="newsUrl">リンク先URL（任意・空欄ならカテゴリーのデフォルト先へ移動）</label>
                         <input type="url" id="newsUrl" class="form-input" placeholder="https://www.instagram.com/p/...">
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%;">この内容でアップロード（追加）する</button>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitBtn" style="flex: 1;">この内容でアップロード（追加）する</button>
+                        <button type="button" class="btn-cancel" id="cancelEditBtn" style="display: none;" onclick="cancelEdit()">キャンセル</button>
+                    </div>
                 </form>
             </div>
 
             <div class="card">
-                <h2 style="font-size: 19px;">📋 追加済みの記事一覧（この端末に即時反映中）</h2>
+                <h2 style="font-size: 19px;">📋 掲載中の全記事一覧（編集・削除できます）</h2>
+                <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px;">
+                    最初から登録されている記事も含め、すべてここから編集・削除できます。変更はこの端末のトップページへ即座に反映されます。
+                </p>
                 <div id="adminNewsList"></div>
 
                 <!-- 公開手順表＆サンプルガイド -->
                 <div class="export-box">
                     <h3 style="font-size: 17px; margin-bottom: 6px;">🌐 全員（他の人のスマホ・PC）にも公開する手順</h3>
                     <p style="font-size: 13px; color: var(--text-main);">
-                        上のフォームで追加した記事は、まず自分の端末だけに反映されます。全員に公開するには、以下の4ステップでGitHubの <code>index.html</code> に貼り付けてください。
+                        追加・編集・削除した内容を全員の画面に反映させるには、下のボタンを押して最新の全記事リストをコピーし、GitHubの <code>index.html</code> に貼り付けてください。
                     </p>
 
-                    <button type="button" class="btn-copy" onclick="copyExportCode()">📋 公開用コードをコピーする</button>
+                    <button type="button" class="btn-copy" onclick="copyExportCode()">📋 最新の全記事コードをコピーする</button>
 
-                    <!-- 手順表 -->
                     <table class="guide-table">
                         <tr>
                             <th>STEP 1</th>
-                            <td>上の青い<strong>「公開用コードをコピーする」</strong>ボタンを押します。</td>
+                            <td>上の青い<strong>「最新の全記事コードをコピーする」</strong>ボタンを押します。</td>
                         </tr>
                         <tr>
                             <th>STEP 2</th>
@@ -277,33 +332,22 @@
                         <tr>
                             <th>STEP 3</th>
                             <td>
-                                編集画面で <span class="kbd-badge">⌘ + F</span>（Windowsは <span class="kbd-badge">Ctrl + F</span>）を押し、<code>const newsData = [</code> を検索します。<br>
-                                <span style="font-size: 12px; color: var(--text-muted);">※目安は <strong>733行目付近</strong> です。</span>
+                                編集画面で <span class="kbd-badge">⌘ + F</span>（Windowsは <span class="kbd-badge">Ctrl + F</span>）を押し、<code>NEWS_DATA_START</code> を検索します。
                             </td>
                         </tr>
                         <tr>
                             <th>STEP 4</th>
-                            <td><code>const newsData = [</code> の<strong>すぐ次の行</strong>にコピーしたコードを貼り付け、右上の緑ボタン<strong>「Commit changes...」</strong>で保存して完了です！（1分ほどで全員の画面に反映されます）</td>
+                            <td><code>// NEWS_DATA_START</code> から <code>// NEWS_DATA_END</code> までの間を選択してコピーしたコードで上書きし、右上の緑ボタン<strong>「Commit changes...」</strong>で保存して完了です！</td>
                         </tr>
                     </table>
 
-                    <!-- 貼り付け位置のサンプル図解 -->
-                    <div style="font-weight: 700; font-size: 13px; color: var(--deep-forest);">💡 貼り付け位置のサンプル（オレンジ色の部分が貼り付ける場所です）</div>
-                    <pre class="sample-code-box"><code><span class="code-comment">// 733行目付近</span>
-const newsData = [
-<span class="code-highlight">            // ▼ ここにコピーしたコードを貼り付けます！ ▼
-            {
-                date: '2026.11.20',
-                category: 'newopen',
-                title: '【流山おおたかの森】新しいパン屋さんがオープン！',
-                url: 'https://www.instagram.com/p/...'
-            },</span>
-            {
-                date: '2026.11.15',
-                category: 'newopen',
-                title: '【流山おおたかの森】キッズスペース＆テラス席完備！...',
-                url: ''
-            },</code></pre>
+                    <div style="font-weight: 700; font-size: 13px; color: var(--deep-forest);">💡 貼り付け位置のサンプル（オレンジ色の範囲を丸ごと差し替えます）</div>
+                    <pre class="sample-code-box"><code>// NEWS_DATA_START
+<span class="code-highlight">const defaultNewsData = [
+    { id: 1, date: '2026.11.20', ... },
+    ...
+];</span>
+// NEWS_DATA_END</code></pre>
                 </div>
             </div>
         </div>
@@ -312,7 +356,7 @@ const newsData = [
     <script>
         // ★ここでPINコードを変更できます（初期設定：1234）
         const ADMIN_PIN = '1234';
-        const NEWS_STORAGE_KEY = 'nagareyama_biyori_custom_news_v1';
+        const ALL_NEWS_STORAGE_KEY = 'nagareyama_biyori_all_news_v2';
 
         const categoryNames = {
             newopen: '🎊 新店Open News',
@@ -321,9 +365,59 @@ const newsData = [
             event: '🎪 週末イベント'
         };
 
-        const today = new Date();
-        const pad = n => String(n).padStart(2, '0');
-        document.getElementById('newsDate').value = `${today.getFullYear()}.${pad(today.getMonth() + 1)}.${pad(today.getDate())}`;
+        // 初期登録されている記事リスト
+        const initialDefaultNews = [
+            {
+                id: 101,
+                date: '2026.11.15',
+                category: 'newopen',
+                title: '【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN',
+                url: ''
+            },
+            {
+                id: 102,
+                date: '2026.11.12',
+                category: 'cafe',
+                title: '【南流山・流山本町】お座敷＆ベビーカー入店OK！赤ちゃんと行けるおすすめランチ6選',
+                url: ''
+            },
+            {
+                id: 103,
+                date: '2026.11.08',
+                category: 'city',
+                title: '【流山市役所】送迎保育ステーションの利用ガイド＆令和9年度保育園スケジュールまとめ',
+                url: 'https://www.city.nagareyama.chiba.jp/life/1000877/index.html'
+            },
+            {
+                id: 104,
+                date: '2026.11.03',
+                category: 'newopen',
+                title: '【江戸川台】商店街に自家焙煎スペシャルティコーヒー＆焼き菓子の新店がオープン！',
+                url: ''
+            },
+            {
+                id: 105,
+                date: '2026.10.28',
+                category: 'event',
+                title: '【流山おおたかの森】今年の駅前イルミネーション点灯式＆森のマルシェ開催日程まとめ',
+                url: 'https://www.otakanomori-sc.com/'
+            },
+            {
+                id: 106,
+                date: '2026.10.20',
+                category: 'newopen',
+                title: '【南流山・木エリア】駐車場広々！家族で通える本格石窯ピザのお店がNEW OPEN',
+                url: ''
+            }
+        ];
+
+        function getTodayString() {
+            const today = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            return `${today.getFullYear()}.${pad(today.getMonth() + 1)}.${pad(today.getDate())}`;
+        }
+
+        document.getElementById('newsDate').value = getTodayString();
 
         function verifyPin() {
             const val = document.getElementById('pinInput').value.trim();
@@ -336,69 +430,133 @@ const newsData = [
             }
         }
 
-        function getCustomNews() {
-            const saved = localStorage.getItem(NEWS_STORAGE_KEY);
-            return saved ? JSON.parse(saved) : [];
+        function getAllNews() {
+            const saved = localStorage.getItem(ALL_NEWS_STORAGE_KEY);
+            if (!saved) {
+                localStorage.setItem(ALL_NEWS_STORAGE_KEY, JSON.stringify(initialDefaultNews));
+                return [...initialDefaultNews];
+            }
+            return JSON.parse(saved);
         }
 
-        function saveCustomNews(list) {
-            localStorage.setItem(NEWS_STORAGE_KEY, JSON.stringify(list));
+        function saveAllNews(list) {
+            localStorage.setItem(ALL_NEWS_STORAGE_KEY, JSON.stringify(list));
         }
 
-        function addNews(e) {
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+
+        function saveNewsItem(e) {
             e.preventDefault();
-            const item = {
-                id: Date.now(),
-                date: document.getElementById('newsDate').value.trim(),
-                category: document.getElementById('newsCategory').value,
-                title: document.getElementById('newsTitle').value.trim(),
-                url: document.getElementById('newsUrl').value.trim()
-            };
-            const list = getCustomNews();
-            list.unshift(item);
-            saveCustomNews(list);
+            const editIdVal = document.getElementById('editId').value;
+            const date = document.getElementById('newsDate').value.trim();
+            const category = document.getElementById('newsCategory').value;
+            const title = document.getElementById('newsTitle').value.trim();
+            const url = document.getElementById('newsUrl').value.trim();
 
+            const list = getAllNews();
+
+            if (editIdVal) {
+                // 既存記事の上書き編集
+                const targetId = Number(editIdVal);
+                const idx = list.findIndex(item => item.id === targetId);
+                if (idx !== -1) {
+                    list[idx] = { id: targetId, date, category, title, url };
+                }
+                saveAllNews(list);
+                cancelEdit();
+                alert('記事を更新しました！トップページに反映されています。');
+            } else {
+                // 新規追加
+                list.unshift({
+                    id: Date.now(),
+                    date,
+                    category,
+                    title,
+                    url
+                });
+                saveAllNews(list);
+                document.getElementById('newsTitle').value = '';
+                document.getElementById('newsUrl').value = '';
+                alert('アップロードしました！トップページに反映されています。');
+            }
+
+            renderAdminList();
+        }
+
+        function startEdit(id) {
+            const list = getAllNews();
+            const item = list.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('editId').value = item.id;
+            document.getElementById('newsDate').value = item.date;
+            document.getElementById('newsCategory').value = item.category;
+            document.getElementById('newsTitle').value = item.title;
+            document.getElementById('newsUrl').value = item.url || '';
+
+            document.getElementById('formHeading').textContent = '✏️ 記事を編集する';
+            document.getElementById('editingBanner').style.display = 'block';
+            document.getElementById('submitBtn').textContent = '変更を保存する';
+            document.getElementById('cancelEditBtn').style.display = 'inline-block';
+
+            document.getElementById('formCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelEdit() {
+            document.getElementById('editId').value = '';
+            document.getElementById('newsDate').value = getTodayString();
+            document.getElementById('newsCategory').value = 'newopen';
             document.getElementById('newsTitle').value = '';
             document.getElementById('newsUrl').value = '';
-            alert('アップロードしました！トップページに反映されています。');
-            renderAdminList();
+
+            document.getElementById('formHeading').textContent = '📝 新店Open News・最新情報をアップロード';
+            document.getElementById('editingBanner').style.display = 'none';
+            document.getElementById('submitBtn').textContent = 'この内容でアップロード（追加）する';
+            document.getElementById('cancelEditBtn').style.display = 'none';
         }
 
         function deleteNews(id) {
             if (!confirm('この記事を削除しますか？')) return;
-            const list = getCustomNews().filter(item => item.id !== id);
-            saveCustomNews(list);
+            const list = getAllNews().filter(item => item.id !== id);
+            saveAllNews(list);
+            if (Number(document.getElementById('editId').value) === id) {
+                cancelEdit();
+            }
             renderAdminList();
         }
 
         function renderAdminList() {
             const container = document.getElementById('adminNewsList');
-            const list = getCustomNews();
+            const list = getAllNews();
             if (list.length === 0) {
-                container.innerHTML = '<p style="font-size:13px; color:var(--text-muted);">まだ管理画面から追加された記事はありません。</p>';
+                container.innerHTML = '<p style="font-size:13px; color:var(--text-muted);">記事が0件です。上のフォームから追加してください。</p>';
                 return;
             }
             container.innerHTML = list.map(item => `
                 <div class="news-row">
                     <div>
-                        <div class="news-row-meta">${item.date} ／ ${categoryNames[item.category] || item.category}</div>
-                        <div class="news-row-title">${item.title}</div>
-                        <div style="font-size:11px; color:var(--text-muted);">${item.url ? item.url : '（カテゴリーのデフォルト先へ移動）'}</div>
+                        <div class="news-row-meta">${escapeHtml(item.date)} ／ ${escapeHtml(categoryNames[item.category] || item.category)}</div>
+                        <div class="news-row-title">${escapeHtml(item.title)}</div>
+                        <div style="font-size:11px; color:var(--text-muted);">${item.url ? escapeHtml(item.url) : '（カテゴリーのデフォルト先へ移動）'}</div>
                     </div>
-                    <button type="button" class="btn-del" onclick="deleteNews(${item.id})">削除</button>
+                    <div class="row-btns">
+                        <button type="button" class="btn-edit" onclick="startEdit(${item.id})">編集</button>
+                        <button type="button" class="btn-del" onclick="deleteNews(${item.id})">削除</button>
+                    </div>
                 </div>
             `).join('');
         }
 
         function copyExportCode() {
-            const list = getCustomNews();
-            if (list.length === 0) {
-                alert('コピーする追加記事がありません。上のフォームから記事を追加してから押してください。');
-                return;
-            }
-            const code = list.map(i => `            {\n                date: '${i.date}',\n                category: '${i.category}',\n                title: '${i.title.replace(/'/g, "\\'")}',\n                url: '${i.url}'\n            },`).join('\n');
-            navigator.clipboard.writeText(code).then(() => {
-                alert('公開用コードをコピーしました！手順表のSTEP 2〜4に沿って index.html に貼り付けて保存してください。');
+            const list = getAllNews();
+            const itemsCode = list.map(i => `            {\n                id: ${i.id},\n                date: '${i.date}',\n                category: '${i.category}',\n                title: '${i.title.replace(/'/g, "\\'")}',\n                url: '${i.url || ''}'\n            }`).join(',\n');
+            const fullCode = `        const defaultNewsData = [\n${itemsCode}\n        ];`;
+            navigator.clipboard.writeText(fullCode).then(() => {
+                alert('最新の全記事コードをコピーしました！index.html の NEWS_DATA_START 〜 NEWS_DATA_END の間を差し替えて保存してください。');
             });
         }
     </script>
