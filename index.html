@@ -89,7 +89,6 @@
             gap: 8px;
         }
 
-        /* 隣のタイトル文字（29px）と視覚的な高さ・重心がピタッと揃うサイズバランス */
         .brand-emblem-wrap {
             height: 36px;
             width: auto;
@@ -197,6 +196,10 @@
             box-shadow: 0 5px 16px rgba(243, 149, 98, 0.3);
             white-space: nowrap;
             flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .cta-consult-btn:hover {
+            transform: translateX(-3px);
         }
 
         .cta-text-wrap {
@@ -763,11 +766,11 @@
         <button class="sp-drawer-close" onclick="toggleSpMenu()">×</button>
         <div class="en-serif" style="color: var(--accent-teal); font-size: 14px; margin-bottom: 12px;">MENU</div>
         <ul class="sp-drawer-list">
-            <li><a href="#newopen" onclick="toggleSpMenu()">新規オープン・新着情報 <span>→</span></a></li>
+            <li><a href="#newopen" onclick="toggleSpMenu()">新店Open News <span>→</span></a></li>
             <li><a href="aboutus.html">01 ながれやまを知る（エリアガイド） <span>→</span></a></li>
-            <li><a href="#cafe" onclick="toggleSpMenu()">02 カフェ・グルメ・子育て <span>→</span></a></li>
-            <li><a href="#event" onclick="toggleSpMenu()">03 週末イベント・市役所情報 <span>→</span></a></li>
-            <li><a href="#contact" onclick="toggleSpMenu()">情報提供・掲載のご相談 <span>→</span></a></li>
+            <li><a href="#cafe" onclick="toggleSpMenu()">02 カフェ・グルメ <span>→</span></a></li>
+            <li><a href="#event" onclick="toggleSpMenu()">03 週末イベント <span>→</span></a></li>
+            <li><a href="contact.html">情報提供・ご相談（やりとり画面） <span>→</span></a></li>
         </ul>
     </nav>
 
@@ -776,7 +779,6 @@
             <a href="index.html" class="brand-area">
                 <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
                 <div class="brand-main">
-                    <!-- タイトル文字と同じ高さ・バランスで並ぶロゴ -->
                     <div class="brand-emblem-wrap">
                         <img src="logo.PNG" alt="ながれやまロゴ" class="brand-emblem" data-logo-loader="true">
                     </div>
@@ -786,11 +788,13 @@
 
             <div class="header-nav-group">
                 <div class="nav-menus">
+                    <!-- 上段サブメニュー：新店Open News へ変更 -->
                     <ul class="sub-nav">
-                        <li><a href="#newopen">新規オープン店まとめ</a></li>
+                        <li><a href="#newopen">新店Open News</a></li>
                         <li><a href="#gov">流山市の子育て支援・制度</a></li>
-                        <li><a href="#contact">流山暮らしのQ&A</a></li>
+                        <li><a href="contact.html">流山暮らしのQ&A</a></li>
                     </ul>
+                    <!-- 下段メインメニュー：週末イベント へ変更 -->
                     <ul class="main-nav">
                         <li>
                             <a href="aboutus.html">
@@ -807,13 +811,14 @@
                         <li>
                             <a href="#event">
                                 <svg class="nav-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                                週末イベント・子育て
+                                週末イベント
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <a href="#contact" class="cta-consult-btn">
+                <!-- クリックすると専用お問い合わせ・やりとりページ contact.html へ移動 -->
+                <a href="contact.html" class="cta-consult-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
@@ -903,7 +908,6 @@
                 このサイトでは、流山での暮らしがもっと楽しくなる地域の旬な情報をお届けします。
             </p>
 
-            <!-- 新しい詳細ページ aboutus.html へ移動 -->
             <a href="aboutus.html" class="asahi-pill-btn">
                 ながれやまの魅力を知る
                 <span class="orange-arrow">→</span>
@@ -915,8 +919,8 @@
         <div class="content-inner">
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
                 <div>
-                    <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">Whats New!</div>
-                    <h2 class="mincho" style="font-size: 26px;">新規オープン・新着情報</h2>
+                    <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">New Open News</div>
+                    <h2 class="mincho" style="font-size: 26px;">新店Open News・最新情報</h2>
                 </div>
                 <a href="#" style="color: var(--text-main); font-size: 13px; font-weight: 700; text-decoration: none;">記事一覧を見る →</a>
             </div>
@@ -924,7 +928,7 @@
             <a href="#" class="news-item-card">
                 <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
                     <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.15</span>
-                    <span class="pastel-tag orange">🎊 新規オープン</span>
+                    <span class="pastel-tag orange">🎊 新店Open News</span>
                 </div>
                 <div style="font-size: 14.5px; font-weight: 500;">【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN</div>
                 <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
@@ -977,7 +981,6 @@
                 ①流山おおたかの森（S・C／森のまち広場／こかげテラス） ／ ②南流山（個人カフェ・パン屋巡り・児童センター） ／ ③流山本町（白みりんミュージアム・古民家リノベ街並み） ／ ④流山セントラルパーク（総合運動公園・ピクニック） ／ ⑤江戸川台（活気ある商店街とレトログルメ） ／ ⑥運河（利根運河水辺公園・桜並木）
             </div>
 
-            <!-- 新しい詳細ページ aboutus.html へ移動 -->
             <a href="aboutus.html" class="asahi-pill-btn">
                 エリア別ガイドを見る
                 <span class="orange-arrow">→</span>
@@ -1094,12 +1097,12 @@
 
             <ul class="footer-nav-list">
                 <li><a href="index.html">HOME</a></li>
-                <li><a href="#newopen">新規オープン・お知らせ</a></li>
+                <li><a href="#newopen">新店Open News</a></li>
                 <li><a href="#cafe">子連れカフェ・グルメ</a></li>
                 <li><a href="aboutus.html">ながれやまを知る（エリア別ガイド）</a></li>
-                <li><a href="#event">週末イベント・マルシェ情報</a></li>
+                <li><a href="#event">週末イベント</a></li>
                 <li><a href="#gov">流山市役所・子育て支援まとめ</a></li>
-                <li><a href="#contact">お店の掲載依頼・情報提供フォーム</a></li>
+                <li><a href="contact.html">情報提供・ご相談（やりとりフォーム）</a></li>
             </ul>
 
             <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 35px;">
@@ -1109,7 +1112,6 @@
     </footer>
 
     <script>
-        // ロゴファイルの自動読み込み
         const logoCandidates = ['logo.PNG', 'logo.png', 'logo.jpg', 'logo.JPG', 'logo.jpeg', 'logo.JPEG', 'ロゴ.PNG', 'ロゴ.JPG'];
         const fallbackSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231d4e56" stroke="%23f59e56" stroke-width="4"/><text x="50" y="57" font-size="24" text-anchor="middle" fill="%23ffffff" font-family="serif">流山</text></svg>';
 
@@ -1130,9 +1132,6 @@
             document.getElementById('spDrawer').classList.toggle('open');
         }
 
-        // ==========================================
-        // 01〜05 背景写真の自動ローテーション機能（5秒間隔）
-        // ==========================================
         const scenes = [
             {
                 title: '木漏れ日あふれるおおたかの森',
