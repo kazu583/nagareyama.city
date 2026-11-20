@@ -668,16 +668,91 @@
             z-index: 5;
         }
 
+        /* 新店Open News・最新情報（スライド＆バックナンバー対応） */
+        .news-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+        .news-toggle-btn:hover { color: var(--warm-orange); }
+
+        .news-list-container {
+            transition: opacity 0.25s ease;
+        }
+
         .news-item-card {
             background: #ffffff;
             border-radius: 12px;
-            padding: 18px 50px 18px 20px;
+            padding: 18px 54px 18px 20px;
             margin-bottom: 14px;
             display: block;
             text-decoration: none;
             color: var(--text-main);
             position: relative;
             box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .news-item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+
+        .ig-badge {
+            font-size: 10.5px;
+            color: #c13584;
+            background: #fcecf3;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .news-pager {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .pager-btn {
+            background: #ffffff;
+            border: 1px solid #dcd8d0;
+            color: var(--text-main);
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+        }
+        .pager-btn:hover:not(:disabled) {
+            background: var(--warm-orange);
+            color: #fff;
+            border-color: var(--warm-orange);
+        }
+        .pager-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .pager-info {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
         }
 
         .pink-section { background-color: var(--pastel-pink); padding: 75px 24px 85px; }
@@ -788,13 +863,11 @@
 
             <div class="header-nav-group">
                 <div class="nav-menus">
-                    <!-- 上段サブメニュー：新店Open News へ変更 -->
                     <ul class="sub-nav">
                         <li><a href="#newopen">新店Open News</a></li>
                         <li><a href="#gov">流山市の子育て支援・制度</a></li>
                         <li><a href="contact.html">流山暮らしのQ&A</a></li>
                     </ul>
-                    <!-- 下段メインメニュー：週末イベント へ変更 -->
                     <ul class="main-nav">
                         <li>
                             <a href="aboutus.html">
@@ -817,7 +890,6 @@
                     </ul>
                 </div>
 
-                <!-- クリックすると専用お問い合わせ・やりとりページ contact.html へ移動 -->
                 <a href="contact.html" class="cta-consult-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -881,7 +953,7 @@
                 </div>
                 <div class="follow-vertical">
                     <span>Follow us</span>
-                    <a href="#" class="sns-circle" aria-label="Instagram">📷</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="sns-circle" aria-label="Instagram">📷</a>
                 </div>
             </aside>
         </div>
@@ -915,6 +987,7 @@
         </div>
     </section>
 
+    <!-- 新店Open News・最新情報（Instagramリンク＋左右スライド＆全件バックナンバー対応） -->
     <section class="crayon-texture" style="padding: 75px 24px;" id="newopen">
         <div class="content-inner">
             <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
@@ -922,35 +995,20 @@
                     <div class="en-serif" style="color: var(--accent-teal); font-size: 20px;">New Open News</div>
                     <h2 class="mincho" style="font-size: 26px;">新店Open News・最新情報</h2>
                 </div>
-                <a href="#" style="color: var(--text-main); font-size: 13px; font-weight: 700; text-decoration: none;">記事一覧を見る →</a>
+                <button type="button" class="news-toggle-btn" id="toggleAllNewsBtn" onclick="toggleAllNews()">
+                    記事一覧を見る（バックナンバー） →
+                </button>
             </div>
 
-            <a href="#" class="news-item-card">
-                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
-                    <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.15</span>
-                    <span class="pastel-tag orange">🎊 新店Open News</span>
-                </div>
-                <div style="font-size: 14.5px; font-weight: 500;">【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN</div>
-                <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
-            </a>
+            <!-- ニュース一覧が自動描画されます -->
+            <div class="news-list-container" id="newsListContainer"></div>
 
-            <a href="#" class="news-item-card">
-                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
-                    <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.12</span>
-                    <span class="pastel-tag pink">☕ 子連れカフェ</span>
-                </div>
-                <div style="font-size: 14.5px; font-weight: 500;">【南流山・流山本町】お座敷＆ベビーカー入店OK！赤ちゃんと行けるおすすめランチ6選</div>
-                <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
-            </a>
-
-            <a href="#" class="news-item-card">
-                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;">
-                    <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">2026.11.08</span>
-                    <span class="pastel-tag">🏛 市役所・子育て</span>
-                </div>
-                <div style="font-size: 14.5px; font-weight: 500;">【流山市役所】送迎保育ステーションの利用ガイド＆令和9年度保育園スケジュールまとめ</div>
-                <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
-            </a>
+            <!-- 左右スライド（ページ送り）コントロール -->
+            <div class="news-pager" id="newsPager">
+                <button type="button" class="pager-btn" id="prevNewsBtn" onclick="slideNews(-1)">◀ 新しい記事</button>
+                <span class="pager-info" id="newsPageInfo">1 / 2</span>
+                <button type="button" class="pager-btn" id="nextNewsBtn" onclick="slideNews(1)">過去の記事 ▶</button>
+            </div>
         </div>
     </section>
 
@@ -1132,6 +1190,118 @@
             document.getElementById('spDrawer').classList.toggle('open');
         }
 
+        // ==========================================
+        // 新店Open News・最新情報データ（ここに記事を追加すると自動でバックナンバー化されます）
+        // ※ instagramUrl に各投稿のInstagram URLを貼ってください
+        // ==========================================
+        const newsData = [
+            {
+                date: '2026.11.15',
+                tag: '🎊 新店Open News',
+                tagClass: 'orange',
+                title: '【流山おおたかの森】キッズスペース＆テラス席完備！森のベーカリーカフェが来月OPEN',
+                instagramUrl: 'https://www.instagram.com/'
+            },
+            {
+                date: '2026.11.12',
+                tag: '☕ 子連れカフェ',
+                tagClass: 'pink',
+                title: '【南流山・流山本町】お座敷＆ベビーカー入店OK！赤ちゃんと行けるおすすめランチ6選',
+                instagramUrl: 'https://www.instagram.com/'
+            },
+            {
+                date: '2026.11.08',
+                tag: '🏛 市役所・子育て',
+                tagClass: '',
+                title: '【流山市役所】送迎保育ステーションの利用ガイド＆令和9年度保育園スケジュールまとめ',
+                instagramUrl: 'https://www.instagram.com/'
+            },
+            // --- 以下、バックナンバー（2ページ目） ---
+            {
+                date: '2026.11.03',
+                tag: '🎊 新店Open News',
+                tagClass: 'orange',
+                title: '【江戸川台】商店街に自家焙煎スペシャルティコーヒー＆焼き菓子の新店がオープン！',
+                instagramUrl: 'https://www.instagram.com/'
+            },
+            {
+                date: '2026.10.28',
+                tag: '🎪 週末イベント',
+                tagClass: 'pink',
+                title: '【流山おおたかの森】今年の駅前イルミネーション点灯式＆森のマルシェ開催日程まとめ',
+                instagramUrl: 'https://www.instagram.com/'
+            },
+            {
+                date: '2026.10.20',
+                tag: '🎊 新店Open News',
+                tagClass: 'orange',
+                title: '【南流山・木エリア】駐車場広々！家族で通える本格石窯ピザのお店がNEW OPEN',
+                instagramUrl: 'https://www.instagram.com/'
+            }
+        ];
+
+        const NEWS_PER_PAGE = 3;
+        let currentNewsPage = 0;
+        let showAllNews = false;
+
+        function renderNews() {
+            const container = document.getElementById('newsListContainer');
+            const pager = document.getElementById('newsPager');
+            const toggleBtn = document.getElementById('toggleAllNewsBtn');
+            const totalPages = Math.ceil(newsData.length / NEWS_PER_PAGE);
+
+            const itemsToShow = showAllNews
+                ? newsData
+                : newsData.slice(currentNewsPage * NEWS_PER_PAGE, (currentNewsPage + 1) * NEWS_PER_PAGE);
+
+            container.innerHTML = itemsToShow.map(item => `
+                <a href="${item.instagramUrl}" target="_blank" rel="noopener noreferrer" class="news-item-card">
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 6px;">
+                        <span class="en-serif" style="color: var(--text-muted); font-size: 15px;">${item.date}</span>
+                        <span class="pastel-tag ${item.tagClass}">${item.tag}</span>
+                        <span class="ig-badge">📷 Instagramで見る</span>
+                    </div>
+                    <div style="font-size: 14.5px; font-weight: 500;">${item.title}</div>
+                    <span class="orange-arrow" style="top: 50%; transform: translateY(-50%);">→</span>
+                </a>
+            `).join('');
+
+            if (showAllNews) {
+                pager.style.display = 'none';
+                toggleBtn.textContent = '最新3件表示に戻す ↑';
+            } else {
+                pager.style.display = 'flex';
+                toggleBtn.textContent = '記事一覧を見る（バックナンバー） →';
+                document.getElementById('newsPageInfo').textContent = `${currentNewsPage + 1} / ${totalPages}`;
+                document.getElementById('prevNewsBtn').disabled = (currentNewsPage === 0);
+                document.getElementById('nextNewsBtn').disabled = (currentNewsPage >= totalPages - 1);
+            }
+        }
+
+        function slideNews(direction) {
+            const totalPages = Math.ceil(newsData.length / NEWS_PER_PAGE);
+            const nextPage = currentNewsPage + direction;
+            if (nextPage < 0 || nextPage >= totalPages) return;
+
+            const container = document.getElementById('newsListContainer');
+            container.style.opacity = '0';
+            setTimeout(() => {
+                currentNewsPage = nextPage;
+                renderNews();
+                container.style.opacity = '1';
+            }, 180);
+        }
+
+        function toggleAllNews() {
+            showAllNews = !showAllNews;
+            renderNews();
+        }
+
+        renderNews();
+
+        // ==========================================
+        // トップ背景写真の自動ローテーション機能
+        // ==========================================
         const scenes = [
             {
                 title: '木漏れ日あふれるおおたかの森',
