@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ながれやまを知る | ながれやま日和 - 千葉県流山市の暮らし・魅力発信サイト</title>
+    <title>ながれやまの魅力 | ながれやま日和 - 千葉県流山市の暮らし・魅力発信サイト</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Sacramento&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
@@ -251,7 +251,7 @@
         }
 
         /* ==========================================
-           下層ページヒーロー（白い帯のズレ・文字重なり完全防止構造）
+           下層ページヒーロー
            ========================================== */
         .subpage-hero-wrap {
             padding-left: 48px;
@@ -271,7 +271,7 @@
             align-items: center;
             color: #fff;
             text-align: center;
-            padding: 20px 20px 65px; /* 下部の波形と手書き文字のためのスペースを確保 */
+            padding: 20px 20px 65px;
         }
 
         .subpage-hero-num {
@@ -299,7 +299,6 @@
             opacity: 0.95;
         }
 
-        /* 写真枠の底面にピタッと密着して絶対にズレない波形＆手書き文字 */
         .subpage-wave {
             position: absolute;
             bottom: -1px;
@@ -343,7 +342,7 @@
         }
 
         .anchor-nav {
-            max-width: 920px;
+            max-width: 940px;
             margin: 5px auto 80px;
             padding: 0 24px;
             display: grid;
@@ -384,6 +383,7 @@
             align-items: center;
             justify-content: center;
             font-size: 10px;
+            flex-shrink: 0;
         }
 
         /* ==========================================
@@ -715,119 +715,128 @@
         }
 
         /* ==========================================
-           Section 04：江戸川台再開発 ＆ 各エリア深掘り大型ガイドカード
+           Section 04：流山市の成り立ち・過去〜現在〜未来（タイムラインデザイン）
            ========================================== */
-        .redev-spotlight {
-            background: linear-gradient(135deg, #ffffff 0%, #fdfaf5 100%);
-            border: 2px solid var(--warm-orange);
-            border-radius: 24px;
-            padding: 40px 36px;
-            margin-top: 40px;
-            margin-bottom: 65px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(245, 158, 86, 0.12);
-        }
-
-        .redev-ribbon {
-            display: inline-block;
-            background: var(--warm-orange);
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 5px 16px;
-            border-radius: 30px;
-            margin-bottom: 14px;
-            letter-spacing: 0.08em;
-        }
-
-        .area-deep-list {
-            display: flex;
-            flex-direction: column;
-            gap: 36px;
-        }
-
-        .area-deep-card {
+        .origin-legend-box {
             background: #ffffff;
             border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 8px 26px rgba(0,0,0,0.05);
+            padding: 36px 34px;
+            margin-bottom: 55px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.04);
             display: grid;
-            grid-template-columns: 340px 1fr;
-            border: 1px solid rgba(226, 223, 215, 0.8);
+            grid-template-columns: 1fr 240px;
+            gap: 32px;
+            align-items: center;
+            border: 1px solid #eadbc0;
         }
 
-        .area-deep-img-wrap {
+        .timeline-wrapper {
             position: relative;
-            min-height: 280px;
-            height: 100%;
+            padding-left: 38px;
+            margin-top: 20px;
         }
 
-        .area-deep-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .area-station-badge {
+        .timeline-wrapper::before {
+            content: "";
             position: absolute;
-            top: 16px;
-            left: 16px;
-            background: rgba(46, 90, 84, 0.92);
-            color: #fff;
-            font-size: 11.5px;
+            left: 11px;
+            top: 12px;
+            bottom: 12px;
+            width: 3px;
+            background: linear-gradient(to bottom, #d49553 0%, #498991 55%, #f59e56 100%);
+            border-radius: 3px;
+        }
+
+        .timeline-era-card {
+            position: relative;
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 34px 32px;
+            margin-bottom: 36px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            border: 1px solid rgba(226, 223, 215, 0.9);
+        }
+
+        .timeline-era-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -38px;
+            top: 34px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #d49553;
+            border: 4px solid var(--pastel-yellow);
+            box-shadow: 0 0 0 2px #d49553;
+        }
+        .timeline-era-card.present .timeline-dot {
+            background: var(--accent-teal);
+            box-shadow: 0 0 0 2px var(--accent-teal);
+        }
+        .timeline-era-card.future .timeline-dot {
+            background: var(--warm-orange);
+            box-shadow: 0 0 0 2px var(--warm-orange);
+        }
+
+        .era-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 12px;
             font-weight: 700;
-            padding: 5px 14px;
-            border-radius: 20px;
-            backdrop-filter: blur(4px);
-        }
-
-        .area-deep-content {
-            padding: 34px 36px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .area-deep-title {
-            font-family: 'Shippori Mincho', serif;
-            font-size: clamp(20px, 2.5vw, 25px);
-            color: var(--deep-forest);
+            letter-spacing: 0.06em;
             margin-bottom: 14px;
+            background: #f6ead4;
+            color: #a86b28;
+        }
+        .timeline-era-card.present .era-badge {
+            background: var(--pastel-mint);
+            color: var(--deep-forest);
+        }
+        .timeline-era-card.future .era-badge {
+            background: #fde6d2;
+            color: #c96829;
+        }
+
+        .era-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(20px, 2.6vw, 25px);
+            color: var(--text-main);
+            margin-bottom: 16px;
             line-height: 1.55;
         }
 
-        .area-deep-desc {
-            font-size: 14px;
-            line-height: 2.0;
-            color: var(--text-main);
-            margin-bottom: 18px;
+        .era-history-list {
+            list-style: none;
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
 
-        .area-highlights-box {
-            background-color: var(--bg-paper);
+        .era-history-list li {
+            background: #faf8f4;
             border-radius: 14px;
-            padding: 16px 20px;
-            font-size: 13px;
+            padding: 16px 18px;
+            font-size: 13.5px;
             line-height: 1.85;
         }
 
-        .area-spot-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
+        .era-year {
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #c47f38;
+            margin-bottom: 4px;
         }
-
-        .spot-pill {
-            background: #ffffff;
-            border: 1px solid #dcd8d0;
-            border-radius: 20px;
-            padding: 3px 12px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-main);
-        }
+        .timeline-era-card.present .era-year { color: var(--accent-teal); }
+        .timeline-era-card.future .era-year { color: var(--warm-orange); }
 
         /* ながれやま時間 フォトギャラリー */
         .gallery-strip-section {
@@ -887,7 +896,7 @@
             background: #ffffff;
             color: var(--text-main);
             text-decoration: none;
-            max-width: 420px;
+            max-width: 440px;
             margin: 0 auto;
             padding: 20px 45px;
             border-radius: 50px;
@@ -956,18 +965,12 @@
                 gap: 28px;
                 margin-bottom: 60px;
             }
-            .deep-dive-grid, .data-tables-wrap, .event-showcase-grid {
+            .deep-dive-grid, .data-tables-wrap, .event-showcase-grid, .era-history-list {
                 grid-template-columns: 1fr;
             }
-            .area-deep-card {
+            .origin-legend-box {
                 grid-template-columns: 1fr;
-            }
-            .area-deep-img-wrap {
-                height: 230px;
-                min-height: 230px;
-            }
-            .area-deep-content {
-                padding: 26px 22px;
+                text-align: left;
             }
             .playful-vertical-header { gap: 18px; }
             .header-illust { width: 76px; height: 76px; }
@@ -985,34 +988,22 @@
             .cta-consult-btn svg { width: 14px; height: 14px; }
             .cta-jp { font-size: 10.5px; }
 
-            /* iPhoneで白い波形と文字が絶対に重ならず綺麗に収まる設定 */
             .subpage-hero-box {
                 height: 310px;
                 padding: 15px 16px 60px;
             }
-            .subpage-hero-num {
-                font-size: 26px;
-                margin-bottom: 10px;
-            }
-            .subpage-hero-title {
-                font-size: 24px;
-                margin-bottom: 6px;
-            }
-            .subpage-hero-sub {
-                font-size: 13.5px;
-            }
-            .subpage-wave svg {
-                height: 38px;
-            }
-            .script-overlay {
-                font-size: 26px;
-                bottom: 12px;
-                right: 12px;
-            }
+            .subpage-hero-num { font-size: 26px; margin-bottom: 10px; }
+            .subpage-hero-title { font-size: 24px; margin-bottom: 6px; }
+            .subpage-hero-sub { font-size: 13.5px; }
+            .subpage-wave svg { height: 38px; }
+            .script-overlay { font-size: 26px; bottom: 12px; right: 12px; }
 
             .anchor-nav { grid-template-columns: 1fr; margin-bottom: 50px; }
             .main-collage-img { height: 250px; }
-            .redev-spotlight { padding: 28px 22px; }
+            .origin-legend-box { padding: 24px 20px; }
+            .timeline-wrapper { padding-left: 26px; }
+            .timeline-dot { left: -26px; width: 20px; height: 20px; }
+            .timeline-era-card { padding: 24px 20px; }
         }
     </style>
 </head>
@@ -1024,14 +1015,16 @@
         <div class="en-serif" style="color: var(--accent-teal); font-size: 14px; margin-bottom: 12px;">MENU</div>
         <ul class="sp-drawer-list">
             <li><a href="index.html">HOME（トップページ） <span>→</span></a></li>
-            <li><a href="aboutus.html">01 ながれやまを知る（当ページ） <span>→</span></a></li>
-            <li><a href="index.html#newopen">新規オープン・新着情報 <span>→</span></a></li>
-            <li><a href="index.html#cafe">02 カフェ・グルメ・子育て <span>→</span></a></li>
-            <li><a href="index.html#event">03 週末イベント・市役所情報 <span>→</span></a></li>
+            <li><a href="aboutus.html">ながれやまの魅力（当ページ） <span>→</span></a></li>
+            <li><a href="area.html">流山市エリア別ガイド <span>→</span></a></li>
+            <li><a href="index.html#newopen">新店Open News <span>→</span></a></li>
+            <li><a href="index.html#cafe">カフェ・グルメ <span>→</span></a></li>
+            <li><a href="index.html#event">週末イベント <span>→</span></a></li>
+            <li><a href="contact.html">情報提供・ご相談 <span>→</span></a></li>
         </ul>
     </nav>
 
-    <!-- ヘッダー -->
+    <!-- ヘッダー（最新構成に統一） -->
     <header class="site-header">
         <a href="index.html" class="brand-area">
             <span class="brand-subcopy">流山市のカフェ・新店・子育て・暮らし発信サイト</span>
@@ -1046,15 +1039,15 @@
         <div class="header-nav-group">
             <div class="nav-menus">
                 <ul class="sub-nav">
-                    <li><a href="index.html#newopen">新規オープン店まとめ</a></li>
-                    <li><a href="#childcare">子育て・学校・給食事情</a></li>
-                    <li><a href="#redev">エリア別深掘り＆再開発</a></li>
+                    <li><a href="index.html#newopen">新店Open News</a></li>
+                    <li><a href="index.html#gov">流山市の子育て支援・制度</a></li>
+                    <li><a href="contact.html">流山暮らしのQ&A</a></li>
                 </ul>
                 <ul class="main-nav">
                     <li>
                         <a href="aboutus.html" style="color: var(--warm-orange); font-weight: 700;">
                             <svg class="nav-svg" viewBox="0 0 24 24" style="stroke: var(--warm-orange);"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                            ながれやまを知る
+                            ながれやまの魅力
                         </a>
                     </li>
                     <li>
@@ -1066,13 +1059,13 @@
                     <li>
                         <a href="index.html#event">
                             <svg class="nav-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            週末イベント・子育て
+                            週末イベント
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <a href="index.html#contact" class="cta-consult-btn">
+            <a href="contact.html" class="cta-consult-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
@@ -1090,12 +1083,12 @@
         </div>
     </header>
 
-    <!-- 1. 下層ページメインビジュアル（波形を写真枠の底面に内蔵してズレを完全解消） -->
+    <!-- 1. 下層ページメインビジュアル -->
     <div class="subpage-hero-wrap">
         <div class="subpage-hero-box">
             <div class="subpage-hero-num">01</div>
-            <h1 class="subpage-hero-title">ながれやまを知る</h1>
-            <div class="subpage-hero-sub">About Nagareyama City</div>
+            <h1 class="subpage-hero-title">ながれやまの魅力</h1>
+            <div class="subpage-hero-sub">Charm of Nagareyama City</div>
 
             <div class="subpage-wave">
                 <div class="script-overlay">Discover Nagareyama Life.</div>
@@ -1108,7 +1101,7 @@
 
     <!-- パンくずリスト -->
     <div class="breadcrumb-wrap">
-        <a href="index.html">ホーム</a> &nbsp;&gt;&nbsp; ながれやまを知る
+        <a href="index.html">ホーム</a> &nbsp;&gt;&nbsp; ながれやまの魅力
     </div>
 
     <!-- 4つの目次アンカーボタン -->
@@ -1116,7 +1109,7 @@
         <a href="#intro" class="anchor-btn">流山市の特徴 <span>↓</span></a>
         <a href="#childcare" class="anchor-btn">保育・学校・給食事情 <span>↓</span></a>
         <a href="#shopping" class="anchor-btn">商業施設・マルシェ・イルミ <span>↓</span></a>
-        <a href="#redev" class="anchor-btn">全エリア徹底ガイド＆再開発 <span>↓</span></a>
+        <a href="#history" class="anchor-btn">歴史と過去・現在・未来 <span>↓</span></a>
     </div>
 
     <!-- ==========================================
@@ -1139,8 +1132,8 @@
                 <div class="vertical-center">
                     <div class="vertical-num">0 1</div>
                     <div class="vertical-jp-box">
-                        <span>ながれやまを</span>
-                        <h2>知る</h2>
+                        <span>ながれやまの</span>
+                        <h2>魅力</h2>
                     </div>
                 </div>
 
@@ -1430,170 +1423,144 @@
     </section>
 
     <!-- ==========================================
-         Section 04：江戸川台再開発 ＆ 市内エリア別徹底ガイド
+         Section 04：流山市の成り立ちと、過去・現在・未来（新規コンテンツ！）
          ========================================== -->
     <svg viewBox="0 0 1440 80" style="display: block; width: 100%; background-color: #f1dce3; margin-bottom: -1px;">
         <path fill="#f6ead4" d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,80L0,80Z"></path>
     </svg>
-    <section class="spacious-section bg-yellow crayon-texture" id="redev">
+    <section class="spacious-section bg-yellow crayon-texture" id="history">
         <div class="content-inner">
 
-            <div style="text-align: center; max-width: 780px; margin: 0 auto 45px;">
-                <div class="feature-en" style="color: #c47f38;">Section 04 / Area Deep Dive & Renewal</div>
+            <div class="playful-vertical-header" style="margin-bottom: 45px;">
+                <!-- 左イラスト：江戸川の高瀬舟と白みりんの蔵 -->
+                <svg class="header-illust" viewBox="0 0 120 120" fill="none">
+                    <circle cx="60" cy="60" r="52" fill="#ffffff" opacity="0.7"/>
+                    <path d="M26 78 Q60 92 94 78 L86 68 L34 68 Z" fill="#8d6e63"/>
+                    <path d="M60 68 L60 28 L82 54 L60 54" fill="#f59e56"/>
+                    <path d="M20 88 Q40 82 60 88 T100 88" stroke="#498991" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+
+                <div class="vertical-center">
+                    <div class="vertical-num" style="color: #c47f38;">0 4</div>
+                    <div class="vertical-jp-box">
+                        <span>過去・現在・未来</span>
+                        <h2>歩み</h2>
+                    </div>
+                </div>
+
+                <!-- 右イラスト：未来へ伸びる新芽と街並み -->
+                <svg class="header-illust" viewBox="0 0 120 120" fill="none">
+                    <circle cx="60" cy="60" r="52" fill="#dfeee8" opacity="0.8"/>
+                    <path d="M60 88 L60 44" stroke="#498991" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M60 62 C40 58, 34 40, 56 44" fill="#68a691"/>
+                    <path d="M60 52 C80 48, 86 30, 64 34" fill="#498991"/>
+                    <circle cx="84" cy="28" r="6" fill="#f59e56"/>
+                </svg>
+            </div>
+
+            <div style="text-align: center; max-width: 780px; margin: 0 auto 50px;">
+                <div class="feature-en" style="color: #c47f38;">Section 04 / Past, Present & Future</div>
                 <h2 class="feature-title">
-                    駅ごとにまったく違う表情と魅力！<br>
-                    流山市のエリア別徹底ガイド＆再開発情報。
+                    「流山」という名の物語。<br>
+                    江戸の蔵から、森のまち、そして未来へ。
                 </h2>
                 <p style="font-size: 15px;">
-                    流山市はおおたかの森だけではありません！江戸川台駅周辺の再整備計画をはじめ、南流山・木エリア、セントラルパーク、流山本町・加エリア、利根運河エリアまで、それぞれの街の個性と暮らしやすさを深掘りしてご紹介します。
+                    新しい商業施設や住宅街のイメージが強い流山市ですが、実は江戸時代から水運と醸造文化で栄えた深い歴史を持つまち。流山市の成り立ちから、現在、そしてこれからの未来をタイムラインでたどります。
                 </p>
             </div>
 
-            <!-- 1. 江戸川台駅周辺の再開発・街づくり特集枠 -->
-            <div class="redev-spotlight">
-                <span class="redev-ribbon">📣 注目の街づくり・再開発トピックス</span>
-                <h3 class="mincho" style="font-size: clamp(20px, 2.8vw, 27px); color: var(--text-main); margin-bottom: 16px;">
-                    懐かしさと新しさが融合する「江戸川台駅周辺」再整備＆リノベーション
-                </h3>
-                <p style="font-size: 14.5px; line-height: 2.05; margin-bottom: 22px;">
-                    昭和30年代に千葉県初の近代的住宅団地として誕生し、東西に活気ある商店街が広がる<strong>「江戸川台（えどがわだい）駅」周辺エリア</strong>。今、流山市ではこの歴史ある街の資産を活かしながら、若い子育て世代や新規チャレンジャーが集まる<strong>駅前広場の再整備・商店街リノベーション推進プロジェクト</strong>が進行中です！
-                </p>
-
-                <div style="background: #faf6f0; border-radius: 16px; padding: 24px; font-size: 13.5px; line-height: 2.0;">
-                    <strong>【江戸川台エリアの注目ポイント＆再開発の動き】</strong><br>
-                    ① <strong>東西駅前広場のゆとりある歩行者空間化：</strong> バス・タクシーロータリーや歩道を見直し、ベビーカーやシニアも安心して歩ける滞留空間・芝生やベンチのある広場づくりを推進。<br>
-                    ② <strong>空き店舗を活用したリノベーション創業支援：</strong> レトロな商店街に、若手オーナーによるスペシャルティコーヒー店、クラフトビール工房、焼き菓子店、コミュニティスペースが続々誕生！<br>
-                    ③ <strong>賑わいイベントの定期開催：</strong> 商店街を歩行者天国にした「江戸川台駅前ハロウィン」や軽トラ市、夜市など、昔ながらの店主さんと新しい住民が一緒になって盛り上がる温かいカルチャーが魅力です。
+            <!-- 地名の由来・成り立ちコラム -->
+            <div class="origin-legend-box">
+                <div>
+                    <span class="era-badge" style="margin-bottom: 10px;">⛰️ 「流山」の成り立ちと地名伝説</span>
+                    <h3 class="mincho" style="font-size: 22px; margin-bottom: 12px; color: var(--deep-forest);">
+                        赤城山が流れてきて山になった！？
+                    </h3>
+                    <p style="font-size: 14px; line-height: 2.0;">
+                        「流山」という美しい地名の由来には、古くから伝わるロマンあふれる伝説があります。大昔、大洪水のときに上州（現在の群馬県）の<strong>赤城山の一部が土砂とともに流れ着き、小高い山になった</strong>ことから「流山」と呼ばれるようになったと言われています。<br>
+                        その山の上には今も「赤城神社」が鎮座し、毎年秋には重さ約500kgもの大しめ縄を奉納する伝統行事（市指定無形民俗文化財）が地域の皆さんによって受け継がれています。
+                    </p>
                 </div>
+                <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" alt="歴史ある街並み" style="width: 100%; height: 200px; object-fit: cover; border-radius: 16px; border: 6px solid #faf6f0; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
             </div>
 
-            <!-- 2. 4大エリア深掘り大型ガイドカード -->
-            <div class="area-deep-list">
+            <!-- 過去・現在・未来 タイムライン -->
+            <div class="timeline-wrapper">
 
-                <!-- ① 南流山・木（き）エリア -->
-                <div class="area-deep-card">
-                    <div class="area-deep-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=85" alt="南流山・木エリア" class="area-deep-img">
-                        <span class="area-station-badge">🚃 TX・JR武蔵野線「南流山駅」</span>
-                    </div>
-                    <div class="area-deep-content">
-                        <div>
-                            <span class="season-tag" style="background: var(--pastel-mint); color: #2e5a54;">Area Guide 01 ／ 南流山・木（き）エリア</span>
-                        </div>
-                        <h3 class="area-deep-title">
-                            2路線交差の圧倒的アクセス！<br>
-                            美しい区画整理の街「木地区」と個人店グルメの宝庫
-                        </h3>
-                        <p class="area-deep-desc">
-                            つくばエクスプレス（TX）とJR武蔵野線の2路線が交差する「南流山駅」は、秋葉原・東京駅方面だけでなく、<strong>越谷レイクタウンや東京ディズニーリゾート（舞浜駅）、海浜幕張へも乗り換えなし1本</strong>で行けるおでかけ最強エリア！駅前には「南流山送迎保育ステーション」や大型の「南流山児童センター」も完備されています。<br>
-                            さらに駅南側から江戸川にかけて広がる<strong>「木（き）エリア」</strong>は、近年の区画整理によって電線類が地中化された美しい街並みへと進化。ヤオコーやコーナン、ケーズデンキ、ユニクロなどの大型商業施設が集まり、休日のカフェ・ベーカリー巡りから日々のお買い物まで車でも自転車でも驚くほど快適です。
-                        </p>
-                        <div class="area-highlights-box">
-                            <strong>💡 南流山・木エリアの暮らし＆おでかけ注目スポット</strong>
-                            <div class="area-spot-pills">
-                                <span class="spot-pill">🚌 南流山送迎保育ステーション</span>
-                                <span class="spot-pill">🎠 南流山児童センター</span>
-                                <span class="spot-pill">🛒 ヤオコー南流山店・コーナン（木地区）</span>
-                                <span class="spot-pill">🥐 行列のできる個人ベーカリー＆イタリアン</span>
-                                <span class="spot-pill">🏫 南流山第一・第二小学校（新設校体制）</span>
-                                <span class="spot-pill">🚲 江戸川サイクリングロード</span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 1. 過去（江戸〜昭和） -->
+                <div class="timeline-era-card past">
+                    <span class="timeline-dot"></span>
+                    <span class="era-badge">📜 PAST ／ 過去（江戸〜明治・大正・昭和）</span>
+                    <h3 class="era-title">江戸川の水運と「白みりん」で栄えた商都から、東京近郊の住宅都市へ</h3>
+                    <p style="font-size: 14px; line-height: 1.95;">
+                        かつての流山は、江戸と関東各地を結ぶ「江戸川の水運」の要衝でした。河岸には多くの高瀬舟が行き交い、白壁の土蔵が立ち並ぶ活気ある街並みが形成されました。
+                    </p>
+                    <ul class="era-history-list">
+                        <li>
+                            <span class="era-year">1814年頃（江戸時代）</span><br>
+                            <strong>「白みりん」の誕生と小林一茶</strong><br>
+                            堀切紋次郎・秋元三左衛門らによって、透き通った上品な甘さの「白みりん」醸造に成功。俳人・小林一茶も流山の醸造家を度々訪れ、多くの句を残しました。
+                        </li>
+                        <li>
+                            <span class="era-year">1868年（幕末）</span><br>
+                            <strong>新選組・近藤勇が本陣を置く</strong><br>
+                            戊辰戦争の際、新選組局長の近藤勇と土方歳三が流山に陣を張り、ここが二人の最後の別れの地となりました。今も陣屋跡が歴史スポットとして残ります。
+                        </li>
+                        <li>
+                            <span class="era-year">1890年〜1916年（明治・大正）</span><br>
+                            <strong>利根運河の開削と流鉄流山線の開通</strong><br>
+                            オランダ人技師ムルデルの設計で「利根運河」が完成。大正5年には地元の人々の出資で「流山軽便鉄道（現在の流鉄流山線）」が開通し、街の発展を支えました。
+                        </li>
+                        <li>
+                            <span class="era-year">1950年代〜1967年（昭和）</span><br>
+                            <strong>江戸川台団地の誕生と「流山市」市制施行</strong><br>
+                            千葉県初の近代的住宅団地として「江戸川台」が開発され、1967年（昭和42年）に流山市が誕生。都心へ通うベッドタウンとしての歴史が始まりました。
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- ② 流山セントラルパーク（運動公園周辺）エリア -->
-                <div class="area-deep-card">
-                    <div class="area-deep-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=85" alt="流山セントラルパークエリア" class="area-deep-img">
-                        <span class="area-station-badge">🚃 TX「流山セントラルパーク駅」</span>
-                    </div>
-                    <div class="area-deep-content">
-                        <div>
-                            <span class="season-tag" style="background: #dfeee8; color: #2e5a54;">Area Guide 02 ／ 流山セントラルパークエリア</span>
-                        </div>
-                        <h3 class="area-deep-title">
-                            巨大アスレチックとSLがある緑のオアシス！<br>
-                            スポーツ・医療・教育が揃うウェルネスの街
-                        </h3>
-                        <p class="area-deep-desc">
-                            流山おおたかの森駅の1駅隣に位置し、駅名の通り広大な<strong>「流山市総合運動公園」</strong>を抱える緑豊かなエリア。公園内には子どもたちに大人気の大型木製アスレチック広場、本物のD51形蒸気機関車（SL）やミニトレイン展示、広々とした芝生広場や日本庭園があり、週末はテントを広げてピクニックを楽しむ家族連れで賑わいます。<br>
-                            また、プロバスケットボール（Bリーグ）の試合や市民スポーツ教室が開かれる<strong>「キッコーマン アリーナ（流山市民総合体育館）」</strong>、駅直結の総合病院「東葛病院」、バイリンガル教育で知られる「暁星国際流山小学校」などが集まり、落ち着いた住環境と安心の医療・文教環境が揃っています。
-                        </p>
-                        <div class="area-highlights-box">
-                            <strong>💡 セントラルパークエリアの暮らし＆おでかけ注目スポット</strong>
-                            <div class="area-spot-pills">
-                                <span class="spot-pill">🚂 流山市総合運動公園（SL・大型アスレチック）</span>
-                                <span class="spot-pill">🏀 キッコーマン アリーナ（市民総合体育館）</span>
-                                <span class="spot-pill">🏥 東葛病院・小児科クリニックモール</span>
-                                <span class="spot-pill">🏫 暁星国際流山小学校・幼児園</span>
-                                <span class="spot-pill">🍰 公園帰りに寄りたい洋菓子店・カフェ</span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 2. 現在（2005年〜いま） -->
+                <div class="timeline-era-card present">
+                    <span class="timeline-dot"></span>
+                    <span class="era-badge">🌿 PRESENT ／ 現在（2005年〜いま）</span>
+                    <h3 class="era-title">つくばエクスプレス開業と「都心から一番近い森のまち」への劇的な進化</h3>
+                    <p style="font-size: 14px; line-height: 1.95;">
+                        2005年のつくばエクスプレス（TX）開業を機に、流山市は全国でも類を見ないスピードで進化を遂げました。単なるベッドタウンではなく、「子育てしやすい・緑が豊かなまち」として選ばれる都市へ。
+                    </p>
+                    <ul class="era-history-list">
+                        <li>
+                            <span class="era-year">2005年〜</span><br>
+                            <strong>TX開業＆「母になるなら、流山市。」</strong><br>
+                            秋葉原〜流山おおたかの森が最短20分で結ばれ、全国初の「送迎保育ステーション」を導入。若いファミリー層の転入が続き、人口増加率は全国トップクラスに。
+                        </li>
+                        <li>
+                            <span class="era-year">2020年代〜現在</span><br>
+                            <strong>人口21万人突破＆古民家カルチャー開花</strong><br>
+                            木造校舎の新設校や商業施設が次々誕生する一方、流山本町の歴史的建造物を活かしたリノベーションカフェや「流山白みりんミュージアム（2025年開館）」が新たな賑わいを生んでいます。
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- ③ 流山本町・加（か）エリア -->
-                <div class="area-deep-card">
-                    <div class="area-deep-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=85" alt="流山本町・加エリア" class="area-deep-img">
-                        <span class="area-station-badge">🚃 流鉄流山線「流山駅」・平和台駅</span>
-                    </div>
-                    <div class="area-deep-content">
-                        <div>
-                            <span class="season-tag" style="background: var(--pastel-pink); color: #9e5869;">Area Guide 03 ／ 流山本町・加（か）エリア</span>
-                        </div>
-                        <h3 class="area-deep-title">
-                            白みりんミュージアムと古民家カフェの街並み、<br>
-                            文化会館や江戸川の菜の花畑が広がる「加エリア」
-                        </h3>
-                        <p class="area-deep-desc">
-                            江戸川の水運と「白みりん発祥の地」として栄えた歴史情緒あふれる<strong>「流山本町エリア」</strong>。2025年春にオープンした体験型施設<strong>「流山白みりんミュージアム」</strong>をはじめ、築100年を超える土蔵や古民家をリノベーションしたフレンチ、和カフェ、ベーカリー、そして夜に優しく灯る「切り絵行灯（あんどん）」が織りなす街並みは、歩いているだけで心がほどける美しさです。<br>
-                            そのすぐ北側から江戸川沿いにかけて広がる<strong>「加（か）エリア」</strong>は、流山市文化会館や市立図書館（本館）、博物館、子育て世帯に人気の「加岸ベアーズ公園」が集まる文化と暮らしの拠点。春には江戸川堤が一面の黄色い菜の花畑に染まり、夏には「流山花火大会」のメイン会場として大きな賑わいを見せます。
-                        </p>
-                        <div class="area-highlights-box">
-                            <strong>💡 流山本町・加（か）エリアの暮らし＆おでかけ注目スポット</strong>
-                            <div class="area-spot-pills">
-                                <span class="spot-pill">🍶 流山白みりんミュージアム（体験・限定スイーツ）</span>
-                                <span class="spot-pill">🍵 一茶双樹記念館・古民家リノベカフェ群</span>
-                                <span class="spot-pill">🏮 切り絵行灯ギャラリー・浅間神社（富士塚）</span>
-                                <span class="spot-pill">📚 流山市立図書館（本館）・博物館・文化会館（加地区）</span>
-                                <span class="spot-pill">🌼 江戸川河川敷の菜の花畑・流山花火大会会場</span>
-                                <span class="spot-pill">🚃 カラフルで可愛いローカル線「流鉄流山線」</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ④ 利根運河（うんが）エリア -->
-                <div class="area-deep-card">
-                    <div class="area-deep-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=85" alt="利根運河エリア" class="area-deep-img">
-                        <span class="area-station-badge">🚃 東武アーバンパークライン「運河駅」</span>
-                    </div>
-                    <div class="area-deep-content">
-                        <div>
-                            <span class="season-tag" style="background: var(--pastel-yellow); color: #b8732a;">Area Guide 04 ／ 利根運河（うんが）エリア</span>
-                        </div>
-                        <h3 class="area-deep-title">
-                            水辺の桜並木と東京理科大学のキャンパスが調和する、<br>
-                            四季の自然散策とマルシェが楽しい水郷エリア
-                        </h3>
-                        <p class="area-deep-desc">
-                            市の北端を流れる明治開削の近代化産業遺産「利根運河」を中心に、豊かな水辺の景観が広がる<strong>「運河エリア」</strong>。春には運河の両岸をソメイヨシノの桜並木が彩り、ゴールデンウィークには鯉のぼりが泳ぎ、秋には真っ赤な彼岸花（曼珠沙華）が咲き誇るなど、カメラやベビーカー片手のお散歩コースとして絶大な人気を誇ります。<br>
-                            また、<strong>東京理科大学（野田キャンパス）</strong>の最寄り駅でもあり、理系学生と地域住民が連携した科学ワークショップや、水辺で開かれる「うんがいい！朝市・土曜市」、流山工業団地内の工場直売イベントなど、知性と自然が心地よく交わる独自のカルチャーが根付いています。
-                        </p>
-                        <div class="area-highlights-box">
-                            <strong>💡 運河エリアの暮らし＆おでかけ注目スポット</strong>
-                            <div class="area-spot-pills">
-                                <span class="spot-pill">🌸 利根運河水辺公園（桜並木・彼岸花・浮き橋）</span>
-                                <span class="spot-pill">🎓 東京理科大学 理窓会記念自然公園</span>
-                                <span class="spot-pill">🎪 運河駅ギャラリー・利根運河交流館（レンタサイクル）</span>
-                                <span class="spot-pill">🥬 うんがいい！朝市・水辺のマルシェ</span>
-                                <span class="spot-pill">♨️ 天然温泉・アウトドア＆サイクリング拠点</span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- 3. 未来（これから） -->
+                <div class="timeline-era-card future">
+                    <span class="timeline-dot"></span>
+                    <span class="era-badge">✨ FUTURE ／ 未来（これからの流山）</span>
+                    <h3 class="era-title">歴史と森を次世代へつなぎ、すべての世代が輝き続ける持続可能なまちへ</h3>
+                    <p style="font-size: 14px; line-height: 1.95;">
+                        子育て世代の街として成熟期を迎えるこれからの流山市は、「新しさ」と「懐かしさ」、そして「豊かな緑」が調和しながら、子どもからお年寄りまでずっと住み続けたくなる次のステージへ向かっています。
+                    </p>
+                    <ul class="era-history-list">
+                        <li>
+                            <span class="era-year">街のアップデート</span><br>
+                            <strong>既存エリアの再整備＆リノベーション</strong><br>
+                            江戸川台駅周辺の駅前広場再整備や商店街の空き店舗活用など、TX沿線だけでなく市内のあらゆる駅周辺で新しいコミュニティと地域ビジネスが育っています。
+                        </li>
+                        <li>
+                            <span class="era-year">次世代への継承</span><br>
+                            <strong>グリーンチェーン戦略とサステナブルな暮らし</strong><br>
+                            市野谷の森や江戸川・利根運河の自然を守りながら、ICT教育や地域マルシェ、白みりん文化の継承を通じて、子どもたちが「流山で育ってよかった」と誇れる未来を描いています。
+                        </li>
+                    </ul>
                 </div>
 
             </div>
@@ -1634,11 +1601,11 @@
         </div>
     </section>
 
-    <!-- ページ下部「NEXT...」バナー -->
+    <!-- ページ下部「NEXT...」バナー（エリア別ガイドへ自然に誘導） -->
     <div class="next-page-banner">
         <div class="en-serif" style="font-size: 24px; color: var(--accent-teal); letter-spacing: 0.15em; margin-bottom: 12px;">NEXT...</div>
-        <a href="index.html#cafe" class="asahi-pill-btn">
-            次は子連れカフェ・新店・イベント情報を見る
+        <a href="area.html" class="asahi-pill-btn">
+            次は地図で見る「6つのエリア別ガイド」へ
             <span class="orange-arrow">→</span>
         </a>
     </div>
@@ -1658,12 +1625,13 @@
 
             <ul class="footer-nav-list">
                 <li><a href="index.html">HOME</a></li>
-                <li><a href="aboutus.html">ながれやまを知る（当ページ）</a></li>
-                <li><a href="index.html#newopen">新規オープン・お知らせ</a></li>
+                <li><a href="aboutus.html">ながれやまの魅力（当ページ）</a></li>
+                <li><a href="area.html">流山市エリア別ガイド</a></li>
+                <li><a href="index.html#newopen">新店Open News</a></li>
                 <li><a href="index.html#cafe">子連れカフェ・グルメ</a></li>
-                <li><a href="index.html#event">週末イベント・マルシェ情報</a></li>
-                <li><a href="index.html#gov">流山市役所・子育て支援まとめ</a></li>
-                <li><a href="index.html#contact">お店の掲載依頼・情報提供フォーム</a></li>
+                <li><a href="index.html#event">週末イベント</a></li>
+                <li><a href="contact.html">情報提供・ご相談（やりとりフォーム）</a></li>
+                <li><a href="admin.html">管理者編集</a></li>
             </ul>
 
             <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 35px;">
